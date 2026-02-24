@@ -1,0 +1,63 @@
+/* ============================================================
+   ENCRYPTED FI
+   Palette straight from the logo:
+     --cream  #E4DED4  — logo background
+     --ink    #0A0A0A  — logo marks
+     --white  #FFFFFF
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:       #E4DED4;
+  --cream-mid:   #CEC8BE;
+  --cream-dark:  #B8B2A8;
+  --ink:         #0A0A0A;
+  --ink-soft:    #2C2C2C;
+  --white:       #FFFFFF;
+
+  --border:      3px solid #0A0A0A;
+  --shadow:      6px 6px 0px #0A0A0A;
+  --shadow-sm:   3px 3px 0px #0A0A0A;
+  --shadow-lg:   10px 10px 0px #0A0A0A;
+
+  --font-serif:  'Playfair Display', Georgia, serif;
+  --font-sans:   'Space Grotesk', 'Helvetica Neue', sans-serif;
+  --font-mono:   'Space Mono', 'Courier New', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* subtle grain texture matching logo */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+/* Ticker */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
