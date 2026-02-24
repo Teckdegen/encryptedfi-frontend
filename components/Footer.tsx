@@ -1,102 +1,123 @@
-import Logo from "./Logo";
-
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "var(--ink)",
-        borderTop: "4px solid rgba(228,222,212,0.12)",
-        padding: "28px 32px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
+    <footer style={{ background: "var(--ink)", borderTop: "4px solid var(--cream)" }}>
+
+      {/* Main footer content */}
+      <div style={{
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: "56px 40px 40px",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: 0,
+        borderBottom: "2px solid rgba(231,226,217,0.08)",
+      }}>
+
+        {/* Brand column */}
+        <div style={{ borderRight: "2px solid rgba(231,226,217,0.08)", paddingRight: 40 }}>
+          {/* Logo mark */}
+          <div style={{
+            fontFamily: "var(--font-mono)",
+            fontWeight: 700,
+            fontSize: "1.6rem",
+            background: "var(--cream)",
+            color: "var(--ink)",
+            padding: "6px 14px",
+            width: "fit-content",
+            letterSpacing: "-0.02em",
+            border: "var(--border-sm)",
+            marginBottom: 20,
+          }}>
+            <span style={{ opacity: 0.4 }}>{"{"}</span>
+            <span>?</span>
+            <span style={{ opacity: 0.4 }}>{"}"}</span>
+          </div>
+          <div style={{
+            fontFamily: "var(--font-serif)",
+            fontWeight: 900,
+            fontSize: "1.1rem",
+            letterSpacing: "0.06em",
+            color: "var(--white)",
+            marginBottom: 8,
+          }}>ENCRYPTED FI</div>
+          <div style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.12em",
+            color: "rgba(231,226,217,0.3)",
+            lineHeight: 1.6,
+          }}>THE ENCRYPTED LAYER<br />FOR ERC20s</div>
+        </div>
+
+        {/* Tagline column */}
+        <div style={{
+          borderRight: "2px solid rgba(231,226,217,0.08)",
+          padding: "0 40px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: 24,
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Brand */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Logo size="sm" />
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontWeight: 900,
-                fontSize: "0.95rem",
-                letterSpacing: "0.06em",
-                color: "var(--white)",
-              }}
-            >
-              ENCRYPTED FI
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.58rem",
-                letterSpacing: "0.1em",
-                color: "rgba(228,222,212,0.35)",
-                marginTop: 2,
-              }}
-            >
-              THE ENCRYPTED LAYER FOR ERC20s
-            </div>
-          </div>
+        }}>
+          <p style={{
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
+            fontSize: "1.05rem",
+            lineHeight: 1.6,
+            color: "rgba(231,226,217,0.4)",
+          }}>
+            "We bring privacy to ERC20s. No trust. No tradeoffs. Proven on-chain."
+          </p>
         </div>
 
-        {/* Center */}
-        <div
-          style={{
+        {/* Links column */}
+        <div style={{ paddingLeft: 40, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{
             fontFamily: "var(--font-mono)",
             fontSize: "0.58rem",
-            letterSpacing: "0.1em",
-            color: "rgba(228,222,212,0.25)",
-            display: "flex",
-            gap: 16,
-            alignItems: "center",
-          }}
-        >
-          <span>PRIVATE DEFI INFRASTRUCTURE</span>
-          <span style={{ opacity: 0.4 }}>—</span>
-          <span>BUILT WITH ZK-SNARKS</span>
-          <span style={{ opacity: 0.4 }}>—</span>
-          <span>© 2024 ENCRYPTED FI</span>
-        </div>
-
-        {/* Links */}
-        <div style={{ display: "flex", gap: 20 }}>
-          {["Twitter", "GitHub", "Discord"].map((l) => (
-            <a
-              key={l}
-              href="#"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
-                fontWeight: 700,
-                letterSpacing: "0.1em",
+            letterSpacing: "0.16em",
+            color: "rgba(231,226,217,0.25)",
+            marginBottom: 16,
+          }}>LINKS</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {["Twitter", "GitHub", "Discord"].map((l) => (
+              <a key={l} href="#" style={{
+                fontFamily: "var(--font-sans)",
+                fontWeight: 600,
+                fontSize: "0.85rem",
                 textDecoration: "none",
-                color: "rgba(228,222,212,0.4)",
+                color: "rgba(231,226,217,0.4)",
                 transition: "color 0.15s",
+                letterSpacing: "0.02em",
               }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color =
-                  "var(--white)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color =
-                  "rgba(228,222,212,0.4)")
-              }
-            >
-              {l.toUpperCase()}
-            </a>
-          ))}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--white)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(231,226,217,0.4)")}
+              >{l}</a>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Bottom strip */}
+      <div style={{
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: "16px 40px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}>
+        <span style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.58rem",
+          letterSpacing: "0.12em",
+          color: "rgba(231,226,217,0.2)",
+        }}>© 2024 ENCRYPTED FI — ALL RIGHTS RESERVED</span>
+        <span style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.58rem",
+          letterSpacing: "0.12em",
+          color: "rgba(231,226,217,0.2)",
+        }}>BUILT WITH ZK-SNARKS</span>
+      </div>
+
     </footer>
   );
 }
