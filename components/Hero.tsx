@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -202,8 +201,9 @@ export default function Hero() {
             background: "var(--cream)",
             animation: "fadeUp 0.6s 0.2s ease both",
           }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/logo.png"
+              src="https://image2url.com/r2/default/images/1771926217635-c1e1a97f-34e6-4723-a7ab-946eb5a5feac.png"
               alt="Encrypted Fi"
               style={{
                 width: "100%",
