@@ -5,12 +5,10 @@ export default function Footer() {
     <footer style={{ background: "var(--ink)", borderTop: "4px solid var(--cream)" }}>
 
       {/* Main footer content */}
-      <div style={{
+      <div className="footer-grid" style={{
         maxWidth: 1200,
         margin: "0 auto",
         padding: "56px 40px 40px",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr",
         gap: 0,
         borderBottom: "2px solid rgba(231,226,217,0.08)",
       }}>
@@ -48,7 +46,7 @@ export default function Footer() {
             letterSpacing: "0.12em",
             color: "rgba(231,226,217,0.3)",
             lineHeight: 1.6,
-          }}>THE ENCRYPTED LAYER<br />FOR ERC20s</div>
+          }}>ENCRYPTED LAYER<br />FOR PUBLIC CHAINS</div>
         </div>
 
         {/* Tagline column */}
@@ -65,7 +63,7 @@ export default function Footer() {
             lineHeight: 1.6,
             color: "rgba(231,226,217,0.4)",
           }}>
-            "We bring privacy to ERC20s. No trust. No tradeoffs. Proven on-chain."
+            "We bring privacy to public chains. No trust. No tradeoffs. Proven on-chain."
           </p>
         </div>
 
@@ -111,7 +109,7 @@ export default function Footer() {
           fontSize: "0.58rem",
           letterSpacing: "0.12em",
           color: "rgba(231,226,217,0.2)",
-        }}>© 2024 ENCRYPTED FI — ALL RIGHTS RESERVED</span>
+        }}>© 2026 ENCRYPTED FI — ALL RIGHTS RESERVED</span>
         <span style={{
           fontFamily: "var(--font-mono)",
           fontSize: "0.58rem",

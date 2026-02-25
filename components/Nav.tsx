@@ -1,155 +1,184 @@
 "use client";
 
+import { useState } from "react";
+import { MenuIcon, XIcon } from "./Icons";
+
+const LINKS = [
+  { label: "Use Cases",     href: "#usecases"   },
+  { label: "Cryptography",  href: "#technology" },
+  { label: "Twitter",       href: "#"           },
+  { label: "GitHub",        href: "#"           },
+];
+
 export default function Nav() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 100, background: "var(--cream)", borderBottom: "var(--border)" }}>
-
-      {/* Top meta strip */}
-      <div style={{
-        borderBottom: "var(--border-sm)",
-        padding: "5px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        background: "var(--white)",
+    <>
+      <header style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: "var(--cream)",
+        borderBottom: "var(--border)",
       }}>
-        <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-          {["VOL. I", "ISSUE 001", "EST. 2024"].map((t, i) => (
-            <span key={i} style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.58rem",
-              letterSpacing: "0.16em",
-              opacity: 0.4,
-            }}>{t}</span>
-          ))}
-        </div>
-        <span style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.58rem",
-          letterSpacing: "0.14em",
-          opacity: 0.4,
+        <div style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 32px",
+          height: 64,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}>
-          ENCRYPTED LAYER FOR ERC20s
-        </span>
-      </div>
 
-      {/* Main bar */}
-      <div style={{
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "14px 40px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}>
-
-        {/* Brand wordmark */}
-        <a href="#" style={{ textDecoration: "none", color: "var(--ink)", display: "flex", alignItems: "center", gap: 14 }}>
-          {/* Small inline logo mark */}
-          <div style={{
-            fontFamily: "var(--font-mono)",
-            fontWeight: 700,
-            fontSize: "1rem",
-            background: "var(--ink)",
-            color: "var(--cream)",
-            padding: "3px 9px",
-            letterSpacing: "-0.01em",
-            lineHeight: 1.4,
-            border: "var(--border)",
-            boxShadow: "var(--shadow-sm)",
+          {/* Brand */}
+          <a href="#" style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            textDecoration: "none",
+            color: "var(--ink)",
           }}>
-            <span style={{ opacity: 0.4 }}>{"{"}</span>
-            <span style={{ color: "var(--white)" }}>?</span>
-            <span style={{ opacity: 0.4 }}>{"}"}</span>
-          </div>
-          <span style={{
-            fontFamily: "var(--font-serif)",
-            fontWeight: 900,
-            fontSize: "1.15rem",
-            letterSpacing: "0.06em",
-            textTransform: "uppercase" as const,
-          }}>
-            ENCRYPTED<span style={{ background: "var(--ink)", color: "var(--white)", padding: "1px 6px", marginLeft: 3 }}>FI</span>
-          </span>
-        </a>
-
-        {/* Nav links */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {[
-            { label: "Use Cases", href: "#usecases" },
-            { label: "Cryptography", href: "#technology" },
-          ].map((l) => (
-            <a key={l.href} href={l.href} style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: 600,
-              fontSize: "0.75rem",
+            <div style={{
+              fontFamily: "var(--font-mono)",
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              background: "var(--ink)",
+              color: "var(--cream)",
+              padding: "4px 10px",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.4,
+              border: "var(--border)",
+              boxShadow: "var(--shadow-sm)",
+              userSelect: "none",
+            }}>
+              <span style={{ opacity: 0.4 }}>{"{"}</span>
+              <span style={{ color: "var(--white)" }}>?</span>
+              <span style={{ opacity: 0.4 }}>{"}"}</span>
+            </div>
+            <span style={{
+              fontFamily: "var(--font-serif)",
+              fontWeight: 900,
+              fontSize: "1.1rem",
               letterSpacing: "0.06em",
               textTransform: "uppercase" as const,
-              textDecoration: "none",
-              color: "var(--ink)",
-              padding: "7px 14px",
-              opacity: 0.6,
-              transition: "opacity 0.15s",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "0.6")}
-            >
-              {l.label}
-            </a>
-          ))}
-          <a href="#" style={{
-            fontFamily: "var(--font-mono)",
-            fontWeight: 700,
-            fontSize: "0.7rem",
-            letterSpacing: "0.1em",
-            textDecoration: "none",
-            color: "var(--white)",
-            background: "var(--ink)",
-            padding: "8px 18px",
-            border: "var(--border)",
-            boxShadow: "var(--shadow-sm)",
-            transition: "transform 0.1s, box-shadow 0.1s",
-            marginLeft: 8,
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLElement).style.transform = "translate(-2px,-2px)";
-            (e.currentTarget as HTMLElement).style.boxShadow = "5px 5px 0 var(--ink)";
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLElement).style.transform = "";
-            (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-sm)";
-          }}
-          >
-            GET ACCESS
+            }}>
+              ENCRYPTED
+              <span style={{
+                background: "var(--ink)",
+                color: "var(--white)",
+                padding: "1px 6px",
+                marginLeft: 3,
+              }}>FI</span>
+            </span>
           </a>
-        </nav>
-      </div>
 
-      {/* Ticker */}
-      <div style={{ background: "var(--ink)", overflow: "hidden", padding: "5px 0", borderTop: "var(--border)" }}>
-        <div style={{
-          display: "inline-flex",
-          gap: 40,
-          whiteSpace: "nowrap",
-          animation: "ticker 22s linear infinite",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.58rem",
-          letterSpacing: "0.16em",
-          color: "var(--cream)",
-        }}>
-          {Array.from({ length: 2 }).flatMap(() => [
-            "PRIVATE ERC20 TRANSFERS", "◆",
-            "ZK-SNARK VERIFIED", "◆",
-            "ZERO TRUST REQUIRED", "◆",
-            "ENCRYPTED BALANCES", "◆",
-            "CONFIDENTIAL ON-CHAIN", "◆",
-            "GROTH16 / BN254", "◆",
-          ]).map((t, i) => (
-            <span key={i} style={{ opacity: t === "◆" ? 0.3 : 1 }}>{t}</span>
-          ))}
+          {/* Hamburger */}
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+            style={{
+              background: "none",
+              border: "var(--border)",
+              cursor: "pointer",
+              padding: "8px 10px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--ink)",
+              boxShadow: "var(--shadow-sm)",
+            }}
+          >
+            {open ? <XIcon size={20} /> : <MenuIcon size={20} />}
+          </button>
         </div>
-      </div>
+      </header>
 
-    </header>
+      {/* Mobile / dropdown menu */}
+      {open && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 99,
+          background: "var(--ink)",
+          display: "flex",
+          flexDirection: "column",
+          padding: "80px 40px 40px",
+        }}>
+          {/* Close button */}
+          <button
+            onClick={() => setOpen(false)}
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 32,
+              background: "none",
+              border: "var(--border)",
+              cursor: "pointer",
+              padding: "8px 10px",
+              color: "var(--cream)",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <XIcon size={20} color="var(--cream)" />
+          </button>
+
+          {/* Brand in menu */}
+          <div style={{
+            fontFamily: "var(--font-serif)",
+            fontWeight: 900,
+            fontSize: "1rem",
+            letterSpacing: "0.08em",
+            color: "rgba(231,226,217,0.3)",
+            marginBottom: 48,
+            textTransform: "uppercase" as const,
+          }}>
+            ENCRYPTED FI
+          </div>
+
+          {/* Links */}
+          <nav style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {LINKS.map((l) => (
+              <a
+                key={l.label}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontWeight: 900,
+                  fontSize: "clamp(2rem, 8vw, 3.5rem)",
+                  lineHeight: 1.1,
+                  letterSpacing: "-0.02em",
+                  textDecoration: "none",
+                  color: "var(--white)",
+                  borderBottom: "1px solid rgba(231,226,217,0.08)",
+                  paddingBottom: 12,
+                  transition: "opacity 0.15s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "0.5")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          <div style={{
+            marginTop: "auto",
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.14em",
+            color: "rgba(231,226,217,0.2)",
+          }}>
+            © 2026 ENCRYPTED FI — ENCRYPTED LAYER FOR PUBLIC CHAINS
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,3 +1,5 @@
+import { LockIcon } from "./Icons";
+
 const STACK = [
   { id: "01", name: "Groth16",       tag: "ZK-SNARK Proofs",      dark: true  },
   { id: "02", name: "BN254",         tag: "EVM Native Curve",      dark: false },
@@ -76,9 +78,8 @@ export default function Tech() {
 
         {/* Stack grid — 6 cells, 3 col */}
         <div
+          className="tech-grid"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
             border: "var(--border)",
             boxShadow: "var(--shadow-lg)",
             marginBottom: 28,
@@ -164,7 +165,7 @@ export default function Tech() {
             padding: "20px 28px",
           }}
         >
-          <span style={{ fontSize: "1.4rem", flexShrink: 0 }}>🔒</span>
+          <LockIcon size={20} color="rgba(228,222,212,0.55)" strokeWidth={2} />
           <p
             style={{
               fontFamily: "var(--font-mono)",

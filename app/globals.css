@@ -72,3 +72,107 @@ body > * { position: relative; z-index: 1; }
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* ─── Responsive layout classes ─── */
+
+/* Hero stats row */
+.stats-row {
+  display: flex;
+  border: var(--border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+/* Use Cases 3-col card grid */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Use Cases 2-col section header */
+.uc-header {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+/* Statement WRAP/TRANSACT/UNWRAP 3-col */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Tech cryptography 3-col grid */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Footer 3-col grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Hide line break on mobile */
+.hide-mobile { display: block; }
+
+/* ── Mobile: ≤ 768px ── */
+@media (max-width: 768px) {
+  /* Stats row: 2×2 layout */
+  .stats-row { flex-wrap: wrap; }
+  .stats-row > * {
+    flex: 1 1 50% !important;
+    border-bottom: var(--border) !important;
+  }
+  .stats-row > *:nth-child(3),
+  .stats-row > *:nth-child(4) { border-bottom: none !important; }
+  .stats-row > *:nth-child(2n) { border-right: none !important; }
+
+  /* Cards: single column */
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-3 > * {
+    border-right: none !important;
+    border-bottom: var(--border) !important;
+  }
+  .grid-3 > *:last-child { border-bottom: none !important; }
+
+  /* Section header: stacked */
+  .uc-header { flex-direction: column; gap: 24px; }
+
+  /* How-it-works: single column */
+  .how-grid { grid-template-columns: 1fr; }
+  .how-grid > * {
+    border-right: none !important;
+    border-bottom: var(--border) !important;
+  }
+  .how-grid > *:last-child { border-bottom: none !important; }
+
+  /* Tech grid: single column */
+  .tech-grid { grid-template-columns: 1fr; }
+  .tech-grid > * {
+    border-right: none !important;
+    border-bottom: var(--border) !important;
+  }
+  .tech-grid > *:last-child { border-bottom: none !important; }
+
+  /* Footer: single column */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    padding: 32px 24px 24px !important;
+  }
+  .footer-grid > * {
+    border-right: none !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 28px !important;
+    border-bottom: 1px solid rgba(231, 226, 217, 0.08) !important;
+  }
+  .footer-grid > *:last-child {
+    padding-bottom: 0 !important;
+    border-bottom: none !important;
+  }
+
+  /* Hide line breaks used for editorial layout */
+  .hide-mobile { display: none; }
+}
