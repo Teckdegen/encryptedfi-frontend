@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import Ticker from "@/components/Ticker";
 import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
 import UseCases from "@/components/UseCases";
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <>
       <Nav />
+      <Ticker />
       <main>
         <Hero />
         <Statement />

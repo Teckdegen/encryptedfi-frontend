@@ -13,40 +13,31 @@ export default function Footer() {
         borderBottom: "2px solid rgba(231,226,217,0.08)",
       }}>
 
-        {/* Brand column */}
+        {/* Availability column */}
         <div style={{ borderRight: "2px solid rgba(231,226,217,0.08)", paddingRight: 40 }}>
-          {/* Logo mark */}
           <div style={{
             fontFamily: "var(--font-mono)",
-            fontWeight: 700,
-            fontSize: "1.6rem",
-            background: "var(--cream)",
-            color: "var(--ink)",
-            padding: "6px 14px",
-            width: "fit-content",
-            letterSpacing: "-0.02em",
-            border: "var(--border-sm)",
+            fontSize: "0.58rem",
+            letterSpacing: "0.16em",
+            color: "rgba(231,226,217,0.25)",
             marginBottom: 20,
-          }}>
-            <span style={{ opacity: 0.4 }}>{"{"}</span>
-            <span>?</span>
-            <span style={{ opacity: 0.4 }}>{"}"}</span>
-          </div>
+          }}>AVAILABILITY</div>
           <div style={{
             fontFamily: "var(--font-serif)",
             fontWeight: 900,
-            fontSize: "1.1rem",
-            letterSpacing: "0.06em",
+            fontSize: "1.15rem",
             color: "var(--white)",
-            marginBottom: 8,
-          }}>ENCRYPTED FI</div>
-          <div style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6rem",
-            letterSpacing: "0.12em",
-            color: "rgba(231,226,217,0.3)",
-            lineHeight: 1.6,
-          }}>ENCRYPTED LAYER<br />FOR PUBLIC CHAINS</div>
+            lineHeight: 1.25,
+            marginBottom: 14,
+          }}>Live on the<br />chains we support.</div>
+          <p style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.8rem",
+            lineHeight: 1.65,
+            color: "rgba(231,226,217,0.35)",
+          }}>
+            Encrypted Fi deploys on integrated chains only. As new chains go live, they become available instantly.
+          </p>
         </div>
 
         {/* Tagline column */}
@@ -63,7 +54,7 @@ export default function Footer() {
             lineHeight: 1.6,
             color: "rgba(231,226,217,0.4)",
           }}>
-            "We bring privacy to public chains. No trust. No tradeoffs. Proven on-chain."
+            "We bring privacy to the tokens you already use. No new chains, no trusted parties, no compromises."
           </p>
         </div>
 
