@@ -25,20 +25,19 @@ const mono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Encrypted Fi — The Encrypted Layer for ERC20s",
+  title: "Encrypted Fi — Privacy for Your Tokens",
   description:
-    "We bring privacy to ERC20s. Confidential token transfers, private balances, and encrypted allowances — powered by ZK-SNARKs. No trust required.",
+    "We bring privacy to the tokens you already use. Confidential transfers, private balances, and encrypted allowances — powered by ZK-SNARKs. No trust required.",
   icons: {
-    // transparent-bg PNG — sits cleanly on any browser tab colour
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
+    shortcut: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
+    apple: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
   },
   openGraph: {
     title: "Encrypted Fi",
-    description: "The encrypted layer for ERC20s.",
+    description: "Privacy for the tokens you already use.",
     type: "website",
-    images: [{ url: "https://image2url.com/r2/default/images/1771926217635-c1e1a97f-34e6-4723-a7ab-946eb5a5feac.png" }],
+    images: [{ url: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png" }],
   },
 };
 

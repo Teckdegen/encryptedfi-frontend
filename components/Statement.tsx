@@ -48,7 +48,7 @@ export default function Statement() {
             marginBottom: 32,
             maxWidth: 800,
           }}>
-            Every transaction you've ever made<br className="hide-mobile" />
+            Every transfer you send on a public chain<br className="hide-mobile" />
             is{" "}
             <em style={{ fontStyle: "italic", color: "rgba(231,226,217,0.45)" }}>
               visible to everyone.

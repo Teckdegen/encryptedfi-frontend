@@ -24,9 +24,8 @@ export default function Nav() {
         borderBottom: "var(--border)",
       }}>
         <div style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "0 32px",
+          width: "100%",
+          padding: "0 20px",
           height: 64,
           display: "flex",
           alignItems: "center",
@@ -42,10 +41,10 @@ export default function Nav() {
             color: "var(--ink)",
           }}>
             <Image
-              src="https://image2url.com/r2/default/images/1771926217635-c1e1a97f-34e6-4723-a7ab-946eb5a5feac.png"
+              src="https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png"
               alt="Encrypted Fi"
-              width={32}
-              height={32}
+              width={34}
+              height={34}
               style={{ objectFit: "contain", display: "block" }}
             />
             <span style={{
@@ -71,17 +70,16 @@ export default function Nav() {
             aria-label="Toggle menu"
             style={{
               background: "none",
-              border: "var(--border)",
+              border: "none",
               cursor: "pointer",
-              padding: "8px 10px",
+              padding: "6px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "var(--ink)",
-              boxShadow: "var(--shadow-sm)",
             }}
           >
-            {open ? <XIcon size={20} /> : <MenuIcon size={20} />}
+            {open ? <XIcon size={22} /> : <MenuIcon size={22} />}
           </button>
         </div>
       </header>
