@@ -5,8 +5,8 @@ const ITEMS = [
   "NO TRUSTED PARTIES",
   "CONFIDENTIAL TRANSFERS",
   "LIVE ON INTEGRATED CHAINS",
-  "FHE POWERED",
   "GROTH16 VERIFIED",
+  "ZK-SNARK EVERY OP",
 ];
 
 const TEXT = ITEMS.join("   ·   ") + "   ·   ";
