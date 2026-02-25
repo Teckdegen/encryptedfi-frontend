@@ -7,6 +7,7 @@ export default function Hero() {
         maxWidth: 1200,
         margin: "0 auto",
         padding: "80px 32px 88px",
+        textAlign: "center",
       }}>
 
         {/* Eyebrow label */}
@@ -42,7 +43,6 @@ export default function Hero() {
           lineHeight: 0.93,
           letterSpacing: "-0.03em",
           marginBottom: 40,
-          maxWidth: 900,
           animation: "fadeUp 0.55s ease both",
         }}>
           We bring<br />
@@ -56,6 +56,8 @@ export default function Hero() {
           background: "var(--ink)",
           width: 56,
           marginBottom: 32,
+          marginLeft: "auto",
+          marginRight: "auto",
         }} />
 
         {/* Sub copy */}
@@ -66,6 +68,8 @@ export default function Hero() {
           color: "var(--ink-soft)",
           maxWidth: 580,
           marginBottom: 48,
+          marginLeft: "auto",
+          marginRight: "auto",
           animation: "fadeUp 0.55s 0.08s ease both",
         }}>
           Any token. Any public chain. Fully encrypted balances,
@@ -79,6 +83,7 @@ export default function Hero() {
           display: "flex",
           gap: 12,
           flexWrap: "wrap",
+          justifyContent: "center",
           marginBottom: 64,
           animation: "fadeUp 0.55s 0.14s ease both",
         }}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { MenuIcon, XIcon } from "./Icons";
 
 const LINKS = [
@@ -36,31 +37,21 @@ export default function Nav() {
           <a href="#" style={{
             display: "flex",
             alignItems: "center",
-            gap: 12,
+            gap: 10,
             textDecoration: "none",
             color: "var(--ink)",
           }}>
-            <div style={{
-              fontFamily: "var(--font-mono)",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              background: "var(--ink)",
-              color: "var(--cream)",
-              padding: "4px 10px",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.4,
-              border: "var(--border)",
-              boxShadow: "var(--shadow-sm)",
-              userSelect: "none",
-            }}>
-              <span style={{ opacity: 0.4 }}>{"{"}</span>
-              <span style={{ color: "var(--white)" }}>?</span>
-              <span style={{ opacity: 0.4 }}>{"}"}</span>
-            </div>
+            <Image
+              src="https://image2url.com/r2/default/images/1771926217635-c1e1a97f-34e6-4723-a7ab-946eb5a5feac.png"
+              alt="Encrypted Fi"
+              width={32}
+              height={32}
+              style={{ objectFit: "contain", display: "block" }}
+            />
             <span style={{
               fontFamily: "var(--font-serif)",
               fontWeight: 900,
-              fontSize: "1.1rem",
+              fontSize: "0.82rem",
               letterSpacing: "0.06em",
               textTransform: "uppercase" as const,
             }}>
@@ -68,7 +59,7 @@ export default function Nav() {
               <span style={{
                 background: "var(--ink)",
                 color: "var(--white)",
-                padding: "1px 6px",
+                padding: "1px 5px",
                 marginLeft: 3,
               }}>FI</span>
             </span>

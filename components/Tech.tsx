@@ -1,12 +1,12 @@
 import { LockIcon } from "./Icons";
 
 const STACK = [
-  { id: "01", name: "FHE",          tag: "Compute Encrypted",     dark: true  },
-  { id: "02", name: "MPC",          tag: "Threshold Key Split",   dark: false },
-  { id: "03", name: "Groth16",      tag: "ZK Proof Per Op",       dark: true  },
-  { id: "04", name: "Nullifiers",   tag: "No Replay Attacks",     dark: false },
-  { id: "05", name: "Commitments",  tag: "Hidden Balances",       dark: true  },
-  { id: "06", name: "TEE",          tag: "Secure Execution",      dark: false },
+  { id: "01", name: "Groth16",       tag: "ZK-SNARK Proofs",      dark: true  },
+  { id: "02", name: "BN254",         tag: "EVM Native Curve",      dark: false },
+  { id: "03", name: "Nullifiers",    tag: "No Double Spends",      dark: true  },
+  { id: "04", name: "Commitments",   tag: "Encrypted Balances",    dark: false },
+  { id: "05", name: "6 Circuits",    tag: "Isolated Operations",   dark: true  },
+  { id: "06", name: "Proof Binding", tag: "Ops You Can Verify",    dark: false },
 ];
 
 export default function Tech() {
@@ -176,7 +176,7 @@ export default function Tech() {
               lineHeight: 1.6,
             }}
           >
-            YOUR TOKEN. WRAPPED PRIVATE. — FHE ENCRYPTED STATE · ZK PROOFS ON EVERY OP · THRESHOLD KEY SPLIT · NO ADMIN ACCESS.
+            VERIFICATION KEYS LOCKED FOREVER — GROTH16 PROOFS ON EVERY OP · NULLIFIERS ON-CHAIN · NO ADMIN. NO BACKDOORS.
           </p>
         </div>
 
