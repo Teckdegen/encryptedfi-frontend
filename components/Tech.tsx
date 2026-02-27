@@ -1,12 +1,12 @@
 import { LockIcon } from "./Icons";
 
 const STACK = [
-  { id: "01", name: "Groth16",       tag: "ZK-SNARK Proofs",      dark: true  },
-  { id: "02", name: "BN254",         tag: "EVM Native Curve",      dark: false },
-  { id: "03", name: "Nullifiers",    tag: "No Double Spends",      dark: true  },
-  { id: "04", name: "Commitments",   tag: "Encrypted Balances",    dark: false },
-  { id: "05", name: "6 Circuits",    tag: "Isolated Operations",   dark: true  },
-  { id: "06", name: "Proof Binding", tag: "Ops You Can Verify",    dark: false },
+  { id: "01", name: "UTXO Notes",   tag: "Private Note Pool",      dark: true  },
+  { id: "02", name: "ZK-SNARKs",    tag: "Trustless Proofs",       dark: false },
+  { id: "03", name: "ECDH Stealth", tag: "Encrypted To You Only",  dark: true  },
+  { id: "04", name: "Nullifiers",   tag: "No Double Spends",       dark: false },
+  { id: "05", name: "AES-256-GCM",  tag: "Military Encryption",    dark: true  },
+  { id: "06", name: "Commitments",  tag: "Balances Stay Hidden",   dark: false },
 ];
 
 export default function Tech() {
@@ -72,7 +72,9 @@ export default function Tech() {
               maxWidth: 480,
             }}
           >
-            Encrypted Fi wraps your existing tokens using battle-tested cryptography. Same chain, same liquidity — just private.
+            Built for public chains — EVM, Stacks, and beyond. Wallets hold encrypted
+            notes, not balances. Every payment is a stealth ECDH note only the receiver
+            can decrypt, verified by a ZK proof. No registration. No trust. Any chain.
           </p>
         </div>
 
@@ -176,7 +178,7 @@ export default function Tech() {
               lineHeight: 1.6,
             }}
           >
-            VERIFICATION KEYS LOCKED FOREVER — GROTH16 PROOFS ON EVERY OP · NULLIFIERS ON-CHAIN · NO ADMIN. NO BACKDOORS.
+            BUILT FOR PUBLIC CHAINS · ZK-SNARK PROOFS · ECDH STEALTH NOTES · AES-256-GCM ENCRYPTION · NULLIFIERS ON-CHAIN · NO ADMIN. NO BACKDOORS.
           </p>
         </div>
 
