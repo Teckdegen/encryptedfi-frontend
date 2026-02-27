@@ -72,7 +72,7 @@ export default function Tech() {
               maxWidth: 480,
             }}
           >
-            Built for public chains — EVM, Stacks, and beyond. Wallets hold encrypted
+            Built for public chains. EVM, Stacks, and beyond. Wallets hold encrypted
             notes, not balances. Every payment is a stealth ECDH note only the receiver
             can decrypt, verified by a ZK proof. No registration. No trust. Any chain.
           </p>
