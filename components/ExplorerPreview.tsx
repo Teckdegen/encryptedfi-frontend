@@ -11,7 +11,7 @@ const TX = {
   block:     "21,847,392",
   timestamp: "2 mins ago",
   from:      "0x742d35Cc6634C0532925a3b8D4C9E2f4b1aF4e3",
-  to:        "ConfidentialToken  0x1A9C…3f7E",
+  to:        "eUSDT  0x1A9C…3f7E",
   method:    "transferWithProof()",
   status:    "SUCCESS",
   gasUsed:   "312,844",
@@ -307,7 +307,6 @@ export default function ExplorerPreview() {
               background: "rgba(228,222,212,0.02)",
             }}
           >
-            <span style={{ fontSize: "1rem" }}>🔒</span>
             <p
               style={{
                 fontFamily: "var(--font-mono)",
@@ -317,11 +316,19 @@ export default function ExplorerPreview() {
                 margin: 0,
               }}
             >
+              Only the{" "}
               <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
-                RECEIVER ADDRESS
-              </span>
-              {" "}— not stored here. Not in the calldata. Not in the events.
-              The recipient scans NoteCreated logs and decrypts using their ETH private key.
+                initiator address
+              </span>{" "}
+              is visible. The{" "}
+              <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
+                receiver
+              </span>{" "}
+              and the{" "}
+              <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
+                balance
+              </span>{" "}
+              are fully encrypted — nothing else is exposed on-chain.
             </p>
           </div>
 
@@ -393,7 +400,7 @@ export default function ExplorerPreview() {
                         letterSpacing: "0.08em",
                       }}
                     >
-                      ConfidentialToken
+                      eUSDT
                     </span>
                   </div>
 
