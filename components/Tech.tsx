@@ -3,7 +3,7 @@ import { LockIcon } from "./Icons";
 const STACK = [
   { id: "01", name: "UTXO Notes",   tag: "Private Note Pool",      dark: true  },
   { id: "02", name: "ZK-SNARKs",    tag: "Trustless Proofs",       dark: false },
-  { id: "03", name: "ECDH Stealth", tag: "Encrypted To You Only",  dark: true  },
+  { id: "03", name: "ECIES Encrypt", tag: "Note Encrypted To You",  dark: true  },
   { id: "04", name: "Nullifiers",   tag: "No Double Spends",       dark: false },
   { id: "05", name: "AES-256-GCM",  tag: "Military Encryption",    dark: true  },
   { id: "06", name: "Commitments",  tag: "Balances Stay Hidden",   dark: false },
@@ -73,8 +73,10 @@ export default function Tech() {
             }}
           >
             Built for public chains. EVM, Stacks, and beyond. Wallets hold encrypted
-            notes, not balances. Every payment is a stealth ECDH note only the receiver
-            can decrypt, verified by a ZK proof. No registration. No trust. Any chain.
+            notes, not balances. Every transfer is an ECIES-encrypted note — only the
+            receiver can open it, using their ETH public key recovered automatically
+            from any signed transaction. Verified by a ZK proof. No registration. No
+            trust. Any chain.
           </p>
         </div>
 
@@ -178,7 +180,7 @@ export default function Tech() {
               lineHeight: 1.6,
             }}
           >
-            BUILT FOR PUBLIC CHAINS · ZK-SNARK PROOFS · ECDH STEALTH NOTES · AES-256-GCM ENCRYPTION · NULLIFIERS ON-CHAIN · NO ADMIN. NO BACKDOORS.
+            BUILT FOR PUBLIC CHAINS · ZK-SNARK PROOFS · ECIES NOTE ENCRYPTION · AES-256-GCM · NULLIFIERS ON-CHAIN · NO RECEIVER ADDRESS EVER · NO ADMIN. NO BACKDOORS.
           </p>
         </div>
 

@@ -4,6 +4,8 @@ import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
 import UseCases from "@/components/UseCases";
 import Tech from "@/components/Tech";
+import ExplorerPreview from "@/components/ExplorerPreview";
+import Updates from "@/components/Updates";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -16,6 +18,8 @@ export default function Home() {
         <Statement />
         <UseCases />
         <Tech />
+        <ExplorerPreview />
+        <Updates />
       </main>
       <Footer />
     </>

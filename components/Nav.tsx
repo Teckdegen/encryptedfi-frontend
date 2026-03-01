@@ -7,6 +7,7 @@ import { MenuIcon, XIcon } from "./Icons";
 const LINKS = [
   { label: "Use Cases",     href: "#usecases"   },
   { label: "Cryptography",  href: "#technology" },
+  { label: "Updates",       href: "#updates"    },
   { label: "Twitter",       href: "#"           },
   { label: "GitHub",        href: "#"           },
 ];
