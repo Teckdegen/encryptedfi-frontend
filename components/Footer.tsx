@@ -87,14 +87,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom strip */}
-      <div style={{
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "16px 40px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}>
+      <div className="footer-strip">
         <span style={{
           fontFamily: "var(--font-mono)",
           fontSize: "0.58rem",

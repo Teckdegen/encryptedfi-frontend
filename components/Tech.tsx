@@ -46,7 +46,7 @@ export default function Tech() {
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.2)" }} />
       </div>
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
+      <div className="section-inner">
 
         {/* Header */}
         <div style={{ marginBottom: 56, maxWidth: 640 }}>
@@ -90,7 +90,6 @@ export default function Tech() {
             border: "var(--border)",
             boxShadow: "var(--shadow-lg)",
             marginBottom: 28,
-            gridTemplateColumns: "repeat(4, 1fr)",
           } as React.CSSProperties}
         >
           {STACK.map((s, i) => {
@@ -100,16 +99,11 @@ export default function Tech() {
             return (
               <div
                 key={s.id}
+                className="tech-cell"
                 style={{
                   background: s.dark ? "var(--ink)" : "var(--white)",
                   borderRight: isLastCol ? "none" : "var(--border)",
                   borderBottom: isLastRow ? "none" : "var(--border)",
-                  padding: "36px 32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  gap: 20,
-                  minHeight: 160,
                 }}
               >
                 {/* Top: ID */}

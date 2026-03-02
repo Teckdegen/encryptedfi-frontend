@@ -112,18 +112,17 @@ export default function UseCases() {
           const iconColor = c.dark ? "rgba(231,226,217,0.65)" : "var(--ink)";
 
           return (
-            <div key={c.n} style={{
-              background: c.dark
-                ? "var(--ink)"
-                : i % 2 === 0 ? "var(--white)" : "var(--cream)",
-              borderRight: isLastCol ? "none" : "var(--border)",
-              borderBottom: isLastRow ? "none" : "var(--border)",
-              padding: "36px 32px",
-              display: "flex",
-              flexDirection: "column",
-              position: "relative",
-              overflow: "hidden",
-            }}>
+            <div
+              key={c.n}
+              className="uc-card"
+              style={{
+                background: c.dark
+                  ? "var(--ink)"
+                  : i % 2 === 0 ? "var(--white)" : "var(--cream)",
+                borderRight: isLastCol ? "none" : "var(--border)",
+                borderBottom: isLastRow ? "none" : "var(--border)",
+              }}
+            >
               <span style={{
                 position: "absolute", top: 12, right: 18,
                 fontFamily: "var(--font-serif)", fontWeight: 900,

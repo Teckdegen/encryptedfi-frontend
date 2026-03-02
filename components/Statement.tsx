@@ -2,14 +2,14 @@ export default function Statement() {
   return (
     <>
       {/* ── Dark band ── */}
-      <div style={{
-        background: "var(--ink)",
-        borderTop: "var(--border)",
-        borderBottom: "var(--border)",
-        padding: "80px 32px",
-        position: "relative",
-        overflow: "hidden",
-      }}>
+      <div
+        className="section-dark-band"
+        style={{
+          background: "var(--ink)",
+          borderTop: "var(--border)",
+          borderBottom: "var(--border)",
+        }}
+      >
         {/* Ghost mark */}
         <div style={{
           position: "absolute",
@@ -97,13 +97,14 @@ export default function Statement() {
             dark: false,
           },
         ].map((s, i) => (
-          <div key={s.step} style={{
-            background: s.dark ? "var(--ink)" : "var(--white)",
-            padding: "52px 40px",
-            borderRight: i < 2 ? "var(--border)" : "none",
-            position: "relative",
-            overflow: "hidden",
-          }}>
+          <div
+            key={s.step}
+            className="how-cell"
+            style={{
+              background: s.dark ? "var(--ink)" : "var(--white)",
+              borderRight: i < 2 ? "var(--border)" : "none",
+            }}
+          >
             <div style={{
               position: "absolute", right: 16, top: 20,
               fontFamily: "var(--font-serif)", fontWeight: 900,

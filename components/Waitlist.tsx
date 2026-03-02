@@ -22,16 +22,7 @@ export default function Waitlist() {
         padding: "80px 32px",
       }}
     >
-      <div
-        style={{
-          maxWidth: 900,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr auto",
-          gap: 64,
-          alignItems: "center",
-        }}
-      >
+      <div className="waitlist-grid">
         {/* Left */}
         <div>
           <div
@@ -104,6 +95,7 @@ export default function Waitlist() {
             <>
               <form
                 onSubmit={handleSubmit}
+                className="waitlist-form"
                 style={{ display: "flex", maxWidth: 460, marginBottom: 10 }}
               >
                 <input

@@ -37,7 +37,7 @@ export default function Updates() {
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.2)" }} />
       </div>
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
+      <div className="section-inner">
 
         {/* Header */}
         <div
@@ -99,7 +99,7 @@ export default function Updates() {
           style={{
             border: "var(--border)",
             borderStyle: "dashed",
-            padding: "64px 40px",
+            padding: "clamp(32px, 8vw, 64px) clamp(20px, 5vw, 40px)",
             display: "flex",
             flexDirection: "column" as const,
             alignItems: "center",

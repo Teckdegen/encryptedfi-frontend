@@ -3,11 +3,7 @@
 export default function Hero() {
   return (
     <section style={{ background: "var(--cream)", borderBottom: "var(--border)" }}>
-      <div style={{
-        maxWidth: 1200,
-        margin: "0 auto",
-        padding: "80px 32px 88px",
-      }}>
+      <div className="hero-inner">
 
         {/* Eyebrow label */}
         <div style={{

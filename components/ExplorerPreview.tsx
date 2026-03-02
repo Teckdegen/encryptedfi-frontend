@@ -125,7 +125,7 @@ export default function ExplorerPreview() {
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.08)" }} />
       </div>
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px" }}>
+      <div className="section-inner">
 
         {/* Intro */}
         <div style={{ marginBottom: 48, maxWidth: 560 }}>
@@ -221,7 +221,7 @@ export default function ExplorerPreview() {
           </div>
 
           {/* TX overview */}
-          <div style={{ padding: "28px 28px 0" }}>
+          <div className="explorer-tx">
 
             {/* Hash row */}
             <div
