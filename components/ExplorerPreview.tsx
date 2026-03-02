@@ -11,8 +11,8 @@ const TX = {
   hash:      "0x8f3a2c1d9e4b7f06a3e5d2c8b1f9a4e7d0c3b6a2f5e8d1c4b7a0e3d6c9f2b5",
   block:     "21,847,392",
   timestamp: "2 mins ago",
-  from:      "ENCRYPTEDFI  0xA7f3…9b4E",   // ← relayer contract, not user wallet
-  to:        "eWFLR  0x1D80…783d",          // ← Flare Coston2 WFLR pair
+  from:      "ENCRYPTEDFI",
+  to:        "eUSDT",
   method:    "relayTransfer()",
   status:    "SUCCESS",
   gasUsed:   "312,844",
@@ -48,13 +48,6 @@ const LOGS = [
       { key: "timestamp",     value: "1740921847" },
     ],
   },
-];
-
-// Flare Coston2 testnet token addresses
-const FLARE_TOKENS = [
-  { symbol: "eWFLR",  underlying: "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d", name: "Wrapped FLR" },
-  { symbol: "eUSDC",  underlying: "0xC67DCE33D7A8efA5FfEB961899C73fe573B",      name: "USD Coin"    },
-  { symbol: "eUSDT",  underlying: "0x2F4F68F7AF7C37E3E5B7c9F3d9f4e3c2b1a0",    name: "Tether USD"  },
 ];
 
 /* tiny mono badge */
@@ -207,7 +200,7 @@ export default function ExplorerPreview() {
                 marginLeft: 6,
               }}
             >
-              coston2-explorer.flare.network / tx / 0x8f3a…b5
+              explorer.network / tx / 0x8f3a…b5
             </span>
             {/* Network badge */}
             <span
@@ -218,12 +211,12 @@ export default function ExplorerPreview() {
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 padding: "2px 7px",
-                border: "1px solid rgba(255,120,40,0.3)",
-                color: "rgba(255,120,40,0.7)",
-                background: "rgba(255,120,40,0.07)",
+                border: "1px solid rgba(228,222,212,0.1)",
+                color: "rgba(228,222,212,0.3)",
+                background: "rgba(228,222,212,0.03)",
               }}
             >
-              FLARE COSTON2
+              ANY EVM CHAIN
             </span>
           </div>
 
@@ -446,7 +439,7 @@ export default function ExplorerPreview() {
                         letterSpacing: "0.08em",
                       }}
                     >
-                      eWFLR
+                      eUSDT
                     </span>
                   </div>
 
@@ -482,80 +475,6 @@ export default function ExplorerPreview() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* ── Flare testnet token strip ── */}
-        <div
-          style={{
-            marginTop: 28,
-            border: "1px solid rgba(228,222,212,0.07)",
-            background: "rgba(228,222,212,0.02)",
-            padding: "18px 24px",
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.55rem",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              color: "rgba(228,222,212,0.2)",
-              marginBottom: 14,
-            }}
-          >
-            LIVE ON FLARE COSTON2 TESTNET
-          </div>
-          <div
-            style={{
-              display: "flex",
-              gap: 16,
-              flexWrap: "wrap" as const,
-            }}
-          >
-            {FLARE_TOKENS.map((t) => (
-              <div
-                key={t.symbol}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "8px 14px",
-                  border: "1px solid rgba(255,120,40,0.12)",
-                  background: "rgba(255,120,40,0.04)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.65rem",
-                    fontWeight: 700,
-                    color: "rgba(255,140,60,0.8)",
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  {t.symbol}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.52rem",
-                    color: "rgba(228,222,212,0.2)",
-                  }}
-                >
-                  {t.underlying.slice(0, 8)}…{t.underlying.slice(-4)}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: "0.58rem",
-                    color: "rgba(228,222,212,0.25)",
-                  }}
-                >
-                  {t.name}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
 
