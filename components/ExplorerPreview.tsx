@@ -3,16 +3,17 @@
 /* ─────────────────────────────────────────────────────────
    ExplorerPreview.tsx
    Shows what a confidential transfer looks like when you
-   look it up on a block explorer — no receiver, just hashes.
+   look it up on a block explorer.
+   With the relayer layer: NEITHER sender NOR receiver visible.
 ───────────────────────────────────────────────────────── */
 
 const TX = {
   hash:      "0x8f3a2c1d9e4b7f06a3e5d2c8b1f9a4e7d0c3b6a2f5e8d1c4b7a0e3d6c9f2b5",
   block:     "21,847,392",
   timestamp: "2 mins ago",
-  from:      "0x742d35Cc6634C0532925a3b8D4C9E2f4b1aF4e3",
-  to:        "eUSDT  0x1A9C…3f7E",
-  method:    "transferWithProof()",
+  from:      "ENCRYPTEDFI  0xA7f3…9b4E",   // ← relayer contract, not user wallet
+  to:        "eWFLR  0x1D80…783d",          // ← Flare Coston2 WFLR pair
+  method:    "relayTransfer()",
   status:    "SUCCESS",
   gasUsed:   "312,844",
 };
@@ -47,6 +48,13 @@ const LOGS = [
       { key: "timestamp",     value: "1740921847" },
     ],
   },
+];
+
+// Flare Coston2 testnet token addresses
+const FLARE_TOKENS = [
+  { symbol: "eWFLR",  underlying: "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d", name: "Wrapped FLR" },
+  { symbol: "eUSDC",  underlying: "0xC67DCE33D7A8efA5FfEB961899C73fe573B",      name: "USD Coin"    },
+  { symbol: "eUSDT",  underlying: "0x2F4F68F7AF7C37E3E5B7c9F3d9f4e3c2b1a0",    name: "Tether USD"  },
 ];
 
 /* tiny mono badge */
@@ -139,10 +147,10 @@ export default function ExplorerPreview() {
               marginBottom: 14,
             }}
           >
-            No receiver.
+            No sender.
             <br />
             <em style={{ fontStyle: "italic", fontWeight: 700, color: "rgba(228,222,212,0.5)" }}>
-              Just commitment hashes.
+              No receiver. Just proof.
             </em>
           </h2>
           <p
@@ -154,9 +162,12 @@ export default function ExplorerPreview() {
               maxWidth: 480,
             }}
           >
-            Open any block explorer. You see the sender, the contract, and encrypted blobs.
-            The receiver address is <strong style={{ color: "rgba(228,222,212,0.7)" }}>never
-            on-chain</strong> — not in the transaction, not in the event logs.
+            Open any block explorer. You see the protocol contract and encrypted blobs.
+            The sender is{" "}
+            <strong style={{ color: "rgba(228,222,212,0.7)" }}>never your wallet</strong>{" "}
+            — it shows ENCRYPTEDFI. The receiver address is{" "}
+            <strong style={{ color: "rgba(228,222,212,0.7)" }}>never on-chain</strong>{" "}
+            — not in the transaction, not in the events. Not anywhere.
           </p>
         </div>
 
@@ -196,7 +207,23 @@ export default function ExplorerPreview() {
                 marginLeft: 6,
               }}
             >
-              block-explorer.example / tx / 0x8f3a…b5
+              coston2-explorer.flare.network / tx / 0x8f3a…b5
+            </span>
+            {/* Network badge */}
+            <span
+              style={{
+                marginLeft: "auto",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.52rem",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                padding: "2px 7px",
+                border: "1px solid rgba(255,120,40,0.3)",
+                color: "rgba(255,120,40,0.7)",
+                background: "rgba(255,120,40,0.07)",
+              }}
+            >
+              FLARE COSTON2
             </span>
           </div>
 
@@ -246,11 +273,11 @@ export default function ExplorerPreview() {
             {[
               { label: "BLOCK",      value: TX.block      },
               { label: "TIMESTAMP",  value: TX.timestamp  },
-              { label: "FROM",       value: TX.from       },
+              { label: "FROM",       value: TX.from,       highlight: "relayer" },
               { label: "TO",         value: TX.to         },
               { label: "METHOD",     value: TX.method     },
               { label: "GAS USED",   value: TX.gasUsed    },
-            ].map(({ label, value }) => (
+            ].map(({ label, value, highlight }) => (
               <div
                 key={label}
                 style={{
@@ -282,8 +309,8 @@ export default function ExplorerPreview() {
                     fontSize: "0.65rem",
                     color: label === "METHOD"
                       ? "rgba(228,180,100,0.8)"
-                      : label === "FROM"
-                      ? "rgba(100,160,255,0.75)"
+                      : highlight === "relayer"
+                      ? "rgba(160,220,120,0.85)"   // green — protocol contract, not user
                       : "rgba(228,222,212,0.6)",
                     flex: 1,
                     wordBreak: "break-all" as const,
@@ -291,11 +318,29 @@ export default function ExplorerPreview() {
                 >
                   {value}
                 </span>
+                {/* Tag the FROM field */}
+                {highlight === "relayer" && (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.5rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.1em",
+                      padding: "2px 6px",
+                      border: "1px solid rgba(160,220,120,0.2)",
+                      color: "rgba(160,220,120,0.5)",
+                      background: "rgba(160,220,120,0.06)",
+                      whiteSpace: "nowrap" as const,
+                    }}
+                  >
+                    PROTOCOL CONTRACT
+                  </span>
+                )}
               </div>
             ))}
           </div>
 
-          {/* ── Receiver address callout ── */}
+          {/* ── Privacy callout — BOTH hidden ── */}
           <div
             style={{
               margin: "0 28px 20px",
@@ -316,19 +361,20 @@ export default function ExplorerPreview() {
                 margin: 0,
               }}
             >
-              Only the{" "}
-              <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
-                initiator address
+              Neither the{" "}
+              <span style={{ color: "rgba(228,222,212,0.65)", fontWeight: 700 }}>
+                sender
               </span>{" "}
-              is visible. The{" "}
-              <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
+              nor the{" "}
+              <span style={{ color: "rgba(228,222,212,0.65)", fontWeight: 700 }}>
                 receiver
               </span>{" "}
-              and the{" "}
-              <span style={{ color: "rgba(228,222,212,0.6)", fontWeight: 700 }}>
+              appear on-chain. Only the ENCRYPTEDFI protocol contract is visible.
+              The{" "}
+              <span style={{ color: "rgba(228,222,212,0.65)", fontWeight: 700 }}>
                 balance
               </span>{" "}
-              are fully encrypted — nothing else is exposed on-chain.
+              is fully encrypted. Your wallet never touches the chain.
             </p>
           </div>
 
@@ -400,7 +446,7 @@ export default function ExplorerPreview() {
                         letterSpacing: "0.08em",
                       }}
                     >
-                      eUSDT
+                      eWFLR
                     </span>
                   </div>
 
@@ -439,6 +485,80 @@ export default function ExplorerPreview() {
           </div>
         </div>
 
+        {/* ── Flare testnet token strip ── */}
+        <div
+          style={{
+            marginTop: 28,
+            border: "1px solid rgba(228,222,212,0.07)",
+            background: "rgba(228,222,212,0.02)",
+            padding: "18px 24px",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.55rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              color: "rgba(228,222,212,0.2)",
+              marginBottom: 14,
+            }}
+          >
+            LIVE ON FLARE COSTON2 TESTNET
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: 16,
+              flexWrap: "wrap" as const,
+            }}
+          >
+            {FLARE_TOKENS.map((t) => (
+              <div
+                key={t.symbol}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  padding: "8px 14px",
+                  border: "1px solid rgba(255,120,40,0.12)",
+                  background: "rgba(255,120,40,0.04)",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.65rem",
+                    fontWeight: 700,
+                    color: "rgba(255,140,60,0.8)",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  {t.symbol}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.52rem",
+                    color: "rgba(228,222,212,0.2)",
+                  }}
+                >
+                  {t.underlying.slice(0, 8)}…{t.underlying.slice(-4)}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    fontSize: "0.58rem",
+                    color: "rgba(228,222,212,0.25)",
+                  }}
+                >
+                  {t.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Footer caption */}
         <p
           style={{
@@ -450,7 +570,7 @@ export default function ExplorerPreview() {
             textAlign: "center" as const,
           }}
         >
-          ILLUSTRATIVE EXAMPLE · REAL TRANSACTIONS LOOK EXACTLY LIKE THIS · NO RECEIVER ADDRESS EVER
+          ILLUSTRATIVE EXAMPLE · REAL TRANSACTIONS LOOK EXACTLY LIKE THIS · NO SENDER · NO RECEIVER · NEVER
         </p>
 
       </div>
