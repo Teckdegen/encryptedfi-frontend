@@ -1,9 +1,14 @@
 /* ─────────────────────────────────────────────────────────
    Updates.tsx
-   Blog / updates section — placeholder until content is ready.
+   Shows the latest blog post as a card + link to /blog.
+   Add new posts in data/blogs.ts — they appear here automatically.
 ───────────────────────────────────────────────────────── */
+import Link from "next/link";
+import { blogs } from "../data/blogs";
 
 export default function Updates() {
+  const latest = blogs[0]; // always the newest post
+
   return (
     <section
       id="updates"
@@ -47,7 +52,7 @@ export default function Updates() {
             justifyContent: "space-between",
             flexWrap: "wrap" as const,
             gap: 32,
-            marginBottom: 56,
+            marginBottom: 48,
           }}
         >
           <div>
@@ -75,7 +80,6 @@ export default function Updates() {
               }}
             >
               Protocol updates, research notes, and build logs.
-              Check back soon.
             </p>
           </div>
 
@@ -94,82 +98,160 @@ export default function Updates() {
           </div>
         </div>
 
-        {/* Empty state — placeholder */}
-        <div
-          style={{
-            border: "var(--border)",
-            borderStyle: "dashed",
-            padding: "clamp(32px, 8vw, 64px) clamp(20px, 5vw, 40px)",
-            display: "flex",
-            flexDirection: "column" as const,
-            alignItems: "center",
-            gap: 20,
-            textAlign: "center" as const,
-          }}
-        >
-          {/* Big mono label */}
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "clamp(0.6rem, 1.5vw, 0.75rem)",
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              color: "rgba(10,10,10,0.18)",
-            }}
-          >
-            ◆ NO UPDATES YET ◆
-          </span>
-
-          <p
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontWeight: 700,
-              fontSize: "clamp(1.5rem, 3vw, 2.4rem)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              color: "rgba(10,10,10,0.15)",
-              maxWidth: 440,
-              margin: 0,
-            }}
-          >
-            &ldquo;Building in silence.&rdquo;
-          </p>
-
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.82rem",
-              color: "rgba(10,10,10,0.3)",
-              maxWidth: 320,
-              lineHeight: 1.7,
-              margin: 0,
-            }}
-          >
-            The first update drops when the protocol is ready.
-            Follow on{" "}
-            <a
-              href="#"
+        {/* Latest post card */}
+        {latest && (
+          <Link href={`/blog/${latest.slug}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <article
+              className="updates-card"
               style={{
-                color: "var(--ink)",
-                textDecoration: "underline",
-                textUnderlineOffset: 3,
+                border: "var(--border)",
+                padding: "40px",
+                cursor: "pointer",
+                boxShadow: "var(--shadow)",
+                transition: "transform 0.12s, box-shadow 0.12s",
               }}
             >
-              Twitter
-            </a>{" "}
-            for the earliest signal.
-          </p>
-        </div>
+              {/* Meta row */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap" as const,
+                  gap: 12,
+                  marginBottom: 24,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.6rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.18em",
+                      background: "var(--ink)",
+                      color: "var(--cream)",
+                      padding: "3px 8px",
+                    }}
+                  >
+                    {latest.tag}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.1em",
+                      color: "rgba(10,10,10,0.4)",
+                    }}
+                  >
+                    {latest.date}
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.62rem",
+                    letterSpacing: "0.1em",
+                    color: "rgba(10,10,10,0.35)",
+                  }}
+                >
+                  {latest.readTime}
+                </span>
+              </div>
 
-        {/* Bottom caption */}
+              {/* Title */}
+              <h3
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontSize: "clamp(1.3rem, 2.5vw, 1.9rem)",
+                  fontWeight: 800,
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.015em",
+                  marginBottom: 16,
+                }}
+              >
+                {latest.title}
+              </h3>
+
+              {/* Excerpt */}
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "0.93rem",
+                  lineHeight: 1.8,
+                  color: "var(--ink-soft)",
+                  maxWidth: 640,
+                  marginBottom: 28,
+                }}
+              >
+                {latest.excerpt}
+              </p>
+
+              {/* CTA */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap" as const,
+                  gap: 12,
+                  borderTop: "var(--border-sm)",
+                  paddingTop: 20,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.68rem",
+                    fontWeight: 700,
+                    letterSpacing: "0.14em",
+                    color: "var(--ink)",
+                  }}
+                >
+                  READ FULL POST &rarr;
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.6rem",
+                    letterSpacing: "0.1em",
+                    color: "rgba(10,10,10,0.28)",
+                  }}
+                >
+                  encryptedfi.xyz/blog/{latest.slug}
+                </span>
+              </div>
+            </article>
+          </Link>
+        )}
+
+        {/* View all link */}
         <div
           style={{
-            marginTop: 20,
+            marginTop: 28,
             display: "flex",
-            justifyContent: "flex-end",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap" as const,
+            gap: 12,
           }}
         >
+          <Link
+            href="/blog"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              color: "var(--ink)",
+              textDecoration: "none",
+              borderBottom: "2px solid var(--ink)",
+              paddingBottom: 1,
+            }}
+          >
+            VIEW ALL UPDATES &rarr;
+          </Link>
+
           <span
             style={{
               fontFamily: "var(--font-mono)",
