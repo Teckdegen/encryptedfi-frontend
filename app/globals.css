@@ -481,10 +481,10 @@ body > * { position: relative; z-index: 1; }
   white-space: pre;
 }
 
-/* Stats grid */
+/* Stats grid — adapts to any number of stat cells */
 .blog-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 0;
   border: var(--border);
   box-shadow: var(--shadow);
@@ -529,19 +529,50 @@ body > * { position: relative; z-index: 1; }
 
 /* ── Blog responsive ── */
 @media (max-width: 768px) {
-  .blog-post-container { padding: 40px 20px 72px; }
+  /* Blog post page */
+  .blog-post-container { padding: 32px 20px 72px; }
+  .blog-post-title { font-size: clamp(1.5rem, 5vw, 2.4rem); }
+  .blog-read-time { margin-left: 0; }
+  .blog-meta-row { gap: 10px; }
+  .blog-post-header { margin-bottom: 32px; }
+
+  /* Stats — 2-column on tablet */
   .blog-stats { grid-template-columns: repeat(2, 1fr); }
   .blog-stat-cell:nth-child(2) { border-right: none; }
   .blog-stat-cell:nth-child(3) { border-top: var(--border); }
   .blog-stat-cell:nth-child(4) { border-top: var(--border); border-right: none; }
-  .blog-read-time { margin-left: 0; }
+
+  /* Updates homepage cards — override inline padding */
+  .updates-card { padding: 28px !important; }
+
+  /* Blog listing card */
+  .blog-list-card { padding: 24px 20px !important; }
 }
 
 @media (max-width: 480px) {
-  .blog-post-container { padding: 28px 14px 56px; }
+  /* Blog post */
+  .blog-post-container { padding: 24px 14px 56px; }
+  .blog-post-title { font-size: clamp(1.35rem, 6vw, 2rem); }
+  .blog-post-excerpt { font-size: 0.93rem; }
+  .blog-h2    { margin-top: 40px; font-size: 1.25rem; }
+  .blog-h3    { margin-top: 28px; }
+  .blog-p     { font-size: 0.95rem; line-height: 1.85; }
+  .blog-list li { padding: 9px 14px 9px 38px; font-size: 0.93rem; }
+  .blog-code  { padding: 14px 16px; font-size: 0.72rem; overflow-x: scroll; }
+
+  /* Stats — 2-column on small phones */
   .blog-stats { grid-template-columns: 1fr 1fr; }
-  .blog-code  { padding: 16px; font-size: 0.75rem; }
-  .blog-h2    { margin-top: 40px; }
+  .blog-stat-cell { padding: 18px 14px; }
+  .blog-stat-value { font-size: 1.4rem; }
+  .blog-stat-label { font-size: 0.68rem; }
+
+  /* Updates homepage cards on phones */
+  .updates-card { padding: 22px !important; }
+  .blog-list-card { padding: 20px 14px !important; }
+
+  /* Footer */
+  .blog-post-footer { margin-top: 48px; }
+  .blog-post-footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
 /* ── Extra small: ≤ 480px ── */

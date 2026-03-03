@@ -31,28 +31,110 @@ export interface BlogPost {
    Posts — newest first
 ───────────────────────────────────────────────────────────────────────── */
 export const blogs: BlogPost[] = [
+
+  /* ── NEWEST POST ──────────────────────────────────────────────────────── */
+  {
+    slug:     "flare-network-launch",
+    title:    "EncryptedFi on Flare: Privacy Comes to F ASSETS",
+    date:     "March 2026",
+    tag:      "LAUNCH",
+    excerpt:
+      "EncryptedFi deploys on Flare Network first. USDT0, FXRP, and the full F ASSET family get zero-knowledge confidential transfers. No permission. No admin keys. Private by default.",
+    readTime: "5 min read",
+    content: [
+
+      { type: "p", text:
+        "Flare Network is live. EncryptedFi deploys here first. Every F ASSET on Flare gets a confidential wrapper. Zero-knowledge proofs verified on-chain. No addresses in storage. No amounts as public inputs. No sender-receiver link visible to anyone. EncryptedFi brings real privacy to Flare."
+      },
+
+      { type: "h2", text: "Why Flare First" },
+
+      { type: "p", text:
+        "Flare is built around real-world asset connectivity. F ASSETS bridge external chains to the EVM. USDT0 is already live, cross-chain and liquid. FXRP wraps XRP. But every transaction using these assets is fully public. Every balance exposed. Every flow visible to any analytics firm with a crawler. The assets that matter most on Flare have no privacy layer. Until now."
+      },
+
+      { type: "p", text:
+        "We chose Flare for the first wave because the assets here are exactly what people move in volume. Stablecoins and cross-chain wrapped assets need privacy most. That is where we start."
+      },
+
+      { type: "h2", text: "What We Are Making Private" },
+
+      { type: "p", text:
+        "Starting with the assets that move the most on Flare:"
+      },
+
+      { type: "list", items: [
+        "USDT0 - cross-chain stablecoin, fully private transfers on Flare",
+        "FXRP - the XRP bridge asset, confidential wrap and transfer supported",
+        "Other F ASSETS as they launch on the network",
+      ]},
+
+      { type: "p", text:
+        "Once wrapped into a confidential equivalent, every transfer is zero-knowledge. Receiver address never touches the chain. Sender never appears in storage or events. Amount is inside the proof, not a public input on-chain."
+      },
+
+      { type: "h2", text: "How It Works" },
+
+      { type: "p", text:
+        "Three circuits. Three operations. Groth16 proofs verified on-chain with BN254 pairing checks. No centralized component in the transfer path."
+      },
+
+      { type: "list", items: [
+        "Mint: deposit ERC-20 tokens, receive a Poseidon commitment note",
+        "Transfer: consume a note via nullifier, produce two new notes for receiver and change",
+        "Burn: prove note ownership, release underlying tokens to a visible withdrawal address",
+      ]},
+
+      { type: "p", text:
+        "The full technical breakdown is in the EncryptedFi EVM post. The short version: no address-keyed balance mapping anywhere in the contract. Observers see two 32-byte hashes and a spent nullifier. Nothing else."
+      },
+
+      { type: "h2", text: "How We Ship Support" },
+
+      { type: "p", text:
+        "EncryptedFi deploys and maintains the official confidential token contracts on Flare. Every token goes through the same pipeline: circuit deployment, trusted setup with verifiable randomness, on-chain verification, SDK integration. We handle that for every asset we support."
+      },
+
+      { type: "p", text:
+        "This matters because ZK circuits require a trusted setup. Randomness from multiple parties. The resulting zkey is embedded in the on-chain verifier. We run this process for every new token so teams building on EncryptedFi get one unified SDK, one API call for any confidential transfer on any supported asset, without auditing a new contract or running their own ceremony."
+      },
+
+      { type: "h2", text: "What Comes Next" },
+
+      { type: "p", text:
+        "Testnet first. Every figure in these posts is live code. Verifiable by anyone. Mainnet after audit and testnet stability."
+      },
+
+      { type: "p", text:
+        "After Flare, the same protocol and the same SDK runs on every supported EVM chain. Privacy does not stop at one network."
+      },
+
+    ],
+  },
+
+  /* ── OLDER POSTS ──────────────────────────────────────────────────────── */
   {
     slug:     "encryptedfi-evm",
-    title:    "EncryptedFi EVM - Confidential Transfers for Every ERC-20",
+    title:    "EncryptedFi EVM: Confidential Transfers for Every ERC-20",
     date:     "March 2026",
     tag:      "PROTOCOL",
     excerpt:
-      "On Ethereum, every wallet balance and transfer is public by default. EncryptedFi changes that - bringing zero-knowledge confidential transfers to every ERC-20 token on every supported chain, with no admin keys and no permission required.",
+      "Zero-knowledge confidential transfers for every ERC-20. No admin keys. No permission required. Sender, receiver, and amount all hidden from on-chain observers.",
     readTime: "8 min read",
     content: [
 
       { type: "p", text:
-        "The data is public. On Ethereum, every wallet balance, every swap, every transfer has been visible to anyone since block zero. This was a deliberate design choice - transparency as the price of trustlessness. For most use cases this is acceptable. For financial activity involving real people and real stakes, it is a significant problem. EncryptedFi changes the equation."
+        "The data is public. Every wallet balance, every swap, every transfer. Visible to anyone since block zero. Transparency as the price of trustlessness. Fine for most use cases. But on any public EVM chain, not just Ethereum, on Flare, Polygon, and every chain built on the EVM stack, running real money in the open is unacceptable. EncryptedFi changes the equation."
       },
 
       { type: "h2", text: "The Privacy Gap in Numbers" },
 
       { type: "p", text:
-        "The scale of the problem is concrete. Every transaction is indexed by analytics firms, every balance is queryable in real time, every pattern is traceable across wallets. Blockchain data companies process billions of transaction records every year, mapping on-chain activity to real-world identities."
+        "Every transaction is indexed by analytics firms. Every balance is queryable in real time. Every pattern traceable across wallets. Blockchain data companies process billions of records a year, mapping on-chain activity to real identities."
       },
 
       { type: "p", text:
-        "The market has been trying to solve this for years. Railgun, the leading EVM privacy protocol, has facilitated over $4 billion in private transfer volume since its launch. Houdini, a cross-chain private swap protocol, has processed over $1.5 billion in private volume. Before regulatory action in 2022, Tornado Cash processed over $7.6 billion across its lifetime. The demand is not speculative - it is measured in billions of dollars of user activity."
+        "Let's be honest. Privacy on public EVM chains has been half-solved for years. Railgun has facilitated over $4 billion in private transfer volume. Houdini, $1.5 billion in private swaps. Tornado Cash did $7.6 billion before 2022. The demand is already in the billions. This isn't theoretical."
       },
 
       { type: "stats", stats: [
@@ -62,35 +144,40 @@ export const blogs: BlogPost[] = [
       ]},
 
       { type: "p", text:
-        "The signal has reached the top of the industry. In February 2026, Binance founder Changpeng Zhao called privacy the missing link for crypto payments adoption, stating that most cryptocurrencies do not have enough privacy features to function as everyday payment tools. When the founder of the world's largest crypto exchange frames privacy as a prerequisite for mainstream adoption, the scale of the unsolved problem becomes clear."
+        "Binance founder Changpeng Zhao called privacy the missing link for crypto payments adoption. Most cryptocurrencies don't have enough privacy to function as everyday payment tools. When the head of the world's largest exchange frames it that way, the problem is obvious."
       },
 
       { type: "p", text:
-        "Yet for most users, accessing private transfers remains difficult. Existing tools require technical knowledge, support limited token lists, or demand trust in centralized components. The result is a privacy gap that grows wider as on-chain activity scales. EncryptedFi is built to close it."
+        "Yet accessing private transfers still sucks. Existing tools need technical chops, support limited tokens, or ask you to trust centralized components. We built this after running into that wall ourselves."
       },
 
       { type: "h2", text: "What EncryptedFi Does" },
 
       { type: "p", text:
-        "EncryptedFi is a zero-knowledge confidential transfer layer for EVM chains. It wraps any standard ERC-20 token into a confidential equivalent using ZK-SNARK proofs - hiding receiver addresses, token balances, and transfer amounts from on-chain observers."
+        "EncryptedFi is a zero-knowledge confidential transfer layer for EVM chains. It wraps any ERC-20 into a confidential equivalent using ZK-SNARK proofs. Receiver addresses, token balances, transfer amounts. All hidden from on-chain observers."
       },
 
       { type: "p", text:
-        "The core design difference from existing protocols is scope. Where existing tools require token-specific deployments or centralized whitelists, EncryptedFi is a permissionless factory. Any ERC-20, on any supported chain, can be made confidential in a single factory call by anyone with no permission required."
+        "The difference is scope. Other tools want token-specific deployments or centralized whitelists. EncryptedFi is a permissionless factory. Any ERC-20, any supported chain. One factory call. No permission."
       },
 
-      { type: "p", text: "The protocol hides three things that existing systems expose:" },
+      { type: "p", text: "Four things existing systems expose that we hide:" },
 
       { type: "list", items: [
-        "Receiver address - never appears on-chain for transfers or mints",
-        "Token balances - stored as opaque Poseidon commitment hashes, not address-keyed mappings",
-        "Transfer amounts - embedded inside the ZK proof, never a public input on-chain",
+        "Sender address. Hidden on-chain. Never appears in storage or events.",
+        "Receiver address. Never appears on-chain for transfers or mints.",
+        "Token balances. Stored as opaque Poseidon commitment hashes, not address-keyed mappings.",
+        "Transfer amounts. Embedded inside the ZK proof, never a public input.",
       ]},
+
+      { type: "p", text:
+        "We'll make USDT0 on Flare private alongside FXRP and other F ASSETS."
+      },
 
       { type: "h2", text: "The UTXO Model" },
 
       { type: "p", text:
-        "Instead of the standard EVM pattern of mapping(address => uint256) for balances, EncryptedFi maintains a global set of commitment hashes. No address appears in storage. No address is emitted in events. A confidential note is a Poseidon hash commitment of the form:"
+        "Instead of mapping(address => uint256), EncryptedFi maintains a global set of commitment hashes. No address in storage. None in events. A confidential note is a Poseidon hash:"
       },
 
       { type: "code", text:
@@ -98,71 +185,74 @@ export const blogs: BlogPost[] = [
       },
 
       { type: "p", text:
-        "The receiver scans NoteCreated events, attempts ECIES decryption with their ETH private key, and on success learns they received a note containing a specific amount. To every external observer - including on-chain validators - the transaction creates two random-looking 32-byte values and consumes one nullifier. No amount, no identity, no relationship between sender and receiver."
+        "The receiver scans NoteCreated events, decrypts with their ETH key, and learns they got a note with a specific amount. To every external observer the tx creates two random 32-byte values and consumes one nullifier. No amount. No identity. No sender-receiver link."
       },
 
       { type: "h2", text: "Three ZK Circuits" },
 
       { type: "p", text:
-        "Three Groth16 circuits compiled with Circom 2.2.3 and verified on-chain via BN254 pairing checks power the protocol:"
+        "Groth16, Circom 2.2.3, BN254 pairing checks on-chain."
       },
 
-      { type: "h3", text: "Transfer Circuit - 2,499 Constraints" },
+      { type: "h3", text: "Transfer Circuit (2,499 constraints)" },
 
       { type: "p", text:
-        "Proves a sender consumes one note via nullifier and creates two output notes - one for the receiver, one as change. No receiver address appears as a public input. The fee commitment is an additional output note credited directly to the protocol fee recipient as an encrypted note."
+        "Proves a sender consumes one note via nullifier and creates two outputs: one for the receiver, one as change. No receiver address as public input. Fee goes to the protocol fee recipient as an encrypted note."
       },
 
-      { type: "h3", text: "Mint Circuit - 517 Constraints" },
+      { type: "h3", text: "Mint Circuit (517 constraints)" },
 
       { type: "p", text:
-        "Proves a deposit of X tokens produces a valid commitment for exactly X tokens minus the wrap fee. Called exclusively by the Vault contract after locking the underlying ERC-20. 517 constraints is deliberately lean - mint is called on every wrap operation and must remain gas-efficient at scale."
+        "Proves a deposit of X tokens produces a valid commitment for X minus wrap fee. Called by the Vault after locking underlying ERC-20. 517 constraints because mint runs on every wrap. It has to stay lean."
       },
 
-      { type: "h3", text: "Burn Circuit - 1,760 Constraints" },
+      { type: "h3", text: "Burn Circuit (1,760 constraints)" },
 
       { type: "p", text:
-        "Proves a note owner can consume their note and release underlying ERC-20 tokens. The withdrawal recipient address is visible on-chain - this is unavoidable for a plain ERC-20 transfer and is acceptable because unwrap is the explicit exit from the private system. Once you are inside, all transfers stay private."
+        "Proves a note owner can consume their note and release underlying tokens. The withdrawal address is visible. Unavoidable for plain ERC-20. Fine. Unwrap is the exit. Once you're in, everything stays private."
       },
 
       { type: "h2", text: "Trustless by Design" },
 
       { type: "p", text:
-        "The protocol has no admin keys. This is not a goal statement - it is an on-chain property enforced by the contracts themselves."
+        "No admin keys. Not aspirational. Enforced by the contracts."
+      },
+
+      { type: "p", text:
+        "No pause function. No upgrade path. It either works or it doesn't."
       },
 
       { type: "list", items: [
-        "The ConfidentialVerifier locks verification keys forever after setup. A single call sets a circuit key and marks it as finalised. No subsequent call can change it - not even from the deployer address.",
-        "ConfidentialToken and Vault contracts have no owner after deployment. No pause function. No guardian. No multisig. No timelock.",
+        "ConfidentialVerifier locks verification keys forever. One call sets a circuit key and marks it final. Nothing can change it. Not even the deployer.",
+        "ConfidentialToken and Vault have no owner. No guardian. No multisig. No timelock.",
       ]},
 
       { type: "p", text:
-        "Once deployed, the only way to change protocol behavior is to deploy a new set of contracts from scratch. The existing deployment is immutable and fully autonomous."
+        "After deployment, it's frozen. Want changes? Deploy a new system."
       },
 
-      { type: "h2", text: "First Wave - Every ERC-20" },
+      { type: "h2", text: "First Wave: Flare Network" },
 
       { type: "p", text:
-        "The first deployment wave targets multiple EVM networks simultaneously with a single canonical contract deployment per chain and support for every ERC-20 token with no listing process."
+        "We're deploying on Flare first, not all EVM. Bringing privacy to the Flare network. Every ERC-20. No listing process."
       },
 
       { type: "p", text:
-        "The relay infrastructure runs across all supported chains from a single server, routing by chainId on each request. Relayed transactions allow users to submit confidential transfers without holding native gas tokens - lowering the entry barrier from having ETH first to simply having any ERC-20."
+        "Relay infrastructure runs across supported chains from a single server. Relayed txs let users submit confidential transfers without native gas. You don't need FLR first. Any ERC-20 works."
+      },
+
+      { type: "p", text:
+        "EncryptedFi deploys and maintains the official confidential token contracts on each supported chain. Every supported asset goes through circuit deployment, trusted setup, and full SDK integration. Developers get one library, one API, one integration point regardless of which token or chain they are targeting."
       },
 
       { type: "h2", text: "What Comes Next" },
 
-      { type: "p", text: "This is the first post in the EncryptedFi build log. Future posts will cover:" },
-
-      { type: "list", items: [
-        "The relay architecture - how gasless confidential transfers work without any ETH",
-        "The bootstrapper contract - how new users enter the private system for the first time",
-        "Batch proof operations for high-frequency applications",
-        "Integration guides for DEX and lending protocol teams",
-      ]},
+      { type: "p", text:
+        "Flare Network is the first live deployment. USDT0, FXRP, and the full F ASSET family get confidential transfers. Read the Flare launch post for the full breakdown."
+      },
 
       { type: "p", text:
-        "Testnet deployment is the next milestone. Every figure cited here - circuit constraints, fee rates, contract architecture - is live code verifiable on-chain by anyone. The protocol is open."
+        "Testnet is next. Every figure here, circuit constraints, fee rates, architecture, is live code. Verifiable by anyone. The protocol is open."
       },
 
     ],
