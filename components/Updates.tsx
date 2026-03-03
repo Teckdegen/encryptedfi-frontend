@@ -96,6 +96,53 @@ export default function Updates() {
           </div>
         </div>
 
+        {/* Empty state */}
+        {blogs.length === 0 && (
+          <div
+            style={{
+              border: "var(--border)",
+              padding: "48px 40px",
+              boxShadow: "var(--shadow)",
+              marginBottom: 28,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                color: "rgba(10,10,10,0.3)",
+              }}
+            >
+              COMING SOON
+            </span>
+            <p
+              style={{
+                fontFamily: "var(--font-serif)",
+                fontSize: "clamp(1.2rem, 2vw, 1.6rem)",
+                fontWeight: 700,
+                lineHeight: 1.3,
+                marginTop: 16,
+                color: "var(--ink)",
+              }}
+            >
+              Building in silence.
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.9rem",
+                lineHeight: 1.75,
+                color: "var(--ink-soft)",
+                marginTop: 10,
+              }}
+            >
+              First post drops soon.
+            </p>
+          </div>
+        )}
+
         {/* 3 newest posts only */}
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           {blogs.slice(0, 3).map((post) => (
