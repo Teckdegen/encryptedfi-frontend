@@ -15,9 +15,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const post = getBlogBySlug(slug);
   if (!post) return {};
   return {
     title: `${post.title} - EncryptedFi`,
@@ -83,12 +84,13 @@ function renderBlock(block: ContentBlock, i: number) {
   }
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const post = getBlogBySlug(params.slug);
+  const { slug } = await params;
+  const post = getBlogBySlug(slug);
   if (!post) notFound();
 
   return (
