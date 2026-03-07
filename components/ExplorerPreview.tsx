@@ -13,7 +13,7 @@ const TX = {
   timestamp: "2 mins ago",
   from:      "ENCRYPTEDFI",
   to:        "eUSDT",
-  method:    "relayTransfer()",
+  method:    "encryptedTransfer()",
   status:    "SUCCESS",
   gasUsed:   "312,844",
 };

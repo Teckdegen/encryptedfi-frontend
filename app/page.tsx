@@ -6,6 +6,7 @@ import UseCases from "@/components/UseCases";
 import Tech from "@/components/Tech";
 import ExplorerPreview from "@/components/ExplorerPreview";
 import Updates from "@/components/Updates";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <Tech />
         <ExplorerPreview />
         <Updates />
+        <FAQ />
       </main>
       <Footer />
     </>
