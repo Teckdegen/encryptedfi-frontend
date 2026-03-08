@@ -27,7 +27,7 @@ const mono = Space_Mono({
 export const metadata: Metadata = {
   title: "Encrypted Fi — Privacy for Your Tokens",
   description:
-    "We bring privacy to the tokens you already use. Confidential transfers, private balances, and encrypted allowances — powered by ZK-SNARKs. No trust required.",
+    "We bring privacy to the tokens you already use. Confidential transfers, private balances, and encrypted allowances — powered by ZK SNARKs. No trust required.",
   icons: {
     icon: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
     shortcut: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",

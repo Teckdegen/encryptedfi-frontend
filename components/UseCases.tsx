@@ -25,7 +25,7 @@ const CASES = [
     Icon: BriefcaseIcon,
     title: "Private Payroll",
     one: "Pay your team. Not publicly.",
-    body: "DAOs and companies can pay contributors in any token without making compensation a public record on-chain.",
+    body: "DAOs and companies can pay contributors in any token without making compensation a public record on chain.",
     dark: false,
   },
   {
@@ -33,7 +33,7 @@ const CASES = [
     Icon: BuildingIcon,
     title: "Institutional Privacy",
     one: "Enterprise finance. Encrypted.",
-    body: "Treasury movements, OTC deals, large transfers — handled confidentially on public infrastructure. No off-chain trust needed.",
+    body: "Treasury movements, OTC deals, large transfers — handled confidentially on public infrastructure. No off chain trust needed.",
     dark: false,
   },
   {
@@ -41,7 +41,7 @@ const CASES = [
     Icon: GavelIcon,
     title: "Sealed Bids",
     one: "Commit. Reveal. Win.",
-    body: "On-chain auctions where bids are encrypted until reveal. No front-running. No last-second manipulation. Fully trustless.",
+    body: "On chain auctions where bids are encrypted until reveal. No front running. No last second manipulation. Fully trustless.",
     dark: true,
   },
   {
@@ -88,7 +88,7 @@ export default function UseCases() {
           letterSpacing: "-0.025em",
         }}>
           Privacy for every<br />
-          <em style={{ fontStyle: "italic", fontWeight: 700 }}>on-chain use case.</em>
+          <em style={{ fontStyle: "italic", fontWeight: 700 }}>on chain use case.</em>
         </h2>
 
         <div style={{ borderLeft: "4px solid var(--ink)", paddingLeft: 24 }}>

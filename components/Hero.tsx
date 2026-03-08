@@ -65,7 +65,7 @@ export default function Hero() {
         }}>
           Any token. Any public chain. Fully encrypted balances,
           private transfers, and confidential allowances — every
-          operation verified on-chain by a ZK proof.{" "}
+          operation verified on chain by a ZK proof.{" "}
           <strong style={{ color: "var(--ink)" }}>No trust. No tradeoffs.</strong>
         </p>
 

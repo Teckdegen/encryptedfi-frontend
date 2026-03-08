@@ -76,7 +76,7 @@ export default function Statement() {
             step: "01",
             verb: "WRAP",
             headline: "Any token enters the private system.",
-            sub: "Deposit any ERC-20. Your tokens are locked in the vault and you receive a private note — a ZK commitment only you can spend. Supported on any public EVM chain.",
+            sub: "Deposit any ERC20. Your tokens are locked in the vault and you receive a private note — a ZK commitment only you can spend. Supported on any public EVM chain.",
             pill: { from: "100 TOKEN", to: "PRIVATE NOTE" },
             dark: false,
           },

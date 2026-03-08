@@ -120,7 +120,7 @@ export default function ExplorerPreview() {
             color: "rgba(228,222,212,0.35)",
           }}
         >
-          WHAT IT LOOKS LIKE ON-CHAIN
+          WHAT IT LOOKS LIKE ON CHAIN
         </span>
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.08)" }} />
       </div>
@@ -159,7 +159,7 @@ export default function ExplorerPreview() {
             The sender is{" "}
             <strong style={{ color: "rgba(228,222,212,0.7)" }}>never your wallet</strong>{" "}
             — it shows ENCRYPTEDFI. The receiver address is{" "}
-            <strong style={{ color: "rgba(228,222,212,0.7)" }}>never on-chain</strong>{" "}
+            <strong style={{ color: "rgba(228,222,212,0.7)" }}>never on chain</strong>{" "}
             — not in the transaction, not in the events. Not anywhere.
           </p>
         </div>
@@ -362,7 +362,7 @@ export default function ExplorerPreview() {
               <span style={{ color: "rgba(228,222,212,0.65)", fontWeight: 700 }}>
                 receiver
               </span>{" "}
-              appear on-chain. Only the ENCRYPTEDFI protocol contract is visible.
+              appear on chain. Only the ENCRYPTEDFI protocol contract is visible.
               The{" "}
               <span style={{ color: "rgba(228,222,212,0.65)", fontWeight: 700 }}>
                 balance

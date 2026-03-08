@@ -99,7 +99,7 @@ export default function Footer() {
           fontSize: "0.58rem",
           letterSpacing: "0.12em",
           color: "rgba(231,226,217,0.2)",
-        }}>BUILT WITH ZK-SNARKS</span>
+        }}>BUILT WITH ZK SNARKS</span>
       </div>
 
     </footer>

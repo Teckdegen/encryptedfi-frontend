@@ -11,23 +11,23 @@ import { useState } from "react";
 const QUESTIONS = [
   {
     q: "Do I receive a new token when I wrap?",
-    a: "No. You do not receive any new token or tradeable asset. What you get is a private note — a commitment hash that only you can prove ownership of using your private key. It lives in a global set on-chain with no address attached to it. Nothing is minted to your wallet.",
+    a: "No. You do not receive any new token or tradeable asset. What you get is a private note — a commitment hash that only you can prove ownership of using your private key. It lives in a global set on chain with no address attached to it. Nothing is minted to your wallet.",
   },
   {
     q: "How does my wallet know I received funds?",
-    a: "Your wallet scans every NoteCreated event on-chain and tries to decrypt each encrypted note using your private key. If decryption succeeds and the commitment hash matches, that note belongs to you. You are never notified directly — your wallet finds your notes automatically by trying your key on every new event.",
+    a: "Your wallet scans every NoteCreated event on chain and tries to decrypt each encrypted note using your private key. If decryption succeeds and the commitment hash matches, that note belongs to you. You are never notified directly — your wallet finds your notes automatically by trying your key on every new event.",
   },
   {
     q: "What exactly is the encrypted note?",
-    a: "When someone sends to you, they encrypt a small blob containing the transfer amount and a blinding factor using your Ethereum public key. This ciphertext is stored on-chain attached to your commitment hash. Only you — with your private key — can decrypt it and learn what you received. Without it you cannot reconstruct your commitment and cannot spend the note.",
+    a: "When someone sends to you, they encrypt a small blob containing the transfer amount and a blinding factor using your Ethereum public key. This ciphertext is stored on chain attached to your commitment hash. Only you — with your private key — can decrypt it and learn what you received. Without it you cannot reconstruct your commitment and cannot spend the note.",
   },
   {
     q: "Why can't someone with my public key read my notes?",
     a: "Public keys encrypt. Private keys decrypt. Never the other way. Your public key is a point on the secp256k1 elliptic curve derived from your private key using a one-way function — impossible to reverse. Anyone can lock a note to you using your public key, including the sender. Only the holder of your private key can unlock it. The sender cannot read the note after sending it.",
   },
   {
-    q: "Is my wallet address ever visible on-chain?",
-    a: "No. When you transfer through EncryptedFi the on-chain sender shows as the protocol relay contract, not your wallet. Receiver addresses never appear in transactions, storage, or events. Only commitment hashes and encrypted blobs are written on-chain. Your address is not referenced anywhere.",
+    q: "Is my wallet address ever visible on chain?",
+    a: "No. When you transfer through EncryptedFi the on chain sender shows as the protocol relay contract, not your wallet. Receiver addresses never appear in transactions, storage, or events. Only commitment hashes and encrypted blobs are written on chain. Your address is not referenced anywhere.",
   },
   {
     q: "What happens to my tokens when I wrap?",
@@ -35,15 +35,15 @@ const QUESTIONS = [
   },
   {
     q: "Can EncryptedFi see my balance?",
-    a: "No. Your balance exists only as a set of encrypted notes on-chain. The EncryptedFi team cannot read them. Nobody can without your private key. Only the holder of your private key can decrypt the notes and sum the amounts. Not the relayer. Not the deployer. Nobody.",
+    a: "No. Your balance exists only as a set of encrypted notes on chain. The EncryptedFi team cannot read them. Nobody can without your private key. Only the holder of your private key can decrypt the notes and sum the amounts. Not the relayer. Not the deployer. Nobody.",
   },
   {
     q: "Are transfers gasless?",
-    a: "Yes. The relay server submits transactions on-chain on your behalf. You pay a small protocol fee deducted from your transfer amount. You never need to hold native chain tokens to transact privately inside the system.",
+    a: "Yes. The relay server submits transactions on chain on your behalf. You pay a small protocol fee deducted from your transfer amount. You never need to hold native chain tokens to transact privately inside the system.",
   },
   {
     q: "What if I lose access to my wallet?",
-    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self-custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
+    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
   },
 ];
 
