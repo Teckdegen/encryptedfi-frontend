@@ -148,7 +148,7 @@ export default function Waitlist() {
           )}
         </div>
 
-        {/* Right — big logo */}
+        {/* Right, big logo */}
         <div>
           <Logo size="lg" />
         </div>

@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────
    blogs.ts
-   Hardcoded blog data — add new posts here, they appear automatically
+   Hardcoded blog data. Add new posts here, they appear automatically
    on /blog and in the Updates section on the homepage.
 ───────────────────────────────────────────────────────────────────────── */
 
@@ -28,11 +28,11 @@ export interface BlogPost {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Posts — newest first
+   Posts, newest first
 ───────────────────────────────────────────────────────────────────────── */
 export const blogs: BlogPost[] = [
 
-  /* ── Add posts here — newest first ─────────────────────────────────────
+  /* ── Add posts here, newest first ─────────────────────────────────────
      Each post appears on /blog and the 3 newest show in the Updates section
      on the homepage automatically.
 

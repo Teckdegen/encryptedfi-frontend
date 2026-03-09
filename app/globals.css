@@ -1,5 +1,5 @@
 /* ============================================================
-   ENCRYPTED FI — 2026 Editorial
+   ENCRYPTED FI 2026 Editorial
    Palette from logo: Cream #E7E2D9 · Ink #0A0A0A · White #FFF
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -481,7 +481,7 @@ body > * { position: relative; z-index: 1; }
   white-space: pre;
 }
 
-/* Stats grid — adapts to any number of stat cells */
+/* Stats grid, adapts to any number of stat cells */
 .blog-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -536,13 +536,13 @@ body > * { position: relative; z-index: 1; }
   .blog-meta-row { gap: 10px; }
   .blog-post-header { margin-bottom: 32px; }
 
-  /* Stats — 2-column on tablet */
+  /* Stats, 2-column on tablet */
   .blog-stats { grid-template-columns: repeat(2, 1fr); }
   .blog-stat-cell:nth-child(2) { border-right: none; }
   .blog-stat-cell:nth-child(3) { border-top: var(--border); }
   .blog-stat-cell:nth-child(4) { border-top: var(--border); border-right: none; }
 
-  /* Updates homepage cards — override inline padding */
+  /* Updates homepage cards, override inline padding */
   .updates-card { padding: 28px !important; }
 
   /* Blog listing card */
@@ -560,7 +560,7 @@ body > * { position: relative; z-index: 1; }
   .blog-list li { padding: 9px 14px 9px 38px; font-size: 0.93rem; }
   .blog-code  { padding: 14px 16px; font-size: 0.72rem; overflow-x: scroll; }
 
-  /* Stats — 2-column on small phones */
+  /* Stats, 2-column on small phones */
   .blog-stats { grid-template-columns: 1fr 1fr; }
   .blog-stat-cell { padding: 18px 14px; }
   .blog-stat-value { font-size: 1.4rem; }

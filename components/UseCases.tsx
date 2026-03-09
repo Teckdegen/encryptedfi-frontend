@@ -33,7 +33,7 @@ const CASES = [
     Icon: BuildingIcon,
     title: "Institutional Privacy",
     one: "Enterprise finance. Encrypted.",
-    body: "Treasury movements, OTC deals, large transfers — handled confidentially on public infrastructure. No off chain trust needed.",
+    body: "Treasury movements, OTC deals, large transfers, handled confidentially on public infrastructure. No off chain trust needed.",
     dark: false,
   },
   {

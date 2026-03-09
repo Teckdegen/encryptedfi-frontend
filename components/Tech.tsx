@@ -76,14 +76,14 @@ export default function Tech() {
             }}
           >
             Built for public chains. EVM, Stacks, and beyond. Wallets hold encrypted
-            notes, not balances. Every transfer is an ECIES-encrypted note — only the
+            notes, not balances. Every transfer is an ECIES encrypted note. Only the
             receiver can open it, using their ETH public key recovered automatically
             from any signed transaction. Verified by a ZK proof. No registration. No
             trust. Any chain.
           </p>
         </div>
 
-        {/* Stack grid — 8 cells, 4 col */}
+        {/* Stack grid, 8 cells, 4 col */}
         <div
           className="tech-grid"
           style={{

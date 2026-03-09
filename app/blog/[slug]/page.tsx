@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   /blog/[slug] — Individual blog post page
+   /blog/[slug], individual blog post page
 ───────────────────────────────────────────────────────────────────────── */
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,7 +21,7 @@ export async function generateMetadata({
   const post = getBlogBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} - EncryptedFi`,
+    title: `${post.title} · EncryptedFi`,
     description: post.excerpt,
   };
 }

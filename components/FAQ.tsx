@@ -2,7 +2,7 @@
 
 /* ─────────────────────────────────────────────────────────────────────────
    FAQ.tsx
-   Accordion FAQ — privacy questions answered for users.
+   Accordion FAQ, privacy questions answered for users.
    Placed before the footer on the homepage.
 ───────────────────────────────────────────────────────────────────────── */
 
@@ -10,20 +10,24 @@ import { useState } from "react";
 
 const QUESTIONS = [
   {
+    q: "What if someone scans the entire blockchain looking for my transfers?",
+    a: "They get nothing useful. Every note on chain is a Poseidon hash, a 32-byte value that looks completely random without the private inputs that created it. The Poseidon hash is a one-way function. You cannot reverse it to find the amount, the blinding factor, or the receiver. The encrypted note attached to each event is ECIES ciphertext. Decrypting it requires the receiver's private key. Brute forcing secp256k1 private keys is computationally impossible with all computers on Earth running for billions of years. Even a full blockchain scan with unlimited resources gives an attacker only random-looking hashes and unreadable ciphertext. Nothing links a commitment to an address, an amount, a sender, or a receiver.",
+  },
+  {
     q: "Do I receive a new token when I wrap?",
-    a: "No. You do not receive any new token or tradeable asset. What you get is a private note — a commitment hash that only you can prove ownership of using your private key. It lives in a global set on chain with no address attached to it. Nothing is minted to your wallet.",
+    a: "No. You do not receive any new token or tradeable asset. What you get is a private note, a commitment hash that only you can prove ownership of using your private key. It lives in a global set on chain with no address attached to it. Nothing is minted to your wallet.",
   },
   {
     q: "How does my wallet know I received funds?",
-    a: "Your wallet scans every NoteCreated event on chain and tries to decrypt each encrypted note using your private key. If decryption succeeds and the commitment hash matches, that note belongs to you. You are never notified directly — your wallet finds your notes automatically by trying your key on every new event.",
+    a: "Your wallet scans every NoteCreated event on chain and tries to decrypt each encrypted note using your private key. If decryption succeeds and the commitment hash matches, that note belongs to you. You are never notified directly. Your wallet finds your notes automatically by trying your key on every new event.",
   },
   {
     q: "What exactly is the encrypted note?",
-    a: "When someone sends to you, they encrypt a small blob containing the transfer amount and a blinding factor using your Ethereum public key. This ciphertext is stored on chain attached to your commitment hash. Only you — with your private key — can decrypt it and learn what you received. Without it you cannot reconstruct your commitment and cannot spend the note.",
+    a: "When someone sends to you, they encrypt a small blob containing the transfer amount and a blinding factor using your Ethereum public key. This ciphertext is stored on chain attached to your commitment hash. Only you, with your private key, can decrypt it and learn what you received. Without it you cannot reconstruct your commitment and cannot spend the note.",
   },
   {
     q: "Why can't someone with my public key read my notes?",
-    a: "Public keys encrypt. Private keys decrypt. Never the other way. Your public key is a point on the secp256k1 elliptic curve derived from your private key using a one-way function — impossible to reverse. Anyone can lock a note to you using your public key, including the sender. Only the holder of your private key can unlock it. The sender cannot read the note after sending it.",
+    a: "Public keys encrypt. Private keys decrypt. Never the other way. Your public key is a point on the secp256k1 elliptic curve derived from your private key using a one-way function, impossible to reverse. Anyone can lock a note to you using your public key, including the sender. Only the holder of your private key can unlock it. The sender cannot read the note after sending it.",
   },
   {
     q: "Is my wallet address ever visible on chain?",
@@ -31,7 +35,7 @@ const QUESTIONS = [
   },
   {
     q: "What happens to my tokens when I wrap?",
-    a: "Your tokens are locked in the Vault contract. A ZK proof is generated proving you deposited a valid amount and a commitment hash is written to the contract's global note set. No address is stored — not in the mapping, not in events. The vault holds the underlying tokens and they are redeemable only by whoever can prove note ownership with a valid ZK proof.",
+    a: "Your tokens are locked in the Vault contract. A ZK proof is generated proving you deposited a valid amount and a commitment hash is written to the contract's global note set. No address is stored, not in the mapping, not in events. The vault holds the underlying tokens and they are redeemable only by whoever can prove note ownership with a valid ZK proof.",
   },
   {
     q: "Can EncryptedFi see my balance?",
@@ -43,7 +47,7 @@ const QUESTIONS = [
   },
   {
     q: "What if I lose access to my wallet?",
-    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
+    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible, the same as any self custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
   },
 ];
 
@@ -152,7 +156,7 @@ export default function FAQ() {
                   borderTop: i === 0 ? "var(--border)" : "none",
                 }}
               >
-                {/* Question row — clickable */}
+                {/* Question row, clickable */}
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
                   style={{
@@ -201,7 +205,7 @@ export default function FAQ() {
                   </span>
                 </button>
 
-                {/* Answer — visible when open */}
+                {/* Answer, visible when open */}
                 {isOpen && (
                   <div
                     style={{

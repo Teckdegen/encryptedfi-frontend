@@ -165,7 +165,7 @@ export default function Nav() {
             letterSpacing: "0.14em",
             color: "rgba(231,226,217,0.2)",
           }}>
-            © 2026 ENCRYPTED FI — ENCRYPTED LAYER FOR PUBLIC CHAINS
+            © 2026 ENCRYPTED FI. ENCRYPTED LAYER FOR PUBLIC CHAINS
           </div>
         </div>
       )}

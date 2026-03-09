@@ -158,9 +158,9 @@ export default function ExplorerPreview() {
             Open any block explorer. You see the protocol contract and encrypted blobs.
             The sender is{" "}
             <strong style={{ color: "rgba(228,222,212,0.7)" }}>never your wallet</strong>{" "}
-            — it shows ENCRYPTEDFI. The receiver address is{" "}
+            It shows ENCRYPTEDFI. The receiver address is{" "}
             <strong style={{ color: "rgba(228,222,212,0.7)" }}>never on chain</strong>{" "}
-            — not in the transaction, not in the events. Not anywhere.
+            not in the transaction, not in the events. Not anywhere.
           </p>
         </div>
 
@@ -303,7 +303,7 @@ export default function ExplorerPreview() {
                     color: label === "METHOD"
                       ? "rgba(228,180,100,0.8)"
                       : highlight === "relayer"
-                      ? "rgba(160,220,120,0.85)"   // green — protocol contract, not user
+                      ? "rgba(160,220,120,0.85)"   // green, protocol contract, not user
                       : "rgba(228,222,212,0.6)",
                     flex: 1,
                     wordBreak: "break-all" as const,
@@ -333,7 +333,7 @@ export default function ExplorerPreview() {
             ))}
           </div>
 
-          {/* ── Privacy callout — BOTH hidden ── */}
+        {/* ── Privacy callout, BOTH hidden ── */}
           <div
             style={{
               margin: "0 28px 20px",

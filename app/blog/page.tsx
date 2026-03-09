@@ -1,12 +1,12 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   /blog — All posts listing page
+   /blog, all posts listing page
 ───────────────────────────────────────────────────────────────────────── */
 import Link from "next/link";
 import { blogs } from "../../data/blogs";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Updates - EncryptedFi",
+  title: "Updates · EncryptedFi",
   description: "Protocol updates, research notes, and build logs from EncryptedFi.",
 };
 

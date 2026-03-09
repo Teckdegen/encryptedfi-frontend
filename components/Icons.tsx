@@ -1,4 +1,4 @@
-// Brand-matched SVG icons — stroke-based, no fill, scales with font-size via em units
+// Brand-matched SVG icons, stroke-based, no fill, scales with font-size via em units
 
 type IconProps = { size?: number; color?: string; strokeWidth?: number };
 
