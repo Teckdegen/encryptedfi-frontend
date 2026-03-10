@@ -49,6 +49,10 @@ const QUESTIONS = [
     q: "What if I lose access to my wallet?",
     a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible, the same as any self custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
   },
+  {
+    q: "Can I prove my transaction history to an auditor without sharing my wallet?",
+    a: "Yes. EncryptedFi has a built in compliance system. Your wallet derives a viewing key, a separate cryptographic key that can only decrypt your notes for reading, not spend them. The derivation is one way: your spending key produces the viewing key, but the viewing key cannot produce the spending key. You give the auditor just the viewing key. They run a scan tool against the live chain, decrypt every note that belongs to you, verify each commitment hash on chain, and produce a verified report of your full history including amounts, timestamps, and transaction hashes. They cannot move a single token. You can also export a signed audit trail, a JSON signed with your private key that lists every operation, which the auditor verifies using your public key alone without ever seeing your private key.",
+  },
 ];
 
 export default function FAQ() {
