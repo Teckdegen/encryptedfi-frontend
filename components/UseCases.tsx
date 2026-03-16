@@ -1,6 +1,7 @@
 import {
   LockIcon, ChartIcon, BriefcaseIcon,
   BuildingIcon, GavelIcon, ShieldIcon,
+  TrendingUpIcon, ArrowsIcon, LayersIcon,
 } from "./Icons";
 
 const CASES = [
@@ -50,6 +51,30 @@ const CASES = [
     title: "MEV Shield",
     one: "Your intent stays private.",
     body: "Bots can't read what they can't see. Confidential transactions stop front-runners and sandwich attacks before they start.",
+    dark: false,
+  },
+  {
+    n: "07",
+    Icon: TrendingUpIcon,
+    title: "Confidential Yields",
+    one: "Earn DeFi yield. Stay private.",
+    body: "Deposit into any ERC-4626 yield vault — Yearn, Morpho, Spark, and beyond — while your balance stays encrypted. Yield accrues silently to your share value.",
+    dark: false,
+  },
+  {
+    n: "08",
+    Icon: ArrowsIcon,
+    title: "Private Swaps",
+    one: "Swap tokens. Your address, hidden.",
+    body: "Route between any two confidential token pairs through a public DEX. The swap settles on-chain but your wallet address and amounts never appear in plain text.",
+    dark: true,
+  },
+  {
+    n: "09",
+    Icon: LayersIcon,
+    title: "Hidden Liquidity",
+    one: "Deploy capital. Leave no trace.",
+    body: "Provide liquidity to DeFi protocols and manage positions without broadcasting your on-chain strategy to competitors or surveillance bots.",
     dark: false,
   },
 ];
@@ -107,7 +132,7 @@ export default function UseCases() {
       {/* Cards */}
       <div className="grid-3" style={{ borderBottom: "var(--border)" }}>
         {CASES.map((c, i) => {
-          const isLastRow = i >= 3;
+          const isLastRow = i >= CASES.length - 3;
           const isLastCol = (i + 1) % 3 === 0;
           const iconColor = c.dark ? "rgba(231,226,217,0.65)" : "var(--ink)";
 

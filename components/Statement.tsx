@@ -83,17 +83,17 @@ export default function Statement() {
           {
             step: "02",
             verb: "TRANSACT",
-            headline: "Send privately. Nothing leaks.",
-            sub: "Transfer to anyone using their address. A ZK proof is generated and submitted by the relay. Amounts, sender, and receiver stay hidden from the chain.",
+            headline: "Send, swap, or earn. Nothing leaks.",
+            sub: "Transfer to anyone, swap between confidential token pairs, or deploy into DeFi yield vaults — all through a ZK proof. Amounts, sender, and receiver stay hidden from the chain.",
             pill: { from: "▓▓▓ PRIVATE", to: "▓▓▓ PRIVATE" },
             dark: true,
           },
           {
             step: "03",
             verb: "UNWRAP",
-            headline: "Back to your token. Anytime.",
-            sub: "Prove you own a private note. The vault releases the underlying tokens to your address. Your exit is as private as your entry.",
-            pill: { from: "PRIVATE NOTE", to: "100 TOKEN" },
+            headline: "Back to your token. With yield.",
+            sub: "Prove you own a private note. The vault releases the underlying tokens — plus any accrued DeFi yield — directly to your address. Your exit is as private as your entry.",
+            pill: { from: "PRIVATE NOTE", to: "105 TOKEN" },
             dark: false,
           },
         ].map((s, i) => (
