@@ -2,6 +2,7 @@ import {
   LockIcon, ChartIcon, BriefcaseIcon,
   BuildingIcon, GavelIcon, ShieldIcon,
   TrendingUpIcon, ArrowsIcon, LayersIcon,
+  KeyIcon, ZapIcon, GlobeIcon,
 } from "./Icons";
 
 const CASES = [
@@ -73,8 +74,32 @@ const CASES = [
     n: "09",
     Icon: LayersIcon,
     title: "Hidden Liquidity",
-    one: "Deploy capital. Leave no trace.",
-    body: "Provide liquidity to DeFi protocols and manage positions without broadcasting your on-chain strategy to competitors or surveillance bots.",
+    one: "Provide LP. Leave no trace.",
+    body: "Add liquidity to any Uniswap V2-compatible pool atomically. Your tokenA, tokenB, and LP position all stay private. Remove later and receive private notes back.",
+    dark: false,
+  },
+  {
+    n: "10",
+    Icon: KeyIcon,
+    title: "Confidential Lending",
+    one: "Borrow. Your collateral, hidden.",
+    body: "Deposit cToken collateral and borrow against it privately. Your position is on-chain but never linked to your wallet. Liquidations are keeper-driven from public price feeds.",
+    dark: false,
+  },
+  {
+    n: "11",
+    Icon: ZapIcon,
+    title: "Private Governance",
+    one: "Vote. Nobody knows it was you.",
+    body: "Cast votes with ZK proofs of note ownership. Vote weight and voter identity stay hidden. Only the tally is public. Double-voting is impossible via on-chain nullifiers.",
+    dark: true,
+  },
+  {
+    n: "12",
+    Icon: GlobeIcon,
+    title: "Any EVM, Any Token",
+    one: "Multichain. Universal.",
+    body: "Deploy on any public EVM chain — Flare, Ethereum, Base, Arbitrum, Polygon, and beyond. Any ERC-20 becomes a confidential token with one factory call. No bridges needed.",
     dark: false,
   },
 ];
@@ -113,7 +138,7 @@ export default function UseCases() {
           letterSpacing: "-0.025em",
         }}>
           Privacy for every<br />
-          <em style={{ fontStyle: "italic", fontWeight: 700 }}>on chain use case.</em>
+          <em style={{ fontStyle: "italic", fontWeight: 700 }}>DeFi primitive.</em>
         </h2>
 
         <div style={{ borderLeft: "4px solid var(--ink)", paddingLeft: 24 }}>
@@ -124,7 +149,7 @@ export default function UseCases() {
             lineHeight: 1.65,
             color: "var(--ink-soft)",
           }}>
-            "The moment your assets wrap into Encrypted Fi, they move privately. Every transfer, approval, and delegated send is backed by a ZK proof."
+            "The moment your assets wrap into Encrypted Fi, they move privately. Every transfer, swap, yield, borrow, LP position, and governance vote is backed by a ZK proof."
           </p>
         </div>
       </div>
