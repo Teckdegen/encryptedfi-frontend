@@ -5,7 +5,7 @@ import { useEffect, useCallback } from "react";
 import type { Slide } from "../slides";
 import Image from "next/image";
 
-// ─── Shared primitives ────────────────────────────────────────────────────────
+// ─── CSS vars shorthand ───────────────────────────────────────────────────────
 
 const ink   = "var(--ink)";
 const cream = "var(--cream)";
@@ -16,29 +16,60 @@ const sans  = "var(--font-sans)";
 const bdr   = "var(--border)";
 const soft  = "var(--ink-soft)";
 
+// ─── Inline SVG icons (no emojis) ────────────────────────────────────────────
+
+const SvgIcon = ({ d, size = 20 }: { d: string; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+    <path d={d} />
+  </svg>
+);
+
+const IconEye        = () => <SvgIcon d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />;
+const IconZap        = () => <SvgIcon d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />;
+const IconBuilding   = () => <SvgIcon d="M3 21h18M9 8h1m5 0h1M9 12h1m5 0h1M9 16h1m5 0h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />;
+const IconTarget     = () => <SvgIcon d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-14a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />;
+const IconLock       = () => <SvgIcon d="M18 11H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM12 17v-2m0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM8 11V7a4 4 0 0 1 8 0v4" />;
+const IconArrows     = () => <SvgIcon d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" />;
+const IconTrend      = () => <SvgIcon d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />;
+const IconCoin       = () => <SvgIcon d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 5v1m0 8v1m-3-5h5.5a1.5 1.5 0 0 1 0 3H9m0 0h6" />;
+const IconDroplet    = () => <SvgIcon d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z" />;
+const IconVote       = () => <SvgIcon d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9" />;
+const IconShield     = () => <SvgIcon d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
+const IconKey        = () => <SvgIcon d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4" />;
+const IconCircuit    = () => <SvgIcon d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />;
+const IconLink       = () => <SvgIcon d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />;
+const IconFileCheck  = () => <SvgIcon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-2 13l-3-3 1.41-1.41L12 12.17l4.59-4.58L18 9l-6 6zm2-13v5h5" />;
+const IconGlobe      = () => <SvgIcon d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 0a14.5 14.5 0 0 1 4 10 14.5 14.5 0 0 1-4 10A14.5 14.5 0 0 1 8 12 14.5 14.5 0 0 1 12 2zM2 12h20" />;
+const IconCheckBadge = () => <SvgIcon d="M9 12l2 2 4-4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />;
+
+// ─── Shared layout primitives ─────────────────────────────────────────────────
+
 const Tag = ({ children }: { children: string }) => (
-  <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.2em", fontWeight: 700,
-    background: ink, color: cream, padding: "5px 14px", display: "inline-block", marginBottom: 28 }}>
+  <div style={{
+    fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.2em", fontWeight: 700,
+    background: ink, color: cream, padding: "5px 14px", display: "inline-block", marginBottom: 28,
+  }}>
     {children}
   </div>
 );
 
 const H1 = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
-  <h2 style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(2.4rem,5.5vw,4.5rem)",
-    lineHeight: 0.96, letterSpacing: "-0.03em", color: ink, margin: 0, ...style }}>
+  <h2 style={{
+    fontFamily: serif, fontWeight: 900, fontSize: "clamp(2.4rem,5.5vw,4.5rem)",
+    lineHeight: 0.96, letterSpacing: "-0.03em", color: ink, margin: 0, ...style,
+  }}>
     {children}
   </h2>
 );
 
 const Body = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
-  <p style={{ fontFamily: sans, fontSize: "clamp(0.88rem,1.5vw,1.02rem)", lineHeight: 1.8,
-    color: soft, margin: 0, ...style }}>
+  <p style={{
+    fontFamily: sans, fontSize: "clamp(0.88rem,1.5vw,1rem)", lineHeight: 1.8,
+    color: soft, margin: 0, ...style,
+  }}>
     {children}
   </p>
-);
-
-const Divider = () => (
-  <div style={{ height: 1, background: "rgba(10,10,10,0.1)", margin: "20px 0" }} />
 );
 
 const Row = ({ left, right }: { left: React.ReactNode; right: React.ReactNode }) => (
@@ -53,67 +84,15 @@ const Row = ({ left, right }: { left: React.ReactNode; right: React.ReactNode })
 );
 
 const Center = ({ children }: { children: React.ReactNode }) => (
-  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-    textAlign: "center", height: "100%", padding: "40px 20px" }}>
+  <div style={{
+    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+    textAlign: "center", height: "100%", padding: "40px 20px",
+  }}>
     {children}
   </div>
 );
 
-const Grid3 = ({ items }: { items: { icon?: string; label: string; sub: string }[] }) => (
-  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", border: bdr }}>
-    {items.map((c, i) => (
-      <div key={c.label} style={{
-        padding: "26px 20px",
-        borderRight: i % 3 < 2 ? bdr : "none",
-        borderBottom: i < items.length - 3 ? bdr : "none",
-        background: i % 2 === 1 ? "rgba(10,10,10,0.03)" : "transparent",
-      }}>
-        {c.icon && <div style={{ fontSize: "1.4rem", marginBottom: 10 }}>{c.icon}</div>}
-        <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "0.9rem", marginBottom: 6 }}>{c.label}</div>
-        <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.55 }}>{c.sub}</div>
-      </div>
-    ))}
-  </div>
-);
-
-// ─── Bullet list ──────────────────────────────────────────────────────────────
-
-const Check = ({ items, done = true }: { items: string[]; done?: boolean }) => (
-  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-    {items.map(t => (
-      <div key={t} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-        <span style={{ color: done ? ink : "rgba(10,10,10,0.22)", fontWeight: 700, lineHeight: 1.4 }}>
-          {done ? "✓" : "○"}
-        </span>
-        <span style={{ fontFamily: sans, fontSize: "0.82rem", color: soft, lineHeight: 1.6 }}>{t}</span>
-      </div>
-    ))}
-  </div>
-);
-
-// ─── Big stat box ─────────────────────────────────────────────────────────────
-
-const StatBox = ({ items, cols = 2 }: {
-  items: { n: string; l: string; dark?: boolean }[];
-  cols?: number;
-}) => (
-  <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, border: bdr }}>
-    {items.map((s, i) => (
-      <div key={s.l} style={{
-        padding: "30px 28px",
-        borderRight: (i % cols < cols - 1) ? bdr : "none",
-        borderBottom: i < items.length - cols ? bdr : "none",
-        background: s.dark ? ink : "transparent",
-        color: s.dark ? white : ink,
-      }}>
-        <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(2rem,4vw,3.2rem)", lineHeight: 1, marginBottom: 8 }}>{s.n}</div>
-        <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.14em", opacity: 0.55 }}>{s.l.toUpperCase()}</div>
-      </div>
-    ))}
-  </div>
-);
-
-// ─── Slide content map ────────────────────────────────────────────────────────
+// ─── Slide content ────────────────────────────────────────────────────────────
 
 function SlideContent({ n }: { n: number }) {
   switch (n) {
@@ -122,22 +101,24 @@ function SlideContent({ n }: { n: number }) {
     case 1: return (
       <Center>
         <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.2em", color: soft, marginBottom: 24 }}>
-          CONFIDENTIAL · SERIES SEED · 2026
+          ENCRYPTED FI · 2026 · EVM PRIVACY INFRASTRUCTURE
         </div>
         <H1 style={{ fontSize: "clamp(4rem,11vw,8.5rem)", marginBottom: 24 }}>
           Encrypted<br /><em style={{ fontStyle: "italic" }}>Fi</em>
         </H1>
         <Body style={{ maxWidth: 520, marginBottom: 52 }}>
-          The privacy infrastructure layer for public blockchains.
-          Any token. Any chain. Zero-knowledge verified.
+          The privacy layer for ERC-20 tokens on EVM chains. Any token.
+          Any wallet. Zero knowledge. No new chain. No new wallet.
         </Body>
         <div style={{ display: "flex", gap: 0, border: bdr }}>
           {[
-            { n: "ZK",    l: "Every operation"    },
-            { n: "100%",  l: "Non-custodial"       },
-            { n: "Multi", l: "Chain — EVM + BTC"   },
+            { n: "ZK",   l: "Every operation"     },
+            { n: "1:1",  l: "Token redemption"    },
+            { n: "0x",   l: "Same wallet address" },
           ].map((s, i) => (
-            <div key={s.l} style={{ padding: "18px 32px", borderRight: i < 2 ? bdr : "none", textAlign: "center" as const }}>
+            <div key={s.l} style={{
+              padding: "18px 32px", borderRight: i < 2 ? bdr : "none", textAlign: "center" as const,
+            }}>
               <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.8rem", lineHeight: 1 }}>{s.n}</div>
               <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, marginTop: 6 }}>{s.l.toUpperCase()}</div>
             </div>
@@ -154,30 +135,45 @@ function SlideContent({ n }: { n: number }) {
             <Tag>THE PROBLEM</Tag>
             <H1>Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em></H1>
             <Body style={{ marginTop: 24 }}>
-              Public blockchains solved trustlessness. They sacrificed privacy entirely.
-              Every wallet, balance, and transaction is permanently readable by anyone —
-              competitors, regulators, bots, and adversaries alike.
+              Public blockchains solved trustlessness and sacrificed privacy entirely.
+              Every wallet, balance, and transaction is permanently readable by anyone
+              in real time. Competitors, front-running bots, and adversaries all have
+              the same view you do.
             </Body>
           </>
         }
         right={
           <div>
             {[
-              { icon: "👁", t: "Total on-chain surveillance",
-                b: "Every wallet balance and transaction is visible in real time. A single address lookup exposes years of financial history — wealth, counterparties, habits." },
-              { icon: "⚡", t: "$1.38B extracted via MEV in 2024",
-                b: "Visible pending transactions allow sandwich bots to front-run every trade. Users bear the cost through slippage, failed txs, and worse execution." },
-              { icon: "🏛", t: "Institutions cannot operate publicly",
-                b: "No fund, treasury, or enterprise can execute strategy on-chain without telegraphing every move. Privacy is the single biggest blocker to institutional DeFi adoption." },
-              { icon: "🎯", t: "Targeted attacks follow public wealth",
-                b: "Known on-chain wealth leads directly to phishing, social engineering, and protocol exploits directed at visible high-value wallets." },
+              {
+                Icon: IconEye,
+                t: "Total on-chain surveillance",
+                b: "Every wallet balance and transaction is visible permanently. A single address lookup exposes years of financial history, counterparties, and strategy.",
+              },
+              {
+                Icon: IconZap,
+                t: "$1.38B extracted via MEV in 2024",
+                b: "Visible pending transactions allow sandwich bots to front-run every trade. Users absorb the cost through worse execution, failed transactions, and slippage.",
+              },
+              {
+                Icon: IconBuilding,
+                t: "Institutions cannot operate publicly",
+                b: "No fund, treasury, or enterprise can execute strategy on-chain without broadcasting every move. Transparency is the single biggest blocker to institutional DeFi adoption.",
+              },
+              {
+                Icon: IconTarget,
+                t: "Wealth visibility drives targeted attacks",
+                b: "Known on-chain holdings lead directly to phishing, social engineering, and protocol exploits directed at identifiable high-value wallets.",
+              },
             ].map(p => (
               <div key={p.t} style={{ marginBottom: 18, paddingBottom: 18, borderBottom: "1px solid rgba(10,10,10,0.07)" }}>
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: 2 }}>{p.icon}</span>
+                <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, marginTop: 2, color: ink }}>
+                    <p.Icon />
+                  </span>
                   <div>
-                    <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem", marginBottom: 4 }}>{p.t}</div>
-                    <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.6 }}>{p.b}</div>
+                    <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.9rem", marginBottom: 4 }}>{p.t}</div>
+                    <div style={{ fontFamily: sans, fontSize: "0.76rem", color: soft, lineHeight: 1.65 }}>{p.b}</div>
                   </div>
                 </div>
               </div>
@@ -187,38 +183,59 @@ function SlideContent({ n }: { n: number }) {
       />
     );
 
-    // ── 3: Market Size ────────────────────────────────────────────────────────
+    // ── 3: Market ─────────────────────────────────────────────────────────────
     case 3: return (
       <Row
         left={
           <>
-            <Tag>MARKET OPPORTUNITY</Tag>
-            <H1>$2.7 trillion.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em></H1>
+            <Tag>MARKET</Tag>
+            <H1>$110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em></H1>
             <Body style={{ marginTop: 24 }}>
-              Every dollar currently on-chain is fully transparent. We are building
-              the first privacy middleware that any protocol, wallet, or institution
-              can integrate without forking their stack.
+              Starknet launched STRK20, a confidential token standard that proved the
+              market demand for on-chain privacy. But STRK20 is locked to the Starknet
+              ecosystem and cannot touch a single ERC-20 token.
+            </Body>
+            <Body style={{ marginTop: 16 }}>
+              Encrypted Fi brings the same capability to every ERC-20 token on every
+              EVM chain, where the money actually lives.
             </Body>
           </>
         }
         right={
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            <StatBox cols={2} items={[
-              { n: "$2.7T",  l: "Total crypto market cap",   dark: true },
-              { n: "$110B",  l: "DeFi total value locked"             },
-              { n: "$1.4T",  l: "Addressable DeFi volume / yr"        },
-              { n: "$0",     l: "Credible on-chain privacy solutions"  },
-            ]} />
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", border: bdr }}>
               {[
-                { label: "TAM", desc: "All on-chain value ($2.7T+) — every user benefits from confidential balances" },
-                { label: "SAM", desc: "DeFi power users, institutions, DAOs, protocols — ~$400B TVL exposure" },
-                { label: "SOM", desc: "Privacy-conscious segment in Year 1–2: $5B–20B TVL as integration target" },
-              ].map(m => (
-                <div key={m.label} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                  <span style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.14em",
-                    background: ink, color: white, padding: "3px 10px", flexShrink: 0, marginTop: 2 }}>{m.label}</span>
-                  <span style={{ fontFamily: sans, fontSize: "0.78rem", color: soft, lineHeight: 1.55 }}>{m.desc}</span>
+                { n: "$110B+", l: "DeFi TVL on EVM chains",           dark: true },
+                { n: "500k+",  l: "ERC-20 tokens deployed"                       },
+                { n: "$1.4T",  l: "Annual EVM DEX volume"                        },
+                { n: "0",      l: "ERC-20 native privacy solutions"               },
+              ].map((s, i) => (
+                <div key={s.l} style={{
+                  padding: "28px 24px",
+                  borderRight: i % 2 === 0 ? bdr : "none",
+                  borderBottom: i < 2 ? bdr : "none",
+                  background: s.dark ? ink : "transparent",
+                  color: s.dark ? white : ink,
+                }}>
+                  <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.8rem,3.5vw,2.8rem)", lineHeight: 1, marginBottom: 8 }}>{s.n}</div>
+                  <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.12em", opacity: 0.55 }}>{s.l.toUpperCase()}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ border: bdr, padding: "20px 22px" }}>
+              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.14em", color: soft, marginBottom: 14 }}>WHY NOT STRK20</div>
+              {[
+                "Works only inside Starknet. Cannot interact with Ethereum, L2s, or any EVM chain.",
+                "Cannot wrap standard ERC-20 tokens. Requires native Starknet token issuance.",
+                "Separate ecosystem, separate wallets, separate liquidity. Not composable with existing DeFi.",
+                "Encrypted Fi: any ERC-20, any EVM chain, same 0x wallet address, same liquidity pools.",
+              ].map((it, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
+                  <span style={{ color: i === 3 ? ink : soft, flexShrink: 0, fontWeight: 700, fontSize: "0.72rem", marginTop: 2 }}>
+                    {i === 3 ? "+" : "x"}
+                  </span>
+                  <span style={{ fontFamily: sans, fontSize: "0.76rem", color: i === 3 ? ink : soft, lineHeight: 1.55, fontWeight: i === 3 ? 600 : 400 }}>{it}</span>
                 </div>
               ))}
             </div>
@@ -230,22 +247,21 @@ function SlideContent({ n }: { n: number }) {
     // ── 4: Solution ───────────────────────────────────────────────────────────
     case 4: return (
       <Center>
-        <Tag>OUR SOLUTION</Tag>
+        <Tag>SOLUTION</Tag>
         <H1 style={{ marginBottom: 16 }}>
           Privacy as a layer,<br /><em style={{ fontStyle: "italic" }}>not a chain.</em>
         </H1>
         <Body style={{ maxWidth: 580, marginBottom: 48 }}>
-          Encrypted Fi wraps any existing ERC-20 (or SIP-010) token into a
-          confidential cToken. Every interaction — transfer, swap, lend, earn —
-          is hidden inside a ZK proof. The original token stays 1-to-1 redeemable.
-          No new chain. No new wallet. No trust required.
+          Encrypted Fi wraps any existing ERC-20 token into a confidential cToken.
+          Every interaction is hidden inside a ZK proof. The original token stays
+          1-to-1 redeemable. No new chain. No new wallet. No protocol migration.
         </Body>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 860 }}>
           {[
-            { step: "01", label: "WRAP",     desc: "Deposit any token. Receive an encrypted cToken commitment note." },
-            { step: "02", label: "TRANSACT", desc: "Send, swap, lend, provide LP — all via ZK proofs, no data exposed.", dark: true },
-            { step: "03", label: "EARN",     desc: "Your cTokens auto-compound in private yield vaults while hidden." },
-            { step: "04", label: "UNWRAP",   desc: "Burn your note. Receive the underlying token + yield back, 1-to-1." },
+            { step: "01", label: "WRAP",     desc: "Deposit any ERC-20. Receive an encrypted cToken commitment note, locked to your address." },
+            { step: "02", label: "TRANSACT", desc: "Send, swap, lend, earn yield. Every action verified by a ZK proof. Nothing is visible.", dark: true },
+            { step: "03", label: "EARN",     desc: "cTokens auto-compound in private yield vaults. Your balance and strategy stay encrypted." },
+            { step: "04", label: "UNWRAP",   desc: "Burn your note. Receive the underlying ERC-20 plus any earned yield back, exactly 1-to-1." },
           ].map((s, i) => (
             <div key={s.step} style={{
               padding: "28px 20px",
@@ -255,110 +271,96 @@ function SlideContent({ n }: { n: number }) {
             }}>
               <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.16em", opacity: 0.45, marginBottom: 10 }}>{s.step}</div>
               <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.1rem", marginBottom: 10 }}>{s.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "0.75rem", lineHeight: 1.6, opacity: 0.75 }}>{s.desc}</div>
+              <div style={{ fontFamily: sans, fontSize: "0.76rem", lineHeight: 1.6, opacity: 0.8 }}>{s.desc}</div>
             </div>
           ))}
         </div>
       </Center>
     );
 
-    // ── 5: Product Overview ───────────────────────────────────────────────────
+    // ── 5: Technology ─────────────────────────────────────────────────────────
     case 5: return (
       <Row
         left={
           <>
-            <Tag>PRODUCT</Tag>
-            <H1>Three layers.<br />One<br /><em style={{ fontStyle: "italic" }}>seamless stack.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              Encrypted Fi ships as three composable components: on-chain contracts,
-              a ZK proving SDK, and an explorer. Each layer can be consumed independently
-              by third-party protocols.
-            </Body>
-          </>
-        }
-        right={
-          <div>
-            {[
-              {
-                n: "01", label: "Confidential Contracts",
-                items: [
-                  "ConfidentialToken — wrap/unwrap any ERC-20",
-                  "ConfidentialSwapRouter — private AMM trades",
-                  "ConfidentialLendingVault — private borrow/collateral",
-                  "ConfidentialLPVault — hidden LP positions",
-                  "ConfidentialGovernance — ZK vote proofs",
-                  "YieldVault — ERC-4626 yield, fully encrypted",
-                ],
-              },
-              {
-                n: "02", label: "JavaScript / TypeScript SDK",
-                items: [
-                  "wrap(), transfer(), swap(), borrow(), repay()",
-                  "addLiquidity(), removeLiquidity(), castVote()",
-                  "Off-chain Groth16 proof generation (browser + Node)",
-                  "ECIES note encryption / decryption",
-                  "Wallet-agnostic — works with ethers.js, viem",
-                ],
-              },
-              {
-                n: "03", label: "On-chain Explorer",
-                items: [
-                  "View encrypted transaction history (self-decrypting)",
-                  "Merkle tree visualiser — proves inclusion without revealing balance",
-                  "Nullifier status — confirm spends without linking identity",
-                ],
-              },
-            ].map(s => (
-              <div key={s.n} style={{ marginBottom: 22, paddingBottom: 22, borderBottom: "1px solid rgba(10,10,10,0.08)" }}>
-                <div style={{ display: "flex", gap: 10, alignItems: "baseline", marginBottom: 10 }}>
-                  <span style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em",
-                    background: ink, color: white, padding: "2px 8px" }}>{s.n}</span>
-                  <span style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.92rem" }}>{s.label}</span>
-                </div>
-                <div style={{ paddingLeft: 4, display: "flex", flexDirection: "column", gap: 5 }}>
-                  {s.items.map(it => (
-                    <div key={it} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                      <span style={{ color: soft, fontSize: "0.7rem", marginTop: 2, flexShrink: 0 }}>—</span>
-                      <span style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.5 }}>{it}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        }
-      />
-    );
-
-    // ── 6: How It Works ───────────────────────────────────────────────────────
-    case 6: return (
-      <Row
-        left={
-          <>
             <Tag>TECHNOLOGY</Tag>
-            <H1>Cryptography<br />you can<br /><em style={{ fontStyle: "italic" }}>verify on-chain.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              Every operation is verified by a ZK-SNARK proof submitted to a
-              Solidity verifier contract. No trusted intermediary. No admin key.
-              No ability to freeze, censor, or de-anonymise users.
+            <H1>Cryptography<br />verifiable<br /><em style={{ fontStyle: "italic" }}>on-chain.</em></H1>
+            <Body style={{ marginTop: 20 }}>
+              Every operation produces a ZK-SNARK proof verified by an on-chain
+              Solidity verifier. No admin key. No pause function. No ability to
+              de-anonymise users. The math is the only authority.
             </Body>
+            <div style={{ marginTop: 28, border: bdr, padding: "16px 18px" }}>
+              <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.12em", color: soft, marginBottom: 10 }}>PERFORMANCE</div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 20px" }}>
+                {[
+                  { label: "Proof generation",  val: "< 1 second (browser)" },
+                  { label: "On-chain verify",   val: "~30k gas per proof"   },
+                  { label: "Circuit size",      val: "~200k constraints"    },
+                  { label: "Proof system",      val: "Groth16 (Circom)"     },
+                ].map(s => (
+                  <div key={s.label}>
+                    <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em", color: soft }}>{s.label.toUpperCase()}</div>
+                    <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem", marginTop: 2 }}>{s.val}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </>
         }
         right={
           <div>
+            <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.14em", color: soft, marginBottom: 16 }}>
+              NOTE LIFECYCLE
+            </div>
+
+            {/* Lifecycle steps */}
             {[
-              { label: "Commitment scheme",  tech: "Poseidon hash",      desc: "Token amounts are stored as Poseidon-hashed commitments in an on-chain Merkle tree. Only the note holder knows the preimage (secret + amount)." },
-              { label: "Nullifier system",   tech: "Poseidon(secret, nonce)", desc: "Each note generates a unique nullifier. When spent, it's posted on-chain — preventing double-spends without linking the note to its creator." },
-              { label: "ZK-SNARK circuits",  tech: "Circom + Groth16",   desc: "Mint, burn, transfer, swap, vote circuits. ~200k constraints each. Sub-second browser proving. ~30k gas on-chain verification." },
-              { label: "Note encryption",    tech: "ECIES / secp256k1",  desc: "Ciphertexts posted on-chain so recipients self-scan. No server, no relayer, no trusted third party required." },
-              { label: "Oracle integration", tech: "Chainlink-compatible", desc: "Price feeds for lending LTV. Permissionless oracle registration. Works with any latestAnswer() compatible feed." },
-            ].map((t, i) => (
-              <div key={t.label} style={{ display: "flex", gap: 16, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid rgba(10,10,10,0.07)" }}>
-                <div style={{ flex: "0 0 120px" }}>
-                  <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.1em", color: soft, marginBottom: 2 }}>{t.label.toUpperCase()}</div>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.82rem" }}>{t.tech}</div>
+              {
+                Icon: IconLock,
+                title: "Commitment",
+                tech: "Poseidon(secret, amount, nonce)",
+                desc: "When you wrap an ERC-20, the contract records a Poseidon hash commitment on-chain. The preimage — your secret and amount — stays entirely off-chain. Nobody can reverse the hash.",
+              },
+              {
+                Icon: IconCircuit,
+                title: "Merkle Inclusion",
+                tech: "On-chain sparse Merkle tree",
+                desc: "Each commitment is inserted into an on-chain Merkle tree. The tree root is public. To spend a note you prove membership in the tree with a ZK proof, without revealing which leaf is yours.",
+              },
+              {
+                Icon: IconLink,
+                title: "Nullifier",
+                tech: "Poseidon(secret, nonce)",
+                desc: "Every note generates a unique nullifier, derived from the same secret. When spent, the nullifier is posted on-chain. The contract rejects any duplicate nullifier, preventing double-spends without linking the spend to the original note.",
+              },
+              {
+                Icon: IconKey,
+                title: "ECIES Encryption",
+                tech: "secp256k1 / ECIES",
+                desc: "The note ciphertext is posted on-chain so you can recover your note from any device by scanning with your private key. No server. No relayer. No third party required.",
+              },
+              {
+                Icon: IconCircuit,
+                title: "ZK Circuits",
+                tech: "Circom 2 + SnarkJS",
+                desc: "Separate circuits for mint, burn, transfer, swap, vote. Each circuit proves: note validity, correct amount arithmetic, valid Merkle path, and unique nullifier. All verified in a single on-chain call.",
+              },
+            ].map((p, i) => (
+              <div key={p.title} style={{
+                display: "flex", gap: 14, marginBottom: 16, paddingBottom: 16,
+                borderBottom: i < 4 ? "1px solid rgba(10,10,10,0.07)" : "none",
+              }}>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}>
+                  <p.Icon />
+                </span>
+                <div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 3 }}>
+                    <span style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem" }}>{p.title}</span>
+                    <span style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em", color: soft }}>{p.tech}</span>
+                  </div>
+                  <div style={{ fontFamily: sans, fontSize: "0.74rem", color: soft, lineHeight: 1.65 }}>{p.desc}</div>
                 </div>
-                <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.6 }}>{t.desc}</div>
               </div>
             ))}
           </div>
@@ -366,147 +368,114 @@ function SlideContent({ n }: { n: number }) {
       />
     );
 
-    // ── 7: DeFi Suite ─────────────────────────────────────────────────────────
-    case 7: return (
+    // ── 6: DeFi Capabilities ──────────────────────────────────────────────────
+    case 6: return (
       <Center>
-        <Tag>DEFI CAPABILITIES</Tag>
+        <Tag>CAPABILITIES</Tag>
         <H1 style={{ marginBottom: 14 }}>
           Privacy for every<br /><em style={{ fontStyle: "italic" }}>DeFi primitive.</em>
         </H1>
-        <Body style={{ maxWidth: 540, marginBottom: 40 }}>
-          Encrypted Fi covers the full DeFi stack out of the box. Any protocol
-          can integrate by pointing their users to our SDK.
+        <Body style={{ maxWidth: 560, marginBottom: 40 }}>
+          Encrypted Fi covers the full DeFi stack. Any protocol can integrate by
+          pointing users to the SDK. Each capability is a separate auditable contract.
         </Body>
-        <Grid3 items={[
-          { icon: "🔒", label: "Private Transfers",   sub: "Sender, receiver, and amount are all ZK-verified. On-chain proof of validity. Zero information leaked." },
-          { icon: "🔄", label: "Confidential Swaps",  sub: "Trade on any Uniswap V2/V3 fork without broadcasting trade size, direction, or counterparty." },
-          { icon: "📈", label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Earn yield while keeping balance and strategy private." },
-          { icon: "💰", label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Position size never linked to wallet address." },
-          { icon: "💧", label: "Hidden LP Positions", sub: "Provide liquidity to any Uniswap V2-compatible pool without advertising your capital deployment." },
-          { icon: "🗳",  label: "ZK Governance Votes", sub: "Vote on proposals with cryptographic proof of token ownership. Vote weight private. Nullifier prevents double-voting." },
-        ]} />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", border: bdr, maxWidth: 820, width: "100%" }}>
+          {[
+            { Icon: IconLock,    label: "Private Transfers",   sub: "Sender, receiver, and amount are ZK-verified. On-chain proof of validity. Zero information leaked from the transaction." },
+            { Icon: IconArrows,  label: "Confidential Swaps",  sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet to the mempool or MEV bots." },
+            { Icon: IconTrend,   label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Earn yield while keeping your balance, strategy, and compound interest private." },
+            { Icon: IconCoin,    label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Collateral size never linked to your wallet address or identity." },
+            { Icon: IconDroplet, label: "Hidden LP Positions", sub: "Provide liquidity to any Uniswap V2 compatible pool without advertising your capital deployment to competitors." },
+            { Icon: IconVote,    label: "ZK Governance Votes", sub: "Vote on proposals with cryptographic proof of token ownership. Vote weight is private. A nullifier prevents double-voting." },
+          ].map((c, i) => (
+            <div key={c.label} style={{
+              padding: "26px 22px",
+              borderRight: i % 3 < 2 ? bdr : "none",
+              borderBottom: i < 3 ? bdr : "none",
+              background: i % 2 === 1 ? "rgba(10,10,10,0.03)" : "transparent",
+            }}>
+              <span style={{ display: "block", marginBottom: 12, color: ink }}>
+                <c.Icon />
+              </span>
+              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "0.9rem", marginBottom: 8 }}>{c.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.6 }}>{c.sub}</div>
+            </div>
+          ))}
+        </div>
       </Center>
     );
 
-    // ── 8: Competitive Landscape ──────────────────────────────────────────────
+    // ── 7: Team ───────────────────────────────────────────────────────────────
+    case 7: return (
+      <div style={{ height: "100%", display: "flex", flexDirection: "column", padding: "40px 0 0" }}>
+        <div style={{ textAlign: "center" as const, marginBottom: 40 }}>
+          <Tag>TEAM</Tag>
+          <H1 style={{ fontSize: "clamp(2rem,4vw,3.2rem)", marginTop: -8 }}>The people building it.</H1>
+        </div>
+        <div style={{
+          display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, border: bdr,
+        }}>
+          {[
+            { role: "CO-FOUNDER" },
+            { role: "CO-FOUNDER" },
+          ].map((m, i) => (
+            <div key={i} style={{
+              padding: "44px 48px",
+              borderRight: i === 0 ? bdr : "none",
+              display: "flex", flexDirection: "column",
+            }}>
+              {/* Photo */}
+              <div style={{
+                width: "100%",
+                paddingBottom: "75%",
+                position: "relative" as const,
+                border: bdr,
+                background: "rgba(10,10,10,0.03)",
+                marginBottom: 28,
+              }}>
+                <div style={{
+                  position: "absolute" as const, inset: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <div style={{ textAlign: "center" as const }}>
+                    <span style={{ color: "rgba(10,10,10,0.2)" }}><IconBuilding /></span>
+                    <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.12em", color: "rgba(10,10,10,0.2)", marginTop: 8 }}>
+                      ADD PHOTO
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Name */}
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.6rem", color: ink, marginBottom: 4 }}>
+                Name
+              </div>
+              {/* Role */}
+              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 18 }}>
+                {m.role}
+              </div>
+              {/* Bio */}
+              <div style={{ fontFamily: sans, fontSize: "0.82rem", lineHeight: 1.8, color: "rgba(10,10,10,0.3)", fontStyle: "italic" }}>
+                Background, experience, and previous roles go here.
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+
+    // ── 8: Compliance ─────────────────────────────────────────────────────────
     case 8: return (
       <Row
         left={
           <>
-            <Tag>COMPETITION</Tag>
-            <H1>No one does<br />this on<br /><em style={{ fontStyle: "italic" }}>existing chains.</em></H1>
+            <Tag>COMPLIANCE</Tag>
+            <H1>Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em></H1>
             <Body style={{ marginTop: 24 }}>
-              Competitors either require a new chain (Zcash, Secret Network, Aztec),
-              sacrifice composability, or cover only transfers — not the full DeFi stack.
-              Encrypted Fi is the first modular privacy layer for existing EVM and Stacks chains.
-            </Body>
-          </>
-        }
-        right={
-          <div>
-            <div style={{ border: bdr, overflow: "hidden" as const }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
-                background: ink, color: white, fontFamily: mono, fontSize: "0.52rem",
-                letterSpacing: "0.1em", padding: "10px 14px", gap: 0 }}>
-                {["CAPABILITY", "ENCRYPTED FI", "TORNADO CASH", "AZTEC", "SECRET NETWORK"].map(h => (
-                  <div key={h} style={{ padding: "4px 8px" }}>{h}</div>
-                ))}
-              </div>
-              {[
-                ["Existing chain",       "✓", "✓", "✗", "✗"],
-                ["Full DeFi stack",      "✓", "✗", "Partial", "Partial"],
-                ["Non-custodial",        "✓", "✓", "✓", "✓"],
-                ["No new token needed",  "✓", "✓", "✗", "✗"],
-                ["ERC-20 compatible",    "✓", "✗", "✗", "✗"],
-                ["Governance privacy",   "✓", "✗", "✗", "✗"],
-                ["Private LP positions", "✓", "✗", "✗", "✗"],
-                ["Multi-chain",          "✓", "✗", "✗", "✗"],
-                ["Active / legal",       "✓", "✗ OFAC", "In dev", "✓"],
-              ].map((row, ri) => (
-                <div key={ri} style={{
-                  display: "grid",
-                  gridTemplateColumns: "1.4fr 1fr 1fr 1fr 1fr",
-                  background: ri % 2 === 0 ? "transparent" : "rgba(10,10,10,0.025)",
-                  borderTop: bdr,
-                  fontFamily: sans,
-                  fontSize: "0.76rem",
-                }}>
-                  {row.map((cell, ci) => (
-                    <div key={ci} style={{
-                      padding: "9px 14px",
-                      color: ci === 0 ? ink : cell === "✓" ? "#1a7a40" : cell.startsWith("✗") ? "#aa2a2a" : soft,
-                      fontWeight: ci === 0 ? 600 : ci === 1 ? 700 : 400,
-                    }}>{cell}</div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        }
-      />
-    );
-
-    // ── 9: Business Model ─────────────────────────────────────────────────────
-    case 9: return (
-      <Row
-        left={
-          <>
-            <Tag>MONETISATION</Tag>
-            <H1>Protocol fees<br />on every<br /><em style={{ fontStyle: "italic" }}>interaction.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              Encrypted Fi earns a small fee on every wrap, swap, borrow, and LP
-              provision. Fees are collected in the input token and accumulate in a
-              protocol treasury controlled by governance. No VC unlock cliffs.
-              Revenue grows with usage.
-            </Body>
-          </>
-        }
-        right={
-          <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-            {[
-              { stream: "Wrap / Unwrap",    fee: "0.05%",  note: "Per deposit or redemption of any cToken" },
-              { stream: "Private Swaps",    fee: "0.10%",  note: "Added to AMM LP fee; split protocol / LP" },
-              { stream: "Lending",          fee: "0.30%",  note: "Origination fee on each borrow position" },
-              { stream: "LP Provision",     fee: "0.05%",  note: "On add and remove liquidity events" },
-              { stream: "SDK Licensing",    fee: "Custom", note: "Enterprise / white-label SDK integrations" },
-              { stream: "Protocol Treasury", fee: "100%",  note: "All fees flow to governance-controlled multisig" },
-            ].map((r, i) => (
-              <div key={r.stream} style={{ display: "flex", justifyContent: "space-between",
-                alignItems: "flex-start", gap: 16, paddingBottom: 14, borderBottom: "1px solid rgba(10,10,10,0.08)" }}>
-                <div>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem", marginBottom: 3 }}>{r.stream}</div>
-                  <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft }}>{r.note}</div>
-                </div>
-                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.1rem",
-                  background: i === 0 ? ink : "transparent", color: i === 0 ? white : ink,
-                  padding: i === 0 ? "2px 10px" : 0, flexShrink: 0 }}>
-                  {r.fee}
-                </div>
-              </div>
-            ))}
-            <div style={{ background: "rgba(10,10,10,0.04)", border: bdr, padding: "14px 18px" }}>
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.12em", color: soft, marginBottom: 6 }}>ILLUSTRATIVE UNIT ECONOMICS</div>
-              <div style={{ fontFamily: sans, fontSize: "0.78rem", color: soft, lineHeight: 1.65 }}>
-                At $500M TVL with 20% monthly volume turnover: ~$1M ARR from fees alone.
-                Each $1B of integrated TVL adds ~$2M in annualised protocol revenue.
-              </div>
-            </div>
-          </div>
-        }
-      />
-    );
-
-    // ── 10: GTM ───────────────────────────────────────────────────────────────
-    case 10: return (
-      <Row
-        left={
-          <>
-            <Tag>GTM STRATEGY</Tag>
-            <H1>Protocol-first.<br /><em style={{ fontStyle: "italic" }}>Then users.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              We win by embedding into protocols that already have users, not by
-              acquiring retail users one at a time. Each integrated DEX, lending
-              protocol, or DAO multiplies our effective reach.
+              Encrypted Fi is not a mixer. Unlike Tornado Cash, which provided
+              no mechanism for voluntary disclosure, Encrypted Fi is built with
+              compliance as a first-class feature. Users retain full control
+              over what they disclose and to whom.
             </Body>
           </>
         }
@@ -514,282 +483,87 @@ function SlideContent({ n }: { n: number }) {
           <div>
             {[
               {
-                phase: "Phase 1 — Developer Beachhead",
-                timeline: "Q2–Q3 2026",
-                items: [
-                  "Open-source SDK release with full documentation",
-                  "Hackathon grants ($50k pool) to seed integrations",
-                  "Direct outreach to top 20 DeFi protocols by TVL",
-                  "Security audit + bug bounty launch",
-                ],
+                Icon: IconKey,
+                title: "View Keys",
+                desc: "Every wallet generates a view key derived from the same private key used on EVM. A user can share their view key with an auditor, regulator, or tax authority to disclose their full transaction history without exposing their secret to anyone else.",
               },
               {
-                phase: "Phase 2 — Protocol Integrations",
-                timeline: "Q4 2026",
-                items: [
-                  "3–5 signed protocol integration agreements (DEX / lending)",
-                  "Stacks ecosystem launch — native Bitcoin DeFi privacy",
-                  "Institutional pilot with one mid-size fund or treasury",
-                  "Explorer and analytics dashboard public beta",
-                ],
+                Icon: IconFileCheck,
+                title: "Selective Disclosure",
+                desc: "Users can generate a ZK proof that reveals a specific transaction to a specific party — proving a payment was made, an amount, or a counterparty — without revealing any other transaction in the history.",
               },
               {
-                phase: "Phase 3 — Mainstream Adoption",
-                timeline: "2027",
-                items: [
-                  "10+ integrated protocols, $1B+ TVL target",
-                  "Consumer wallet SDK partnerships (MetaMask Snaps, Rabby)",
-                  "Governance token launch + protocol decentralisation",
-                  "Series A raise based on revenue metrics",
-                ],
+                Icon: IconShield,
+                title: "Compliance-Ready Architecture",
+                desc: "The protocol enforces nullifier uniqueness, preventing any form of double-spend or fraud. All transaction proofs are verifiable on-chain. This is auditable compliance infrastructure, not obfuscation.",
               },
-            ].map(p => (
-              <div key={p.phase} style={{ marginBottom: 20, paddingBottom: 20, borderBottom: "1px solid rgba(10,10,10,0.08)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem" }}>{p.phase}</div>
-                  <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.1em", color: soft }}>{p.timeline}</div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                  {p.items.map(it => (
-                    <div key={it} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                      <span style={{ color: soft, fontSize: "0.7rem", marginTop: 2, flexShrink: 0 }}>→</span>
-                      <span style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.55 }}>{it}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        }
-      />
-    );
-
-    // ── 11: Traction ──────────────────────────────────────────────────────────
-    case 11: return (
-      <Row
-        left={
-          <>
-            <Tag>TRACTION</Tag>
-            <H1>Shipping<br />since day<br /><em style={{ fontStyle: "italic" }}>one.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              All core protocol contracts, ZK circuits, and SDK are built and
-              functionally complete. No vapourware. We are pre-audit and pre-mainnet —
-              raising to get there.
-            </Body>
-          </>
-        }
-        right={
-          <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-            <div>
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.14em", color: soft, marginBottom: 14 }}>COMPLETED</div>
-              <Check items={[
-                "ZK circuits: mint, burn, transfer, swap, vote (Circom + Groth16)",
-                "EVM — ConfidentialToken, Vault, SwapRouter, LendingVault, LPVault, YieldVault, Governance",
-                "Stacks / Clarity — SIP-010 parallel implementation",
-                "JavaScript SDK — wrap, transfer, swap, borrow, repay, addLiquidity, removeLiquidity, castVote",
-                "On-chain explorer with self-decrypting note viewer",
-                "Merkle tree & nullifier verification tooling",
-                "Full technical documentation and integration guide",
-              ]} done />
-            </div>
-            <div>
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.14em", color: soft, marginBottom: 14 }}>IN PROGRESS / NEXT</div>
-              <Check items={[
-                "Third-party ZK security audit (scope: all circuits + contracts)",
-                "Public testnet deployment with live explorer",
-                "First protocol integration partnership",
-                "Governance token design and distribution model",
-              ]} done={false} />
-            </div>
-          </div>
-        }
-      />
-    );
-
-    // ── 12: Roadmap ───────────────────────────────────────────────────────────
-    case 12: return (
-      <Center>
-        <Tag>ROADMAP</Tag>
-        <H1 style={{ marginBottom: 14 }}>
-          12 months to<br /><em style={{ fontStyle: "italic" }}>mainnet and beyond.</em>
-        </H1>
-        <Body style={{ maxWidth: 520, marginBottom: 44 }}>
-          Funded milestones are clear and discrete. Every dollar raised maps to
-          a specific deliverable.
-        </Body>
-        <div style={{ border: bdr, maxWidth: 820, width: "100%" }}>
-          {[
-            { q: "Q2 2026", label: "Audit & Testnet",        items: ["ZK circuit audit complete", "Smart contract audit complete", "Public testnet + explorer live", "Bug bounty program launch"], dark: true },
-            { q: "Q3 2026", label: "Mainnet Launch",          items: ["EVM mainnet deployment (Ethereum + L2s)", "Stacks mainnet deployment", "SDK v1.0 public release", "First 3 protocol integrations"] },
-            { q: "Q4 2026", label: "Ecosystem Growth",        items: ["10 protocol integrations", "Institutional pilot closed", "$100M TVL milestone", "Governance token design finalised"] },
-            { q: "Q1 2027", label: "Decentralisation",        items: ["Governance token launch", "Protocol decentralisation begins", "Series A raise", "$500M TVL milestone target"] },
-          ].map((row, i) => (
-            <div key={row.q} style={{
-              display: "grid", gridTemplateColumns: "160px 1fr",
-              borderBottom: i < 3 ? bdr : "none",
-              background: row.dark ? ink : "transparent",
-              color: row.dark ? white : ink,
-            }}>
-              <div style={{ padding: "22px 24px", borderRight: row.dark ? "1px solid rgba(255,255,255,0.12)" : bdr }}>
-                <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.14em", opacity: 0.55, marginBottom: 6 }}>{row.q}</div>
-                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1rem" }}>{row.label}</div>
-              </div>
-              <div style={{ padding: "22px 24px", display: "flex", flexWrap: "wrap" as const, gap: "8px 20px" }}>
-                {row.items.map(it => (
-                  <div key={it} style={{ display: "flex", gap: 8, alignItems: "flex-start", flex: "1 1 200px" }}>
-                    <span style={{ opacity: 0.4, flexShrink: 0, marginTop: 2 }}>✓</span>
-                    <span style={{ fontFamily: sans, fontSize: "0.75rem", opacity: 0.8, lineHeight: 1.5 }}>{it}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </Center>
-    );
-
-    // ── 13: Team ──────────────────────────────────────────────────────────────
-    case 13: return (
-      <Center>
-        <Tag>THE TEAM</Tag>
-        <H1 style={{ marginBottom: 12 }}>
-          Built by people who<br /><em style={{ fontStyle: "italic" }}>care about privacy.</em>
-        </H1>
-        <Body style={{ maxWidth: 520, marginBottom: 48 }}>
-          Deep expertise in applied cryptography, DeFi protocol engineering,
-          and go-to-market in the blockchain space.
-        </Body>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", border: bdr, maxWidth: 760, width: "100%" }}>
-          {[
-            { role: "CO-FOUNDER & CEO" },
-            { role: "CO-FOUNDER & CTO" },
-          ].map((m, i) => (
-            <div key={m.role} style={{ padding: "40px 36px", borderRight: i === 0 ? bdr : "none" }}>
-              {/* Photo placeholder */}
-              <div style={{
-                width: 96, height: 96, border: bdr, background: "rgba(10,10,10,0.04)",
-                marginBottom: 24, display: "flex", alignItems: "center", justifyContent: "center",
+              {
+                Icon: IconCheckBadge,
+                title: "Not Tornado Cash",
+                desc: "Tornado Cash offered no view keys, no selective disclosure, and no compliance path. Encrypted Fi was designed from day one so that users can always voluntarily prove their activity to authorised parties.",
+              },
+            ].map((p, i) => (
+              <div key={p.title} style={{
+                display: "flex", gap: 14, marginBottom: 18, paddingBottom: 18,
+                borderBottom: i < 3 ? "1px solid rgba(10,10,10,0.07)" : "none",
               }}>
-                <span style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.1em", color: soft }}>PHOTO</span>
-              </div>
-              {/* Name */}
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.5rem", marginBottom: 4, color: ink }}>
-                Name Here
-              </div>
-              {/* Role */}
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 20 }}>
-                {m.role}
-              </div>
-              {/* Bio */}
-              <div style={{ fontFamily: sans, fontSize: "0.8rem", lineHeight: 1.75, color: soft }}>
-                Add your background here — previous experience, relevant expertise in cryptography
-                / DeFi / startups, and key accomplishments that establish credibility for building Encrypted Fi.
-              </div>
-              {/* Social placeholders */}
-              <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
-                {["Twitter", "LinkedIn", "GitHub"].map(s => (
-                  <span key={s} style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.1em",
-                    border: bdr, padding: "4px 10px", color: soft }}>
-                    {s.toUpperCase()}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </Center>
-    );
-
-    // ── 14: The Ask ───────────────────────────────────────────────────────────
-    case 14: return (
-      <Row
-        left={
-          <>
-            <Tag>THE ASK</Tag>
-            <H1>Seed round.<br /><em style={{ fontStyle: "italic" }}>Clear use of funds.</em></H1>
-            <Body style={{ marginTop: 24 }}>
-              We are raising a Seed round to fund the audit, testnet, and mainnet
-              launch — the three milestones that take us from a complete but
-              unaudited codebase to a live, revenue-generating protocol.
-            </Body>
-            <div style={{ marginTop: 32, border: bdr, padding: "20px 24px" }}>
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.12em", color: soft, marginBottom: 8 }}>CONTACT</div>
-              <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "1rem" }}>hello@encrypted.fi</div>
-            </div>
-          </>
-        }
-        right={
-          <div>
-            <div style={{ border: bdr, overflow: "hidden" as const, marginBottom: 24 }}>
-              {[
-                { category: "Security Audits",      pct: "35%", detail: "ZK circuits + smart contracts by top-tier firm" },
-                { category: "Engineering",          pct: "25%", detail: "Core team runway through mainnet + 6 months" },
-                { category: "BD & Integrations",   pct: "20%", detail: "Protocol partnerships, hackathon grants, ecosystem" },
-                { category: "Infrastructure",       pct: "10%", detail: "Testnet / mainnet nodes, proving infrastructure" },
-                { category: "Legal & Compliance",   pct: "10%", detail: "Regulatory clarity across target markets" },
-              ].map((r, i) => (
-                <div key={r.category} style={{
-                  display: "grid", gridTemplateColumns: "1fr 60px",
-                  padding: "14px 18px",
-                  borderBottom: i < 4 ? bdr : "none",
-                  background: i === 0 ? ink : "transparent",
-                  color: i === 0 ? white : ink,
-                }}>
-                  <div>
-                    <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.88rem", marginBottom: 3 }}>{r.category}</div>
-                    <div style={{ fontFamily: sans, fontSize: "0.72rem", opacity: 0.65 }}>{r.detail}</div>
-                  </div>
-                  <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.3rem", textAlign: "right" as const, alignSelf: "center" }}>
-                    {r.pct}
-                  </div>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}>
+                  <p.Icon />
+                </span>
+                <div>
+                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.9rem", marginBottom: 4 }}>{p.title}</div>
+                  <div style={{ fontFamily: sans, fontSize: "0.75rem", color: soft, lineHeight: 1.65 }}>{p.desc}</div>
                 </div>
-              ))}
-            </div>
-            <div style={{ background: "rgba(10,10,10,0.04)", border: bdr, padding: "16px 18px" }}>
-              <div style={{ fontFamily: sans, fontSize: "0.78rem", color: soft, lineHeight: 1.65 }}>
-                Milestone-based drawdown available. Lead investor receives board observer seat.
-                Structured as a SAFE with MFN clause and $[X]M post-money cap.
               </div>
-            </div>
+            ))}
           </div>
         }
       />
     );
 
-    // ── 15: Vision / Close ────────────────────────────────────────────────────
-    case 15: return (
+    // ── 9: Vision ─────────────────────────────────────────────────────────────
+    case 9: return (
       <Center>
         <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.2em", color: soft, marginBottom: 28 }}>
-          THE VISION
+          VISION
         </div>
-        <H1 style={{ fontSize: "clamp(3rem, 8vw, 7rem)", marginBottom: 28 }}>
-          Privacy is not<br />a feature.<br /><em style={{ fontStyle: "italic" }}>It's a right.</em>
+        <H1 style={{ fontSize: "clamp(2.8rem,7vw,6.5rem)", marginBottom: 28 }}>
+          Privacy is not<br />a feature. It is<br /><em style={{ fontStyle: "italic" }}>a right.</em>
         </H1>
-        <Body style={{ maxWidth: 580, marginBottom: 52 }}>
-          The internet was built open. Commerce moved on anyway. Blockchain is
-          repeating the same mistake — public by default, with no path to private.
-          Encrypted Fi changes that. We're not hiding anything. We're giving
-          everyone the ability to decide what they share.
+        <Body style={{ maxWidth: 620, marginBottom: 44 }}>
+          The internet was built open. Commerce moved on anyway.
+          Blockchain is repeating the same mistake — public by default with no path
+          to private. Encrypted Fi changes that. Users keep the same 0x wallet
+          address they already have, the same MetaMask, the same Rabby, the same
+          everything. They gain privacy without changing anything about how they use EVM.
+        </Body>
+        <Body style={{ maxWidth: 560, marginBottom: 52 }}>
+          Every ERC-20 token deserves a confidential version. Every DeFi action
+          deserves to be private by default. We are building the infrastructure
+          that makes that possible on the chains where the value already lives.
         </Body>
         <div style={{ display: "flex", gap: 0, border: bdr }}>
           {[
-            { label: "ENCRYPTED FI",       val: "The privacy layer" },
-            { label: "EVERY CHAIN",        val: "Not just one" },
-            { label: "EVERY PRIMITIVE",    val: "Not just transfers" },
+            { Icon: IconGlobe,   label: "Any EVM chain",       val: "Same 0x address"          },
+            { Icon: IconLock,    label: "Any ERC-20 token",    val: "Confidential by default"   },
+            { Icon: IconShield,  label: "Compliance-ready",    val: "View keys + disclosure"    },
           ].map((s, i) => (
             <div key={s.label} style={{
-              padding: "20px 28px", borderRight: i < 2 ? bdr : "none",
+              padding: "22px 28px", borderRight: i < 2 ? bdr : "none",
               background: i === 0 ? ink : "transparent",
               color: i === 0 ? white : ink,
               textAlign: "center" as const,
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
             }}>
-              <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", opacity: 0.5, marginBottom: 6 }}>{s.label}</div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1rem" }}>{s.val}</div>
+              <span style={{ opacity: i === 0 ? 0.7 : 0.8 }}>
+                <s.Icon />
+              </span>
+              <div>
+                <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.12em", opacity: 0.55, marginBottom: 4 }}>{s.label.toUpperCase()}</div>
+                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.95rem" }}>{s.val}</div>
+              </div>
             </div>
           ))}
-        </div>
-        <div style={{ marginTop: 52, fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.2em", color: soft }}>
-          CONFIDENTIAL · hello@encrypted.fi · encrypted.fi
         </div>
       </Center>
     );
@@ -798,7 +572,14 @@ function SlideContent({ n }: { n: number }) {
   }
 }
 
-// ─── Main client component ────────────────────────────────────────────────────
+// ─── Slide strip labels ───────────────────────────────────────────────────────
+
+const STRIP = [
+  "COVER", "PROBLEM", "MARKET", "SOLUTION", "TECHNOLOGY",
+  "CAPABILITIES", "TEAM", "COMPLIANCE", "VISION",
+];
+
+// ─── Main exported component ──────────────────────────────────────────────────
 
 export default function SlideClient({ current, total, meta }: {
   current: number;
@@ -812,7 +593,6 @@ export default function SlideClient({ current, total, meta }: {
     router.push(`/pitch/${n}`);
   }, [router, total]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") go(current + 1);
@@ -826,70 +606,58 @@ export default function SlideClient({ current, total, meta }: {
   const canNext = current < total;
 
   return (
-    <div style={{
-      minHeight: "100dvh",
-      background: cream,
-      display: "flex",
-      flexDirection: "column",
-      fontFamily: sans,
-    }}>
+    <div style={{ minHeight: "100dvh", background: cream, display: "flex", flexDirection: "column" }}>
 
-      {/* ── Top bar ─────────────────────────────────────────────── */}
+      {/* Top bar */}
       <div style={{
         position: "sticky", top: 0, zIndex: 50,
         background: cream, borderBottom: bdr,
-        display: "flex", alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 clamp(16px, 4vw, 48px)",
-        height: 52,
-        gap: 16,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "0 clamp(16px,4vw,48px)", height: 52, gap: 16,
       }}>
-        {/* Brand */}
         <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", color: ink, flexShrink: 0 }}>
           <Image
             src="https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png"
             alt="Encrypted Fi"
-            width={26}
-            height={26}
+            width={26} height={26}
             style={{ objectFit: "contain" }}
           />
           <span style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.72rem", letterSpacing: "0.06em" }}>
-            ENCRYPTED <span style={{ background: ink, color: white, padding: "1px 4px", marginLeft: 2 }}>FI</span>
+            ENCRYPTED{" "}
+            <span style={{ background: ink, color: white, padding: "1px 4px", marginLeft: 2 }}>FI</span>
           </span>
         </a>
 
-        {/* Slide label */}
         <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.15em", color: soft }}>
           {meta.category}
         </div>
 
-        {/* Counter */}
         <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.12em", color: soft, flexShrink: 0 }}>
           {String(current).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </div>
       </div>
 
-      {/* ── Progress bar ────────────────────────────────────────── */}
+      {/* Progress bar */}
       <div style={{ height: 3, background: "rgba(10,10,10,0.08)" }}>
-        <div style={{ height: "100%", background: ink, width: `${(current / total) * 100}%`, transition: "width 0.3s ease" }} />
+        <div style={{
+          height: "100%", background: ink,
+          width: `${(current / total) * 100}%`,
+          transition: "width 0.3s ease",
+        }} />
       </div>
 
-      {/* ── Slide content ────────────────────────────────────────── */}
-      <div style={{ flex: 1, padding: "0 clamp(20px, 5vw, 72px)", display: "flex", flexDirection: "column" }}>
+      {/* Slide content */}
+      <div style={{ flex: 1, padding: "0 clamp(20px,5vw,72px)", display: "flex", flexDirection: "column" }}>
         <SlideContent n={current} />
       </div>
 
-      {/* ── Bottom nav ───────────────────────────────────────────── */}
+      {/* Bottom nav */}
       <div style={{
         borderTop: bdr,
-        padding: "0 clamp(16px, 4vw, 48px)",
+        padding: "0 clamp(16px,4vw,48px)",
         height: 56,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 16,
+        display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16,
       }}>
-        {/* Prev */}
         <button
           onClick={() => go(current - 1)}
           disabled={!canPrev}
@@ -902,10 +670,9 @@ export default function SlideClient({ current, total, meta }: {
             transition: "all 0.15s",
           }}
         >
-          ← PREV
+          PREV
         </button>
 
-        {/* Dot track */}
         <div style={{ display: "flex", gap: 5, alignItems: "center", overflow: "hidden", maxWidth: "60vw" }}>
           {Array.from({ length: total }, (_, i) => i + 1).map(i => (
             <button
@@ -914,8 +681,7 @@ export default function SlideClient({ current, total, meta }: {
               title={`Slide ${i}`}
               style={{
                 width: i === current ? 22 : 6,
-                height: 6,
-                flexShrink: 0,
+                height: 6, flexShrink: 0,
                 background: i === current ? ink : "rgba(10,10,10,0.18)",
                 border: "none", padding: 0, cursor: "pointer",
                 transition: "width 0.2s, background 0.15s",
@@ -924,7 +690,6 @@ export default function SlideClient({ current, total, meta }: {
           ))}
         </div>
 
-        {/* Next */}
         <button
           onClick={() => go(current + 1)}
           disabled={!canNext}
@@ -937,33 +702,26 @@ export default function SlideClient({ current, total, meta }: {
             transition: "all 0.15s",
           }}
         >
-          NEXT →
+          NEXT
         </button>
       </div>
 
-      {/* ── Slide thumbnail strip ─────────────────────────────────── */}
-      <div style={{
-        borderTop: bdr,
-        display: "flex",
-        overflowX: "auto" as const,
-        background: cream,
-      }}>
+      {/* Slide strip */}
+      <div style={{ borderTop: bdr, display: "flex", overflowX: "auto" as const, background: cream }}>
         {Array.from({ length: total }, (_, i) => i + 1).map(i => (
           <button
             key={i}
             onClick={() => go(i)}
             style={{
               fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em",
-              padding: "10px 14px", whiteSpace: "nowrap" as const,
+              padding: "10px 16px", whiteSpace: "nowrap" as const,
               background: i === current ? ink : "transparent",
               color: i === current ? white : soft,
               border: "none", borderRight: bdr,
               cursor: "pointer", transition: "all 0.15s",
             }}
           >
-            {String(i).padStart(2, "0")} {i === current ? "— " : ""}
-            {["COVER","PROBLEM","MARKET","SOLUTION","PRODUCT","TECHNOLOGY","CAPABILITIES",
-              "COMPETITION","MONETISATION","GTM","TRACTION","ROADMAP","TEAM","THE ASK","VISION"][i - 1]}
+            {String(i).padStart(2, "0")} {STRIP[i - 1]}
           </button>
         ))}
       </div>
