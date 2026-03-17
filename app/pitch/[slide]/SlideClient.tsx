@@ -203,31 +203,33 @@ function SlideContent({ n }: { n: number }) {
           <>
             <Tag>MARKET</Tag>
             <H style={{ marginBottom: 14 }}>
-              $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Almost no privacy.</em>
+              $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
             </H>
             <P style={{ marginBottom: 14 }}>
-              RAILGUN proved on-chain privacy has product-market fit, processing over $4B
-              in transactions since its 2021 launch. But RAILGUN requires users to move
-              funds into 0zk addresses — a completely different wallet type — which most
-              users refuse to do.
+              Every dollar in DeFi is fully transparent. Anyone can look up any wallet
+              and see its exact balance, every trade ever made, and every protocol
+              it has touched.
+            </P>
+            <P style={{ marginBottom: 14 }}>
+              RAILGUN has processed over $4B in private transactions since 2021 and
+              STRK20 on Starknet shows how much demand exists for on-chain privacy.
+              The market is real and growing.
             </P>
             <P>
-              STRK20, launched by Starknet, is locked to their ecosystem entirely and
-              cannot touch a single ERC-20 token. Encrypted Fi is the only protocol
-              that brings private transactions to standard ERC-20 tokens using the
-              same 0x wallet address users already have.
+              Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
+              where the majority of on-chain value lives, using the same{" "}
+              <span style={{ fontFamily: mono }}>0x</span> wallet address users already have.
             </P>
           </>
         }
         right={
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {/* Stats 2x2 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", border: bdr }}>
               {[
-                { n: "$110B+", l: "DeFi TVL on EVM chains",      dark: true },
-                { n: "500k+",  l: "ERC-20 tokens deployed"                  },
-                { n: "$1.4T",  l: "Annual EVM DEX volume"                   },
-                { n: "$4B+",   l: "RAILGUN volume since 2021"               },
+                { n: "$110B+", l: "DeFi TVL on EVM chains",          dark: true },
+                { n: "500k+",  l: "ERC-20 tokens deployed"                      },
+                { n: "$1.4T",  l: "Annual EVM DEX volume"                       },
+                { n: "$4B+",   l: "RAILGUN private volume since 2021"           },
               ].map((s, i) => (
                 <div key={i} style={{
                   padding: "20px 20px",
@@ -242,30 +244,25 @@ function SlideContent({ n }: { n: number }) {
               ))}
             </div>
 
-            {/* Comparison */}
             <div style={{ border: bdr }}>
               <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
-                EXISTING SOLUTIONS AND THEIR LIMITS
+                DEMAND IS VALIDATED. THE EVM MARKET IS UNTAPPED.
               </div>
               {[
-                { mark: "x", label: "RAILGUN", note: "Works on EVM but requires 0zk addresses. Users must migrate to a new wallet type — most do not." },
-                { mark: "x", label: "STRK20",  note: "Starknet only. Cannot wrap ERC-20 tokens. Requires a separate Starknet wallet and separate liquidity." },
-                { mark: "+", label: "ENCRYPTED FI", note: "Standard 0x addresses. Any ERC-20 token. Same MetaMask or Rabby wallet. No migration required." },
+                { label: "RAILGUN", desc: "$4B+ processed since 2021. On-chain privacy has clear product-market fit." },
+                { label: "STRK20",  desc: "Starknet launched STRK20 showing institutional confidence in the space. Encrypted Fi brings this to EVM chains." },
+                { label: "EVM GAP", desc: "The full ERC-20 ecosystem on Ethereum, Arbitrum, Base, and Optimism has no equivalent privacy layer today." },
               ].map((r, i) => (
                 <div key={i} style={{
-                  display: "flex", gap: 10, padding: "10px 16px",
+                  display: "flex", gap: 12, padding: "10px 16px",
                   borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.06)" : "none",
-                  background: r.mark === "+" ? "rgba(10,10,10,0.03)" : "transparent",
                 }}>
                   <span style={{
-                    fontFamily: mono, fontSize: "0.65rem", fontWeight: 900,
-                    color: r.mark === "+" ? ink : "rgba(10,10,10,0.3)",
-                    flexShrink: 0, marginTop: 1, width: 12,
-                  }}>{r.mark}</span>
-                  <div>
-                    <span style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.1em", marginRight: 10, fontWeight: 700 }}>{r.label}</span>
-                    <span style={{ fontFamily: sans, fontSize: "0.73rem", color: soft, lineHeight: 1.5 }}>{r.note}</span>
-                  </div>
+                    fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em", fontWeight: 700,
+                    background: ink, color: white, padding: "2px 8px",
+                    flexShrink: 0, alignSelf: "flex-start", marginTop: 2,
+                  }}>{r.label}</span>
+                  <span style={{ fontFamily: sans, fontSize: "0.73rem", color: soft, lineHeight: 1.55 }}>{r.desc}</span>
                 </div>
               ))}
             </div>
