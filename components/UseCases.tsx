@@ -59,7 +59,7 @@ const CASES = [
     Icon: TrendingUpIcon,
     title: "Confidential Yields",
     one: "Earn DeFi yield. Stay private.",
-    body: "Deposit into any ERC-4626 yield vault — Yearn, Morpho, Spark, and beyond — while your balance stays encrypted. Yield accrues silently to your share value.",
+    body: "Deposit into any ERC-4626 yield vault  Yearn, Morpho, Spark, and beyond  while your balance stays encrypted. Yield accrues silently to your share value.",
     dark: false,
   },
   {
@@ -99,7 +99,7 @@ const CASES = [
     Icon: GlobeIcon,
     title: "Any EVM, Any Token",
     one: "Multichain. Universal.",
-    body: "Deploy on any public EVM chain — Flare, Ethereum, Base, Arbitrum, Polygon, and beyond. Any ERC-20 becomes a confidential token with one factory call. No bridges needed.",
+    body: "Deploy on any public EVM chain  Flare, Ethereum, Base, Arbitrum, Polygon, and beyond. Any ERC-20 becomes a confidential token with one factory call. No bridges needed.",
     dark: false,
   },
 ];
