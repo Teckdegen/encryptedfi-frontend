@@ -61,10 +61,11 @@ const H = ({ children, style = {} }: { children: React.ReactNode; style?: React.
   }}>{children}</h2>
 );
 
-const P = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
+const P = ({ children, style = {}, dark = false }: { children: React.ReactNode; style?: React.CSSProperties; dark?: boolean }) => (
   <p style={{
     fontFamily: sans, fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", lineHeight: 1.75,
-    color: soft, margin: 0, ...style,
+    color: dark ? cream : soft, background: dark ? ink : "transparent",
+    margin: 0, ...(dark ? { padding: "14px 18px" } : {}), ...style,
   }}>{children}</p>
 );
 
@@ -147,7 +148,7 @@ function SlideContent({ n }: { n: number }) {
             <H>
               Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em>
             </H>
-            <P style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
+            <P dark style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
               Public blockchains solved trustlessness and sacrificed privacy entirely.
               Every wallet, balance, and transaction is permanently readable by anyone.
               Competitors, front-running bots, and adversaries all see exactly what you do.
@@ -187,16 +188,16 @@ function SlideContent({ n }: { n: number }) {
             <H>
               $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
             </H>
-            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Every dollar in DeFi is fully transparent. Anyone can look up any wallet
               and see its exact balance, every trade ever made, and every protocol it has touched.
             </P>
-            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               RAILGUN has processed over $4B in private transactions since 2021 and
               STRK20 on Starknet shows how much demand exists for on-chain privacy.
               The market is real and growing.
             </P>
-            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
               using the same <span style={{ fontFamily: mono, color: cream }}>0x</span> wallet address users already have.
             </P>
@@ -288,7 +289,7 @@ function SlideContent({ n }: { n: number }) {
             <H>
               Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
             </H>
-            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Every operation produces a ZK-SNARK proof verified by an on-chain
               Solidity verifier contract. No admin key. No pause function. No ability
               to de-anonymise any user. The math governs everything.
@@ -486,45 +487,59 @@ function SlideContent({ n }: { n: number }) {
 
     // ── 9: Vision ────────────────────────────────────────────────────────────
     case 9: return (
-      <Ctr>
-        <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.22em", color: soft, marginBottom: 14 }}>VISION</div>
-        <H style={{ fontSize: "clamp(2.2rem, 4.5vw, 4.2rem)", marginBottom: 18 }}>
-          Privacy is not a feature.<br /><em style={{ fontStyle: "italic" }}>It is a right.</em>
-        </H>
-        <P style={{ maxWidth: 620, marginBottom: 12, fontSize: "clamp(0.85rem, 1.05vw, 0.98rem)" }}>
-          Blockchain is repeating the same mistake the early internet made — public by default,
-          with no path to private. Encrypted Fi changes that. Users keep the exact same{" "}
-          <span style={{ fontFamily: mono }}>0x</span> wallet address they already use.
-          The same MetaMask. The same Rabby. The same Ledger. No migration. No learning curve.
-          Privacy just works.
-        </P>
-        <P style={{ maxWidth: 580, marginBottom: 28, fontSize: "clamp(0.85rem, 1.05vw, 0.98rem)" }}>
-          Every ERC-20 token deserves a confidential version. Every DeFi action
-          deserves to be private by default. We are building the infrastructure
-          that makes that possible on the chains where the value already lives.
-        </P>
-        <div style={{ display: "flex", border: bdr }}>
-          {[
-            { I: IconGlobe,  label: "Any EVM chain",     val: "Same 0x address"         },
-            { I: IconLock,   label: "Any ERC-20 token",  val: "Confidential by default" },
-            { I: IconShield, label: "Compliance-ready",  val: "View keys + disclosure"  },
-          ].map((s, i) => (
-            <div key={i} style={{
-              padding: "18px 32px", borderRight: i < 2 ? bdr : "none",
-              background: i === 0 ? ink : "transparent",
-              color: i === 0 ? white : ink,
-              textAlign: "center" as const,
-              display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
-            }}>
-              <span style={{ opacity: i === 0 ? 0.7 : 0.8 }}><s.I s={20} /></span>
-              <div>
-                <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", opacity: 0.5, marginBottom: 3 }}>{s.label.toUpperCase()}</div>
-                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.95rem" }}>{s.val}</div>
-              </div>
-            </div>
-          ))}
+      <div style={{ height: `calc(100dvh - ${CHROME})`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+
+        {/* Full-width headline banner */}
+        <div style={{ background: ink, color: white, padding: "22px clamp(20px,5vw,72px)", borderBottom: bdr, flexShrink: 0 }}>
+          <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.22em", opacity: 0.4, marginBottom: 10 }}>VISION</div>
+          <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(2.2rem,4.8vw,4.4rem)", lineHeight: 0.93, letterSpacing: "-0.03em" }}>
+            Privacy is not a feature.<br /><em style={{ fontStyle: "italic" }}>It is a right.</em>
+          </div>
         </div>
-      </Ctr>
+
+        {/* Bottom: left body text | right three stacked panels */}
+        <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1.35fr 1fr", minHeight: 0, overflow: "hidden" }}>
+
+          {/* Left — two paragraphs */}
+          <div style={{ borderRight: bdr, padding: "32px clamp(20px,4vw,56px)", display: "flex", flexDirection: "column", justifyContent: "center", gap: 20, overflow: "hidden" }}>
+            <p style={{ fontFamily: sans, fontSize: "clamp(0.9rem,1.2vw,1.06rem)", lineHeight: 1.8, color: soft, margin: 0 }}>
+              Blockchain is repeating the same mistake the early internet made — public by default
+              with no path to private. Encrypted Fi changes that. Users keep the exact same{" "}
+              <span style={{ fontFamily: mono }}>0x</span> wallet they already use: MetaMask,
+              Rabby, Ledger. No new wallet. No migration. No learning curve. Privacy just works.
+            </p>
+            <p style={{ fontFamily: sans, fontSize: "clamp(0.9rem,1.2vw,1.06rem)", lineHeight: 1.8, color: soft, margin: 0 }}>
+              Every ERC-20 token deserves a confidential version. Every DeFi action deserves to
+              be private by default. We are building the infrastructure that makes that possible
+              on the chains where the value already lives.
+            </p>
+          </div>
+
+          {/* Right — three stacked panels */}
+          <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+            {[
+              { I: IconGlobe,  tag: "SAME WALLET",       headline: "Your 0x address",   sub: "No new wallet required. Same MetaMask, Rabby, or Ledger you already use." },
+              { I: IconLock,   tag: "ANY ERC-20",         headline: "Any token, private", sub: "Wrap any ERC-20 into a confidential cToken. Redeem 1-to-1 at any time."  },
+              { I: IconShield, tag: "COMPLIANCE-READY",  headline: "View keys built in", sub: "Voluntary disclosure to auditors or regulators. Selective, not forced."    },
+            ].map((s, i) => (
+              <div key={i} style={{
+                flex: 1, display: "flex", alignItems: "center", gap: 18,
+                padding: "0 28px",
+                borderBottom: i < 2 ? bdr : "none",
+                background: i === 0 ? ink : i === 2 ? "rgba(10,10,10,0.03)" : "transparent",
+                color: i === 0 ? white : ink,
+              }}>
+                <span style={{ flexShrink: 0, opacity: 0.7 }}><s.I s={22} /></span>
+                <div>
+                  <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.16em", opacity: 0.45, marginBottom: 4 }}>{s.tag}</div>
+                  <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1rem,1.6vw,1.3rem)", marginBottom: 5 }}>{s.headline}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.76rem,1vw,0.88rem)", lineHeight: 1.55, opacity: 0.7 }}>{s.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     );
 
     default: return <Ctr><P>Slide not found.</P></Ctr>;
