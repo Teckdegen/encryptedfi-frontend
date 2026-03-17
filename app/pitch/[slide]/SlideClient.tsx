@@ -487,18 +487,18 @@ function SlideContent({ n }: { n: number }) {
     // ── 9: Vision ────────────────────────────────────────────────────────────
     case 9: return (
       <Ctr>
-        <div style={{ fontFamily: mono, fontSize: "0.68rem", letterSpacing: "0.22em", color: soft, marginBottom: 24 }}>VISION</div>
-        <H style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)", marginBottom: 28 }}>
+        <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.22em", color: soft, marginBottom: 14 }}>VISION</div>
+        <H style={{ fontSize: "clamp(2.2rem, 4.5vw, 4.2rem)", marginBottom: 18 }}>
           Privacy is not a feature.<br /><em style={{ fontStyle: "italic" }}>It is a right.</em>
         </H>
-        <P style={{ maxWidth: 640, marginBottom: 18, fontSize: "clamp(0.95rem, 1.25vw, 1.12rem)" }}>
+        <P style={{ maxWidth: 620, marginBottom: 12, fontSize: "clamp(0.85rem, 1.05vw, 0.98rem)" }}>
           Blockchain is repeating the same mistake the early internet made — public by default,
           with no path to private. Encrypted Fi changes that. Users keep the exact same{" "}
           <span style={{ fontFamily: mono }}>0x</span> wallet address they already use.
           The same MetaMask. The same Rabby. The same Ledger. No migration. No learning curve.
           Privacy just works.
         </P>
-        <P style={{ maxWidth: 600, marginBottom: 44, fontSize: "clamp(0.95rem, 1.25vw, 1.12rem)" }}>
+        <P style={{ maxWidth: 580, marginBottom: 28, fontSize: "clamp(0.85rem, 1.05vw, 0.98rem)" }}>
           Every ERC-20 token deserves a confidential version. Every DeFi action
           deserves to be private by default. We are building the infrastructure
           that makes that possible on the chains where the value already lives.
@@ -510,16 +510,16 @@ function SlideContent({ n }: { n: number }) {
             { I: IconShield, label: "Compliance-ready",  val: "View keys + disclosure"  },
           ].map((s, i) => (
             <div key={i} style={{
-              padding: "24px 40px", borderRight: i < 2 ? bdr : "none",
+              padding: "18px 32px", borderRight: i < 2 ? bdr : "none",
               background: i === 0 ? ink : "transparent",
               color: i === 0 ? white : ink,
               textAlign: "center" as const,
-              display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
             }}>
-              <span style={{ opacity: i === 0 ? 0.7 : 0.8 }}><s.I /></span>
+              <span style={{ opacity: i === 0 ? 0.7 : 0.8 }}><s.I s={20} /></span>
               <div>
-                <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.14em", opacity: 0.5, marginBottom: 4 }}>{s.label.toUpperCase()}</div>
-                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.05rem" }}>{s.val}</div>
+                <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", opacity: 0.5, marginBottom: 3 }}>{s.label.toUpperCase()}</div>
+                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.95rem" }}>{s.val}</div>
               </div>
             </div>
           ))}
