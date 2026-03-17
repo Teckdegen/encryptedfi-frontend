@@ -50,7 +50,7 @@ body > * { position: relative; z-index: 1; }
 ::selection { background: var(--ink); color: var(--cream); }
 
 /* ── Shared ── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+.container { padding: 0 40px; }
 
 /* ── Animations ── */
 @keyframes ticker {
@@ -119,17 +119,13 @@ body > * { position: relative; z-index: 1; }
 
 /* ─── Section layout helpers ─── */
 
-/* Inner section container (max-width 1200 + horizontal padding) */
+/* Inner section container */
 .section-inner {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 0 32px;
 }
 
 /* Hero inner container */
 .hero-inner {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 80px 32px 88px;
 }
 
