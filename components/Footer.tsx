@@ -6,8 +6,6 @@ export default function Footer() {
 
       {/* Main footer content */}
       <div className="footer-grid" style={{
-        maxWidth: 1200,
-        margin: "0 auto",
         padding: "56px 40px 40px",
         gap: 0,
         borderBottom: "2px solid rgba(231,226,217,0.08)",

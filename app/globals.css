@@ -179,8 +179,6 @@ body > * { position: relative; z-index: 1; }
 
 /* Footer bottom strip */
 .footer-strip {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 16px 40px;
   display: flex;
   justify-content: space-between;
