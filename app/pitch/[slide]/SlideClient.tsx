@@ -15,140 +15,122 @@ const sans  = "var(--font-sans)";
 const bdr   = "var(--border)";
 const soft  = "var(--ink-soft)";
 
-// ─── Chrome heights (must sum correctly) ──────────────────────────────────────
-// topbar 44px + progress 2px + bottomnav 44px + strip 28px = 118px
-const CHROME = "118px";
+// topbar 48px + progress 3px + bottomnav 48px + strip 32px = 131px
+const CHROME = "131px";
 
 // ─── SVG icons ────────────────────────────────────────────────────────────────
-const Svg = ({ d, d2, size = 18 }: { d: string; d2?: string; size?: number }) => (
+const Svg = ({ d, d2, size = 24 }: { d: string; d2?: string; size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
-    <path d={d} />
-    {d2 && <path d={d2} />}
+    stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+    <path d={d} />{d2 && <path d={d2} />}
   </svg>
 );
-const IconEye       = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" d2="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />;
-const IconZap       = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />;
-const IconBuilding  = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M3 21h18M9 8h1m5 0h1M9 12h1m5 0h1M9 16h1m5 0h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />;
-const IconTarget    = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-14a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />;
-const IconLock      = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M18 11H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 11V7a4 4 0 0 1 8 0v4" />;
-const IconArrows    = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" />;
-const IconTrend     = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />;
-const IconCoin      = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 7h2m-1 0v5m-2 0h4" />;
-const IconDroplet   = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />;
-const IconVote      = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9" />;
-const IconShield    = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
-const IconKey       = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4" />;
-const IconCircuit   = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />;
-const IconLink      = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />;
-const IconFileCheck = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-2 13l-3-3 1.41-1.41L12 12.17l4.59-4.58L18 9l-6 6zm2-13v5h5" />;
-const IconGlobe     = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 0a14.5 14.5 0 0 1 4 10 14.5 14.5 0 0 1-4 10A14.5 14.5 0 0 1 8 12 14.5 14.5 0 0 1 12 2zM2 12h20" />;
-const IconBadge     = ({ s = 18 }: { s?: number }) => <Svg size={s} d="M9 12l2 2 4-4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />;
+const I = (s = 24) => ({ s });
+const IconEye       = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" d2="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />;
+const IconZap       = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />;
+const IconBuilding  = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M3 21h18M9 8h1m5 0h1M9 12h1m5 0h1M9 16h1m5 0h1M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />;
+const IconTarget    = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zm0-14a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />;
+const IconLock      = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M18 11H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM8 11V7a4 4 0 0 1 8 0v4" />;
+const IconArrows    = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" />;
+const IconTrend     = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />;
+const IconCoin      = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-1 7h2m-1 0v5m-2 0h4" />;
+const IconDroplet   = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />;
+const IconVote      = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9" />;
+const IconShield    = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
+const IconKey       = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4" />;
+const IconCircuit   = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />;
+const IconLink      = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />;
+const IconFileCheck = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-2 13l-3-3 1.41-1.41L12 12.17l4.59-4.58L18 9l-6 6zm2-13v5h5" />;
+const IconGlobe     = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 0a14.5 14.5 0 0 1 4 10 14.5 14.5 0 0 1-4 10A14.5 14.5 0 0 1 8 12 14.5 14.5 0 0 1 12 2zM2 12h20" />;
+const IconBadge     = ({ s = 24 }: { s?: number }) => <Svg size={s} d="M9 12l2 2 4-4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />;
 
 // ─── Layout primitives ────────────────────────────────────────────────────────
 
 const Tag = ({ children }: { children: string }) => (
   <div style={{
-    fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.18em", fontWeight: 700,
-    background: ink, color: cream, padding: "4px 12px", display: "inline-block", marginBottom: 18,
+    fontFamily: mono, fontSize: "0.65rem", letterSpacing: "0.2em", fontWeight: 700,
+    background: ink, color: cream, padding: "5px 14px", display: "inline-block", marginBottom: 20,
   }}>{children}</div>
 );
 
 const H = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <h2 style={{
     fontFamily: serif, fontWeight: 900,
-    fontSize: "clamp(1.9rem, 3.8vw, 3.2rem)",
-    lineHeight: 0.97, letterSpacing: "-0.03em", color: ink, margin: 0, ...style,
+    fontSize: "clamp(2.6rem, 4.8vw, 4.4rem)",
+    lineHeight: 0.95, letterSpacing: "-0.03em", color: ink, margin: 0, ...style,
   }}>{children}</h2>
 );
 
 const P = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <p style={{
-    fontFamily: sans, fontSize: "0.8rem", lineHeight: 1.7, color: soft, margin: 0, ...style,
+    fontFamily: sans, fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", lineHeight: 1.75, color: soft, margin: 0, ...style,
   }}>{children}</p>
 );
 
-// Two-column layout that fills the slide exactly
+// Two-column, fills full slide height — children spread vertically
 const Row = ({ left, right, split = "1fr 1.4fr" }: {
-  left: React.ReactNode;
-  right: React.ReactNode;
-  split?: string;
+  left: React.ReactNode; right: React.ReactNode; split?: string;
 }) => (
   <div style={{
     display: "grid", gridTemplateColumns: split,
-    height: `calc(100dvh - ${CHROME})`,
-    overflow: "hidden",
+    height: `calc(100dvh - ${CHROME})`, overflow: "hidden",
   }}>
     <div style={{
-      padding: "32px 32px 32px 0", borderRight: bdr,
-      display: "flex", flexDirection: "column", justifyContent: "center",
+      padding: "40px 36px 40px 0", borderRight: bdr,
+      display: "flex", flexDirection: "column", justifyContent: "space-between",
       overflow: "hidden",
     }}>{left}</div>
     <div style={{
-      padding: "32px 0 32px 36px",
-      display: "flex", flexDirection: "column", justifyContent: "center",
+      padding: "40px 0 40px 40px",
+      display: "flex", flexDirection: "column", justifyContent: "space-between",
       overflow: "hidden",
     }}>{right}</div>
   </div>
 );
 
-// Centered layout that fills the slide exactly
+// Centered, fills full slide height
 const Ctr = ({ children }: { children: React.ReactNode }) => (
   <div style={{
     display: "flex", flexDirection: "column", alignItems: "center",
     justifyContent: "center", textAlign: "center",
-    height: `calc(100dvh - ${CHROME})`,
-    overflow: "hidden",
-    padding: "0 clamp(16px, 4vw, 80px)",
+    height: `calc(100dvh - ${CHROME})`, overflow: "hidden",
+    padding: "0 clamp(16px, 5vw, 96px)", gap: 0,
   }}>{children}</div>
 );
 
 // ─── Slide content ────────────────────────────────────────────────────────────
-
 function SlideContent({ n }: { n: number }) {
   switch (n) {
 
     // ── 1: Cover ─────────────────────────────────────────────────────────────
     case 1: return (
       <Ctr>
-        <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.18em", color: soft, marginBottom: 20 }}>
+        <div style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.22em", color: soft, marginBottom: 28 }}>
           ENCRYPTED FI · 2026 · EVM PRIVACY INFRASTRUCTURE
         </div>
-
-        {/* Brand on one line */}
         <div style={{
           fontFamily: serif, fontWeight: 900,
-          fontSize: "clamp(4.5rem, 12vw, 9rem)",
-          lineHeight: 0.92, letterSpacing: "-0.04em",
-          color: ink, marginBottom: 22,
-          display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "0.18em",
+          fontSize: "clamp(5rem, 14vw, 11rem)",
+          lineHeight: 0.9, letterSpacing: "-0.04em", color: ink,
+          marginBottom: 28,
+          display: "flex", alignItems: "flex-end", justifyContent: "center", gap: "0.16em",
         }}>
           Encrypted
-          <span style={{
-            background: ink, color: white,
-            padding: "0.04em 0.18em 0.06em",
-            display: "inline-block",
-            fontStyle: "normal",
-          }}>Fi</span>
+          <span style={{ background: ink, color: white, padding: "0.04em 0.2em 0.06em", display: "inline-block" }}>Fi</span>
         </div>
-
-        <P style={{ maxWidth: 480, marginBottom: 40, fontSize: "0.88rem" }}>
+        <P style={{ maxWidth: 560, marginBottom: 48, fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
           The privacy layer for ERC-20 tokens on EVM chains.
           Any token. Any wallet. Zero knowledge. No new chain required.
         </P>
-
         <div style={{ display: "flex", border: bdr }}>
           {[
             { n: "ZK",  l: "Every operation"   },
             { n: "1:1", l: "Token redemption"  },
             { n: <span style={{ fontFamily: mono }}>0x</span>, l: "Same wallet address" },
           ].map((s, i) => (
-            <div key={i} style={{
-              padding: "16px 36px", borderRight: i < 2 ? bdr : "none",
-              textAlign: "center" as const,
-            }}>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.9rem", lineHeight: 1 }}>{s.n}</div>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.14em", color: soft, marginTop: 5 }}>{s.l.toUpperCase()}</div>
+            <div key={i} style={{ padding: "22px 44px", borderRight: i < 2 ? bdr : "none", textAlign: "center" as const }}>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "2.4rem", lineHeight: 1 }}>{s.n}</div>
+              <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.16em", color: soft, marginTop: 8 }}>{s.l.toUpperCase()}</div>
             </div>
           ))}
         </div>
@@ -160,11 +142,13 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <Tag>THE PROBLEM</Tag>
-            <H style={{ marginBottom: 14 }}>
-              Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em>
-            </H>
-            <P>
+            <div>
+              <Tag>THE PROBLEM</Tag>
+              <H style={{ marginBottom: 20 }}>
+                Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em>
+              </H>
+            </div>
+            <P style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
               Public blockchains solved trustlessness and sacrificed privacy entirely.
               Every wallet, balance, and transaction is permanently readable by anyone —
               competitors, front-running bots, and adversaries all see exactly what you do.
@@ -172,22 +156,21 @@ function SlideContent({ n }: { n: number }) {
           </>
         }
         right={
-          <div>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             {[
               { I: IconEye,      t: "Total on-chain surveillance",        b: "A single address lookup exposes years of financial history, counterparties, and strategy in real time. There is no opt-out." },
               { I: IconZap,      t: "$1.38B extracted via MEV in 2024",   b: "Visible pending transactions allow sandwich bots to front-run every trade. Users absorb the cost in slippage and failed transactions." },
-              { I: IconBuilding, t: "Institutions cannot operate openly", b: "No fund, treasury, or enterprise can execute on-chain without telegraphing every move. This is the biggest blocker to institutional DeFi adoption." },
+              { I: IconBuilding, t: "Institutions cannot operate openly", b: "No fund, treasury, or enterprise can execute on-chain without telegraphing every move. This is the single biggest blocker to institutional DeFi adoption." },
               { I: IconTarget,   t: "Wealth visibility drives attacks",   b: "Known on-chain holdings lead directly to phishing, social engineering, and exploits directed at identifiable high-value wallets." },
             ].map((p, i) => (
               <div key={i} style={{
-                display: "flex", gap: 12, alignItems: "flex-start",
-                marginBottom: i < 3 ? 16 : 0, paddingBottom: i < 3 ? 16 : 0,
-                borderBottom: i < 3 ? "1px solid rgba(10,10,10,0.07)" : "none",
+                display: "flex", gap: 16, alignItems: "flex-start",
+                paddingBottom: i < 3 ? 20 : 0, borderBottom: i < 3 ? "1px solid rgba(10,10,10,0.08)" : "none",
               }}>
-                <span style={{ flexShrink: 0, marginTop: 1, color: ink }}><p.I /></span>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
                 <div>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.85rem", marginBottom: 3 }}>{p.t}</div>
-                  <div style={{ fontFamily: sans, fontSize: "0.73rem", color: soft, lineHeight: 1.55 }}>{p.b}</div>
+                  <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.95rem,1.3vw,1.1rem)", marginBottom: 6 }}>{p.t}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.1vw,0.95rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
                 </div>
               </div>
             ))}
@@ -201,29 +184,33 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <Tag>MARKET</Tag>
-            <H style={{ marginBottom: 14 }}>
-              $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
-            </H>
-            <P style={{ marginBottom: 14 }}>
-              Every dollar in DeFi is fully transparent. Anyone can look up any wallet
-              and see its exact balance, every trade ever made, and every protocol
-              it has touched.
-            </P>
-            <P style={{ marginBottom: 14 }}>
-              RAILGUN has processed over $4B in private transactions since 2021 and
-              STRK20 on Starknet shows how much demand exists for on-chain privacy.
-              The market is real and growing.
-            </P>
-            <P>
-              Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
-              where the majority of on-chain value lives, using the same{" "}
-              <span style={{ fontFamily: mono }}>0x</span> wallet address users already have.
-            </P>
+            <div>
+              <Tag>MARKET</Tag>
+              <H style={{ marginBottom: 20 }}>
+                $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
+              </H>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+                Every dollar in DeFi is fully transparent. Anyone can look up any wallet
+                and see its exact balance, every trade ever made, and every protocol it has touched.
+              </P>
+              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+                RAILGUN has processed over $4B in private transactions since 2021 and
+                STRK20 on Starknet shows how much demand exists for on-chain privacy.
+                The market is real and growing.
+              </P>
+              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+                Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
+                where the majority of on-chain value lives, using the same{" "}
+                <span style={{ fontFamily: mono }}>0x</span> wallet address users already have.
+              </P>
+            </div>
           </>
         }
         right={
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+            {/* Stats 2x2 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", border: bdr }}>
               {[
                 { n: "$110B+", l: "DeFi TVL on EVM chains",          dark: true },
@@ -232,20 +219,20 @@ function SlideContent({ n }: { n: number }) {
                 { n: "$4B+",   l: "RAILGUN private volume since 2021"           },
               ].map((s, i) => (
                 <div key={i} style={{
-                  padding: "20px 20px",
+                  padding: "24px 22px",
                   borderRight: i % 2 === 0 ? bdr : "none",
                   borderBottom: i < 2 ? bdr : "none",
                   background: s.dark ? ink : "transparent",
                   color: s.dark ? white : ink,
                 }}>
-                  <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.6rem,3vw,2.4rem)", lineHeight: 1, marginBottom: 6 }}>{s.n}</div>
-                  <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.12em", opacity: 0.55 }}>{s.l.toUpperCase()}</div>
+                  <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1, marginBottom: 8 }}>{s.n}</div>
+                  <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.13em", opacity: 0.55 }}>{s.l.toUpperCase()}</div>
                 </div>
               ))}
             </div>
-
+            {/* Demand box */}
             <div style={{ border: bdr }}>
-              <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
+              <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: soft, padding: "12px 18px", borderBottom: bdr }}>
                 DEMAND IS VALIDATED. THE EVM MARKET IS UNTAPPED.
               </div>
               {[
@@ -253,16 +240,9 @@ function SlideContent({ n }: { n: number }) {
                 { label: "STRK20",  desc: "Starknet launched STRK20 showing institutional confidence in the space. Encrypted Fi brings this to EVM chains." },
                 { label: "EVM GAP", desc: "The full ERC-20 ecosystem on Ethereum, Arbitrum, Base, and Optimism has no equivalent privacy layer today." },
               ].map((r, i) => (
-                <div key={i} style={{
-                  display: "flex", gap: 12, padding: "10px 16px",
-                  borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.06)" : "none",
-                }}>
-                  <span style={{
-                    fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em", fontWeight: 700,
-                    background: ink, color: white, padding: "2px 8px",
-                    flexShrink: 0, alignSelf: "flex-start", marginTop: 2,
-                  }}>{r.label}</span>
-                  <span style={{ fontFamily: sans, fontSize: "0.73rem", color: soft, lineHeight: 1.55 }}>{r.desc}</span>
+                <div key={i} style={{ display: "flex", gap: 14, padding: "12px 18px", borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.07)" : "none" }}>
+                  <span style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.1em", fontWeight: 700, background: ink, color: white, padding: "3px 10px", flexShrink: 0, alignSelf: "flex-start", marginTop: 2 }}>{r.label}</span>
+                  <span style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", color: soft, lineHeight: 1.6 }}>{r.desc}</span>
                 </div>
               ))}
             </div>
@@ -275,30 +255,30 @@ function SlideContent({ n }: { n: number }) {
     case 4: return (
       <Ctr>
         <Tag>SOLUTION</Tag>
-        <H style={{ marginBottom: 12, fontSize: "clamp(2.2rem,5vw,4rem)" }}>
-          Privacy as a layer, <em style={{ fontStyle: "italic" }}>not a chain.</em>
+        <H style={{ marginBottom: 16, fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}>
+          Privacy as a layer,<br /><em style={{ fontStyle: "italic" }}>not a chain.</em>
         </H>
-        <P style={{ maxWidth: 560, marginBottom: 36, fontSize: "0.84rem" }}>
-          Encrypted Fi wraps any ERC-20 token into a confidential cToken. Every interaction is
-          hidden inside a ZK proof. The original token is redeemable 1-to-1 at any time.
+        <P style={{ maxWidth: 620, marginBottom: 44, fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)" }}>
+          Encrypted Fi wraps any ERC-20 token into a confidential cToken. Every interaction
+          is hidden inside a ZK proof. The original token is redeemable 1-to-1 at any time.
           No new chain. No new wallet. No protocol migration needed.
         </P>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 880, width: "100%" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 960, width: "100%" }}>
           {[
-            { step: "01", label: "WRAP",      desc: "Deposit any ERC-20 token. Receive an encrypted cToken commitment. Your balance is now hidden.", dark: false },
-            { step: "02", label: "TRANSACT",  desc: "Send, swap, borrow, or earn yield. Every action is verified by a ZK proof. Nothing is visible.", dark: true  },
-            { step: "03", label: "EARN",      desc: "cTokens auto-compound inside private yield vaults. Your balance and strategy stay fully encrypted.", dark: false },
-            { step: "04", label: "UNWRAP",    desc: "Burn your note at any time. Receive the underlying ERC-20 plus earned yield back, exactly 1-to-1.", dark: false },
+            { step: "01", label: "WRAP",     desc: "Deposit any ERC-20 token. Receive an encrypted cToken commitment. Your balance is now hidden.", dark: false },
+            { step: "02", label: "TRANSACT", desc: "Send, swap, borrow, or earn yield. Every action is verified by a ZK proof. Nothing is visible.", dark: true  },
+            { step: "03", label: "EARN",     desc: "cTokens auto-compound inside private yield vaults. Your balance and strategy stay fully encrypted.", dark: false },
+            { step: "04", label: "UNWRAP",   desc: "Burn your note at any time. Receive the underlying ERC-20 plus earned yield back, exactly 1-to-1.", dark: false },
           ].map((s, i) => (
             <div key={s.step} style={{
-              padding: "28px 20px",
+              padding: "32px 24px",
               borderRight: i < 3 ? bdr : "none",
               background: s.dark ? ink : "transparent",
               color: s.dark ? white : ink,
             }}>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.16em", opacity: 0.4, marginBottom: 10 }}>{s.step}</div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.05rem", marginBottom: 10 }}>{s.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "0.74rem", lineHeight: 1.6, opacity: 0.8 }}>{s.desc}</div>
+              <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.18em", opacity: 0.4, marginBottom: 14 }}>{s.step}</div>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.3rem", marginBottom: 14 }}>{s.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", lineHeight: 1.65, opacity: 0.82 }}>{s.desc}</div>
             </div>
           ))}
         </div>
@@ -310,34 +290,35 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <Tag>TECHNOLOGY</Tag>
-            <H style={{ marginBottom: 14 }}>
-              Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
-            </H>
-            <P style={{ marginBottom: 18 }}>
+            <div>
+              <Tag>TECHNOLOGY</Tag>
+              <H style={{ marginBottom: 20 }}>
+                Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
+              </H>
+            </div>
+            <P style={{ marginBottom: 20, fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Every operation produces a ZK-SNARK proof verified by an on-chain
               Solidity verifier contract. No admin key. No pause function. No ability
-              to de-anonymise any user.
+              to de-anonymise any user. The math governs everything.
             </P>
-            {/* Performance metrics */}
             <div style={{ border: bdr }}>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.12em", color: soft, padding: "8px 14px", borderBottom: bdr }}>
+              <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
                 PERFORMANCE
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
                 {[
                   { l: "Proof generation", v: "Under 1 second" },
-                  { l: "On-chain verify",  v: "~30k gas"       },
+                  { l: "On-chain verify",  v: "~30k gas"        },
                   { l: "Circuit size",     v: "~200k constraints" },
-                  { l: "Proof system",     v: "Groth16 / Circom" },
+                  { l: "Proof system",     v: "Groth16 / Circom"  },
                 ].map((m, i) => (
                   <div key={i} style={{
-                    padding: "10px 14px",
+                    padding: "14px 16px",
                     borderRight: i % 2 === 0 ? bdr : "none",
-                    borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.07)" : "none",
+                    borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.08)" : "none",
                   }}>
-                    <div style={{ fontFamily: mono, fontSize: "0.46rem", letterSpacing: "0.1em", color: soft, marginBottom: 2 }}>{m.l.toUpperCase()}</div>
-                    <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.82rem" }}>{m.v}</div>
+                    <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.1em", color: soft, marginBottom: 4 }}>{m.l.toUpperCase()}</div>
+                    <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "1rem" }}>{m.v}</div>
                   </div>
                 ))}
               </div>
@@ -345,34 +326,30 @@ function SlideContent({ n }: { n: number }) {
           </>
         }
         right={
-          <div>
-            <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, marginBottom: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: soft }}>
               HOW A NOTE IS CREATED, HELD, AND SPENT
             </div>
             {[
-              { I: IconLock,    title: "Commitment",     tech: "Poseidon(secret, amount, nonce)",
+              { I: IconLock,    title: "Commitment",      tech: "Poseidon(secret, amount, nonce)",
                 b: "When you wrap an ERC-20, the contract records a Poseidon hash on-chain. The preimage stays fully off-chain. Nobody can reverse it to learn your amount." },
-              { I: IconCircuit, title: "Merkle Tree",    tech: "Sparse Merkle — on-chain root",
+              { I: IconCircuit, title: "Merkle Tree",     tech: "Sparse Merkle — on-chain root",
                 b: "Each commitment is inserted into an on-chain Merkle tree. To spend a note you prove membership without revealing which leaf you own." },
-              { I: IconLink,    title: "Nullifier",      tech: "Poseidon(secret, nonce)",
-                b: "Every note has a unique nullifier. When spent, it is posted on-chain. The contract rejects duplicates — preventing double-spends without linking anything." },
+              { I: IconLink,    title: "Nullifier",       tech: "Poseidon(secret, nonce)",
+                b: "Every note has a unique nullifier. When spent it is posted on-chain. The contract rejects duplicates — preventing double-spends without linking anything." },
               { I: IconKey,     title: "Note Encryption", tech: "ECIES / secp256k1",
                 b: "Ciphertexts are posted on-chain so you can recover notes on any device by scanning with your private key. No server or relayer needed." },
-              { I: IconCircuit, title: "ZK Circuits",    tech: "Circom 2 — mint, burn, transfer, swap, vote",
+              { I: IconCircuit, title: "ZK Circuits",     tech: "Circom 2 — mint, burn, transfer, swap, vote",
                 b: "Separate circuits for each operation. Each proves note validity, amount arithmetic, Merkle path, and nullifier uniqueness in a single on-chain call." },
             ].map((p, i) => (
-              <div key={i} style={{
-                display: "flex", gap: 12, marginBottom: i < 4 ? 13 : 0,
-                paddingBottom: i < 4 ? 13 : 0,
-                borderBottom: i < 4 ? "1px solid rgba(10,10,10,0.07)" : "none",
-              }}>
-                <span style={{ flexShrink: 0, marginTop: 1, color: ink }}><p.I /></span>
+              <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
                 <div>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
-                    <span style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.84rem" }}>{p.title}</span>
-                    <span style={{ fontFamily: mono, fontSize: "0.46rem", letterSpacing: "0.08em", color: soft }}>{p.tech}</span>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 4 }}>
+                    <span style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.92rem,1.2vw,1.05rem)" }}>{p.title}</span>
+                    <span style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.08em", color: soft }}>{p.tech}</span>
                   </div>
-                  <div style={{ fontFamily: sans, fontSize: "0.72rem", color: soft, lineHeight: 1.55 }}>{p.b}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1.05vw,0.92rem)", color: soft, lineHeight: 1.6 }}>{p.b}</div>
                 </div>
               </div>
             ))}
@@ -385,31 +362,31 @@ function SlideContent({ n }: { n: number }) {
     case 6: return (
       <Ctr>
         <Tag>CAPABILITIES</Tag>
-        <H style={{ marginBottom: 10, fontSize: "clamp(2rem,4.5vw,3.5rem)" }}>
+        <H style={{ marginBottom: 12, fontSize: "clamp(2.4rem, 5vw, 4.4rem)" }}>
           Privacy for every DeFi primitive.
         </H>
-        <P style={{ maxWidth: 520, marginBottom: 28, fontSize: "0.82rem" }}>
+        <P style={{ maxWidth: 580, marginBottom: 32, fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
           Encrypted Fi covers the full DeFi stack out of the box.
           Each capability is a separate, auditable contract.
         </P>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", border: bdr, maxWidth: 840, width: "100%" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", border: bdr, maxWidth: 920, width: "100%" }}>
           {[
-            { I: IconLock,    label: "Private Transfers",    sub: "Sender, receiver, and amount are ZK-verified. On-chain proof of validity. Zero information leaked from the transaction." },
-            { I: IconArrows,  label: "Confidential Swaps",   sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet to the mempool or MEV bots." },
-            { I: IconTrend,   label: "Encrypted Yield",      sub: "Deposit into ERC-4626 yield vaults. Balance, strategy, and compound interest all stay encrypted throughout." },
-            { I: IconCoin,    label: "Private Lending",      sub: "Borrow against cToken collateral at 75% LTV. Collateral size is never linked to your wallet address." },
-            { I: IconDroplet, label: "Hidden LP Positions",  sub: "Provide liquidity to Uniswap V2 compatible pools without advertising your capital deployment." },
-            { I: IconVote,    label: "ZK Governance Votes",  sub: "Vote on proposals with cryptographic proof of token ownership. Vote weight is private. Nullifiers prevent double-voting." },
+            { I: IconLock,    label: "Private Transfers",   sub: "Sender, receiver, and amount are ZK-verified. On-chain proof of validity. Zero information leaked from the transaction." },
+            { I: IconArrows,  label: "Confidential Swaps",  sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet to the mempool or MEV bots." },
+            { I: IconTrend,   label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Balance, strategy, and compound interest all stay encrypted throughout." },
+            { I: IconCoin,    label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Collateral size is never linked to your wallet address." },
+            { I: IconDroplet, label: "Hidden LP Positions", sub: "Provide liquidity to Uniswap V2 compatible pools without advertising your capital deployment to competitors." },
+            { I: IconVote,    label: "ZK Governance Votes", sub: "Vote on proposals with cryptographic proof of token ownership. Vote weight is private. Nullifiers prevent double-voting." },
           ].map((c, i) => (
             <div key={i} style={{
-              padding: "22px 20px",
+              padding: "28px 24px",
               borderRight: i % 3 < 2 ? bdr : "none",
               borderBottom: i < 3 ? bdr : "none",
               background: i % 2 === 1 ? "rgba(10,10,10,0.03)" : "transparent",
             }}>
-              <span style={{ display: "block", marginBottom: 10, color: ink }}><c.I /></span>
-              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "0.85rem", marginBottom: 6 }}>{c.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "0.71rem", color: soft, lineHeight: 1.55 }}>{c.sub}</div>
+              <span style={{ display: "block", marginBottom: 14, color: ink }}><c.I /></span>
+              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.95rem,1.3vw,1.1rem)", marginBottom: 10 }}>{c.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", color: soft, lineHeight: 1.65 }}>{c.sub}</div>
             </div>
           ))}
         </div>
@@ -422,54 +399,39 @@ function SlideContent({ n }: { n: number }) {
         height: `calc(100dvh - ${CHROME})`,
         display: "flex", flexDirection: "column",
         overflow: "hidden",
-        padding: "24px clamp(20px,5vw,72px) 0",
+        padding: "28px clamp(20px,5vw,72px) 0",
       }}>
-        {/* Header */}
         <div style={{ textAlign: "center" as const, marginBottom: 24, flexShrink: 0 }}>
           <Tag>TEAM</Tag>
-          <H style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", marginTop: -4 }}>
-            The people building it.
-          </H>
+          <H style={{ fontSize: "clamp(2.2rem,4.2vw,3.8rem)", marginTop: -4 }}>The people building it.</H>
         </div>
-
-        {/* Two columns */}
-        <div style={{
-          display: "grid", gridTemplateColumns: "1fr 1fr",
-          flex: 1, border: bdr, overflow: "hidden",
-          minHeight: 0,
-        }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, border: bdr, overflow: "hidden", minHeight: 0 }}>
           {[0, 1].map(i => (
             <div key={i} style={{
-              padding: "32px 40px",
+              padding: "32px 44px",
               borderRight: i === 0 ? bdr : "none",
-              display: "flex", flexDirection: "column",
-              overflow: "hidden",
+              display: "flex", flexDirection: "column", overflow: "hidden",
             }}>
-              {/* Photo — takes most of the space */}
+              {/* Large photo placeholder */}
               <div style={{
-                flex: 1, minHeight: 0,
-                border: bdr,
+                flex: 1, minHeight: 0, border: bdr,
                 background: "rgba(10,10,10,0.03)",
-                marginBottom: 20,
+                marginBottom: 24,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                flexDirection: "column", gap: 10,
+                flexDirection: "column", gap: 12,
               }}>
-                <span style={{ color: "rgba(10,10,10,0.15)" }}><IconBuilding s={32} /></span>
-                <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.14em", color: "rgba(10,10,10,0.2)" }}>
+                <span style={{ color: "rgba(10,10,10,0.13)" }}><IconBuilding s={48} /></span>
+                <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.18)" }}>
                   ADD PHOTO
                 </div>
               </div>
-
-              {/* Name */}
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.5rem", color: ink, marginBottom: 3, flexShrink: 0 }}>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.6rem,2.5vw,2.2rem)", color: ink, marginBottom: 5, flexShrink: 0 }}>
                 Name
               </div>
-              {/* Role */}
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", color: soft, marginBottom: 12, flexShrink: 0 }}>
+              <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.18em", color: soft, marginBottom: 14, flexShrink: 0 }}>
                 CO-FOUNDER
               </div>
-              {/* Bio */}
-              <div style={{ fontFamily: sans, fontSize: "0.78rem", lineHeight: 1.7, color: "rgba(10,10,10,0.28)", fontStyle: "italic", flexShrink: 0 }}>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.85rem,1.1vw,1rem)", lineHeight: 1.75, color: "rgba(10,10,10,0.28)", fontStyle: "italic", flexShrink: 0 }}>
                 Background and experience go here.
               </div>
             </div>
@@ -483,11 +445,13 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <Tag>COMPLIANCE</Tag>
-            <H style={{ marginBottom: 14 }}>
-              Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em>
-            </H>
-            <P>
+            <div>
+              <Tag>COMPLIANCE</Tag>
+              <H style={{ marginBottom: 20 }}>
+                Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em>
+              </H>
+            </div>
+            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Encrypted Fi is not a mixer. Unlike Tornado Cash — which had no mechanism
               for voluntary disclosure — Encrypted Fi was designed from day one so that
               users can always prove their activity to authorised parties without
@@ -496,26 +460,22 @@ function SlideContent({ n }: { n: number }) {
           </>
         }
         right={
-          <div>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             {[
               { I: IconKey,       title: "View Keys",
-                b: "Every wallet generates a view key from the same private key used on EVM. Share it with an auditor, regulator, or tax authority to disclose your full history — without exposing your spending key." },
+                b: "Every wallet generates a view key from the same private key used on EVM. Share it with an auditor, regulator, or tax authority to disclose your full history without exposing your spending key." },
               { I: IconFileCheck, title: "Selective Disclosure",
                 b: "Generate a ZK proof that reveals one specific transaction to one specific party — proving a payment, amount, or counterparty — without revealing any other transaction." },
               { I: IconShield,    title: "Auditable by Design",
                 b: "All transaction proofs are verifiable on-chain. Nullifier uniqueness prevents double-spend and fraud. This is auditable compliance infrastructure, not obfuscation." },
               { I: IconBadge,     title: "Not Tornado Cash",
-                b: "Tornado Cash offered no view keys, no selective disclosure, and no compliance path. Encrypted Fi provides all three, and was architected this way from the first line of code." },
+                b: "Tornado Cash offered no view keys, no selective disclosure, and no compliance path. Encrypted Fi provides all three and was architected this way from the first line of code." },
             ].map((p, i) => (
-              <div key={i} style={{
-                display: "flex", gap: 12, alignItems: "flex-start",
-                marginBottom: i < 3 ? 16 : 0, paddingBottom: i < 3 ? 16 : 0,
-                borderBottom: i < 3 ? "1px solid rgba(10,10,10,0.07)" : "none",
-              }}>
-                <span style={{ flexShrink: 0, marginTop: 1, color: ink }}><p.I /></span>
+              <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
                 <div>
-                  <div style={{ fontFamily: serif, fontWeight: 700, fontSize: "0.85rem", marginBottom: 3 }}>{p.title}</div>
-                  <div style={{ fontFamily: sans, fontSize: "0.73rem", color: soft, lineHeight: 1.55 }}>{p.b}</div>
+                  <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.95rem,1.3vw,1.1rem)", marginBottom: 6 }}>{p.title}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
                 </div>
               </div>
             ))}
@@ -527,42 +487,39 @@ function SlideContent({ n }: { n: number }) {
     // ── 9: Vision ────────────────────────────────────────────────────────────
     case 9: return (
       <Ctr>
-        <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.18em", color: soft, marginBottom: 22 }}>
-          VISION
-        </div>
-        <H style={{ fontSize: "clamp(2.6rem,7vw,6rem)", marginBottom: 22 }}>
+        <div style={{ fontFamily: mono, fontSize: "0.68rem", letterSpacing: "0.22em", color: soft, marginBottom: 24 }}>VISION</div>
+        <H style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)", marginBottom: 28 }}>
           Privacy is not a feature.<br /><em style={{ fontStyle: "italic" }}>It is a right.</em>
         </H>
-        <P style={{ maxWidth: 580, marginBottom: 16, fontSize: "0.84rem" }}>
+        <P style={{ maxWidth: 640, marginBottom: 18, fontSize: "clamp(0.95rem, 1.25vw, 1.12rem)" }}>
           Blockchain is repeating the same mistake the early internet made — public by default,
-          with no path to private. Encrypted Fi changes that. Users keep the exact same
-          <span style={{ fontFamily: mono }}> 0x</span> wallet address they already use.
-          The same MetaMask. The same Rabby. The same Ledger. No migration.
-          No learning curve. Privacy just works.
+          with no path to private. Encrypted Fi changes that. Users keep the exact same{" "}
+          <span style={{ fontFamily: mono }}>0x</span> wallet address they already use.
+          The same MetaMask. The same Rabby. The same Ledger. No migration. No learning curve.
+          Privacy just works.
         </P>
-        <P style={{ maxWidth: 540, marginBottom: 36, fontSize: "0.84rem" }}>
+        <P style={{ maxWidth: 600, marginBottom: 44, fontSize: "clamp(0.95rem, 1.25vw, 1.12rem)" }}>
           Every ERC-20 token deserves a confidential version. Every DeFi action
           deserves to be private by default. We are building the infrastructure
           that makes that possible on the chains where the value already lives.
         </P>
         <div style={{ display: "flex", border: bdr }}>
           {[
-            { I: IconGlobe,  label: "Any EVM chain",      val: "Same 0x address"         },
-            { I: IconLock,   label: "Any ERC-20 token",   val: "Confidential by default" },
-            { I: IconShield, label: "Compliance-ready",   val: "View keys + disclosure"  },
+            { I: IconGlobe,  label: "Any EVM chain",     val: "Same 0x address"         },
+            { I: IconLock,   label: "Any ERC-20 token",  val: "Confidential by default" },
+            { I: IconShield, label: "Compliance-ready",  val: "View keys + disclosure"  },
           ].map((s, i) => (
             <div key={i} style={{
-              padding: "20px 32px",
-              borderRight: i < 2 ? bdr : "none",
+              padding: "24px 40px", borderRight: i < 2 ? bdr : "none",
               background: i === 0 ? ink : "transparent",
               color: i === 0 ? white : ink,
               textAlign: "center" as const,
-              display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
             }}>
               <span style={{ opacity: i === 0 ? 0.7 : 0.8 }}><s.I /></span>
               <div>
-                <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.12em", opacity: 0.5, marginBottom: 3 }}>{s.label.toUpperCase()}</div>
-                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.92rem" }}>{s.val}</div>
+                <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.14em", opacity: 0.5, marginBottom: 4 }}>{s.label.toUpperCase()}</div>
+                <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.05rem" }}>{s.val}</div>
               </div>
             </div>
           ))}
@@ -575,16 +532,11 @@ function SlideContent({ n }: { n: number }) {
 }
 
 // ─── Strip labels ─────────────────────────────────────────────────────────────
-const STRIP_LABELS = [
-  "COVER", "PROBLEM", "MARKET", "SOLUTION", "TECHNOLOGY",
-  "CAPABILITIES", "TEAM", "COMPLIANCE", "VISION",
-];
+const STRIP_LABELS = ["COVER","PROBLEM","MARKET","SOLUTION","TECHNOLOGY","CAPABILITIES","TEAM","COMPLIANCE","VISION"];
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function SlideClient({ current, total, meta }: {
-  current: number;
-  total: number;
-  meta: Slide;
+  current: number; total: number; meta: Slide;
 }) {
   const router = useRouter();
 
@@ -595,8 +547,8 @@ export default function SlideClient({ current, total, meta }: {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (["ArrowRight", "ArrowDown", " "].includes(e.key)) { e.preventDefault(); go(current + 1); }
-      if (["ArrowLeft",  "ArrowUp"       ].includes(e.key)) { e.preventDefault(); go(current - 1); }
+      if (["ArrowRight","ArrowDown"," "].includes(e.key)) { e.preventDefault(); go(current + 1); }
+      if (["ArrowLeft","ArrowUp"].includes(e.key))        { e.preventDefault(); go(current - 1); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -605,9 +557,9 @@ export default function SlideClient({ current, total, meta }: {
   const canPrev = current > 1;
   const canNext = current < total;
 
-  const btnStyle = (active: boolean): React.CSSProperties => ({
-    fontFamily: mono, fontSize: "0.56rem", letterSpacing: "0.12em", fontWeight: 700,
-    padding: "8px 20px", border: bdr,
+  const btn = (active: boolean): React.CSSProperties => ({
+    fontFamily: mono, fontSize: "0.62rem", letterSpacing: "0.14em", fontWeight: 700,
+    padding: "9px 24px", border: bdr,
     background: active ? ink : "transparent",
     color: active ? white : "rgba(10,10,10,0.2)",
     cursor: active ? "pointer" : "default",
@@ -615,89 +567,48 @@ export default function SlideClient({ current, total, meta }: {
   });
 
   return (
-    // Outer wrapper: exact viewport height, no scroll
-    <div style={{
-      height: "100dvh", background: cream,
-      display: "flex", flexDirection: "column",
-      overflow: "hidden",
-    }}>
+    <div style={{ height: "100dvh", background: cream, display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
-      {/* Top bar — 44px */}
-      <div style={{
-        height: 44, flexShrink: 0,
-        background: cream, borderBottom: bdr,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0 clamp(16px,4vw,48px)", gap: 16,
-      }}>
+      {/* Top bar — 48px */}
+      <div style={{ height: 48, flexShrink: 0, background: cream, borderBottom: bdr, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 clamp(16px,4vw,52px)", gap: 16 }}>
         <a href="/" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none", color: ink, flexShrink: 0 }}>
-          <Image
-            src="https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png"
-            alt="Encrypted Fi" width={24} height={24} style={{ objectFit: "contain" }}
-          />
-          <span style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.7rem", letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: 3 }}>
-            ENCRYPTED
-            <span style={{ background: ink, color: white, padding: "1px 5px" }}>FI</span>
+          <Image src="https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png" alt="Encrypted Fi" width={26} height={26} style={{ objectFit: "contain" }} />
+          <span style={{ fontFamily: serif, fontWeight: 900, fontSize: "0.78rem", letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: 3 }}>
+            ENCRYPTED <span style={{ background: ink, color: white, padding: "1px 6px" }}>FI</span>
           </span>
         </a>
-        <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.15em", color: soft }}>{meta.category}</div>
-        <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.12em", color: soft, flexShrink: 0 }}>
-          {String(current).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.16em", color: soft }}>{meta.category}</div>
+        <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.13em", color: soft, flexShrink: 0 }}>
+          {String(current).padStart(2,"0")} / {String(total).padStart(2,"0")}
         </div>
       </div>
 
-      {/* Progress bar — 2px */}
-      <div style={{ height: 2, flexShrink: 0, background: "rgba(10,10,10,0.08)" }}>
-        <div style={{ height: "100%", background: ink, width: `${(current / total) * 100}%`, transition: "width 0.35s ease" }} />
+      {/* Progress bar — 3px */}
+      <div style={{ height: 3, flexShrink: 0, background: "rgba(10,10,10,0.08)" }}>
+        <div style={{ height: "100%", background: ink, width: `${(current/total)*100}%`, transition: "width 0.35s ease" }} />
       </div>
 
-      {/* Slide content — fills remaining space */}
-      <div style={{
-        flex: 1, minHeight: 0, overflow: "hidden",
-        padding: "0 clamp(20px,5vw,72px)",
-      }}>
+      {/* Slide — fills all remaining */}
+      <div style={{ flex: 1, minHeight: 0, overflow: "hidden", padding: "0 clamp(20px,5vw,72px)" }}>
         <SlideContent n={current} />
       </div>
 
-      {/* Bottom nav — 44px */}
-      <div style={{
-        height: 44, flexShrink: 0,
-        borderTop: bdr, display: "flex",
-        alignItems: "center", justifyContent: "space-between",
-        padding: "0 clamp(16px,4vw,48px)", gap: 16,
-      }}>
-        <button onClick={() => go(current - 1)} disabled={!canPrev} style={btnStyle(canPrev)}>PREV</button>
-
-        {/* Dot indicators */}
+      {/* Bottom nav — 48px */}
+      <div style={{ height: 48, flexShrink: 0, borderTop: bdr, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 clamp(16px,4vw,52px)", gap: 16 }}>
+        <button onClick={() => go(current-1)} disabled={!canPrev} style={btn(canPrev)}>PREV</button>
         <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-          {Array.from({ length: total }, (_, i) => i + 1).map(i => (
-            <button key={i} onClick={() => go(i)} title={`Slide ${i}`} style={{
-              width: i === current ? 20 : 6, height: 6, flexShrink: 0,
-              background: i === current ? ink : "rgba(10,10,10,0.18)",
-              border: "none", padding: 0, cursor: "pointer",
-              transition: "width 0.2s, background 0.15s",
-            }} />
+          {Array.from({ length: total }, (_, i) => i+1).map(i => (
+            <button key={i} onClick={() => go(i)} title={`Slide ${i}`} style={{ width: i===current?22:6, height: 7, flexShrink: 0, background: i===current?ink:"rgba(10,10,10,0.18)", border:"none", padding:0, cursor:"pointer", transition:"width 0.2s,background 0.15s" }} />
           ))}
         </div>
-
-        <button onClick={() => go(current + 1)} disabled={!canNext} style={btnStyle(canNext)}>NEXT</button>
+        <button onClick={() => go(current+1)} disabled={!canNext} style={btn(canNext)}>NEXT</button>
       </div>
 
-      {/* Slide strip — 28px */}
-      <div style={{
-        height: 28, flexShrink: 0,
-        borderTop: bdr, display: "flex", overflowX: "auto",
-        background: cream,
-      }}>
-        {Array.from({ length: total }, (_, i) => i + 1).map(i => (
-          <button key={i} onClick={() => go(i)} style={{
-            fontFamily: mono, fontSize: "0.46rem", letterSpacing: "0.1em",
-            padding: "0 14px", whiteSpace: "nowrap" as const, height: "100%",
-            background: i === current ? ink : "transparent",
-            color: i === current ? white : soft,
-            border: "none", borderRight: bdr,
-            cursor: "pointer", transition: "all 0.15s", flexShrink: 0,
-          }}>
-            {String(i).padStart(2, "0")} {STRIP_LABELS[i - 1]}
+      {/* Slide strip — 32px */}
+      <div style={{ height: 32, flexShrink: 0, borderTop: bdr, display: "flex", overflowX: "auto", background: cream }}>
+        {Array.from({ length: total }, (_, i) => i+1).map(i => (
+          <button key={i} onClick={() => go(i)} style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.1em", padding: "0 16px", whiteSpace: "nowrap" as const, height: "100%", background: i===current?ink:"transparent", color: i===current?white:soft, border:"none", borderRight:bdr, cursor:"pointer", transition:"all 0.15s", flexShrink: 0 }}>
+            {String(i).padStart(2,"0")} {STRIP_LABELS[i-1]}
           </button>
         ))}
       </div>
