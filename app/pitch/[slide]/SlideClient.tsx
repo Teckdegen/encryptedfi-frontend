@@ -63,7 +63,8 @@ const H = ({ children, style = {} }: { children: React.ReactNode; style?: React.
 
 const P = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <p style={{
-    fontFamily: sans, fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", lineHeight: 1.75, color: soft, margin: 0, ...style,
+    fontFamily: sans, fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", lineHeight: 1.75,
+    color: cream, background: ink, margin: 0, padding: "14px 18px", ...style,
   }}>{children}</p>
 );
 
@@ -77,7 +78,7 @@ const Row = ({ left, right, split = "1fr 1.4fr" }: {
   }}>
     <div style={{
       padding: "40px 36px 40px 0", borderRight: bdr,
-      display: "flex", flexDirection: "column", justifyContent: "space-between",
+      display: "flex", flexDirection: "column", justifyContent: "center", gap: 18,
       overflow: "hidden",
     }}>{left}</div>
     <div style={{
@@ -118,7 +119,7 @@ function SlideContent({ n }: { n: number }) {
           Encrypted
           <span style={{ background: ink, color: white, padding: "0.04em 0.2em 0.06em", display: "inline-block" }}>Fi</span>
         </div>
-        <P style={{ maxWidth: 560, marginBottom: 48, fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
+        <P style={{ maxWidth: 560, marginBottom: 36, fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
           The privacy layer for ERC-20 tokens on EVM chains.
           Any token. Any wallet. Zero knowledge. No new chain required.
         </P>
@@ -142,16 +143,14 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <div>
-              <Tag>THE PROBLEM</Tag>
-              <H style={{ marginBottom: 20 }}>
-                Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em>
-              </H>
-            </div>
+            <Tag>THE PROBLEM</Tag>
+            <H>
+              Every on-chain<br />move is a<br /><em style={{ fontStyle: "italic" }}>public record.</em>
+            </H>
             <P style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
               Public blockchains solved trustlessness and sacrificed privacy entirely.
-              Every wallet, balance, and transaction is permanently readable by anyone —
-              competitors, front-running bots, and adversaries all see exactly what you do.
+              Every wallet, balance, and transaction is permanently readable by anyone.
+              Competitors, front-running bots, and adversaries all see exactly what you do.
             </P>
           </>
         }
@@ -184,28 +183,23 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <div>
-              <Tag>MARKET</Tag>
-              <H style={{ marginBottom: 20 }}>
-                $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
-              </H>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-                Every dollar in DeFi is fully transparent. Anyone can look up any wallet
-                and see its exact balance, every trade ever made, and every protocol it has touched.
-              </P>
-              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-                RAILGUN has processed over $4B in private transactions since 2021 and
-                STRK20 on Starknet shows how much demand exists for on-chain privacy.
-                The market is real and growing.
-              </P>
-              <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-                Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
-                where the majority of on-chain value lives, using the same{" "}
-                <span style={{ fontFamily: mono }}>0x</span> wallet address users already have.
-              </P>
-            </div>
+            <Tag>MARKET</Tag>
+            <H>
+              $110B in DeFi.<br /><em style={{ fontStyle: "italic" }}>Zero privacy.</em>
+            </H>
+            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+              Every dollar in DeFi is fully transparent. Anyone can look up any wallet
+              and see its exact balance, every trade ever made, and every protocol it has touched.
+            </P>
+            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+              RAILGUN has processed over $4B in private transactions since 2021 and
+              STRK20 on Starknet shows how much demand exists for on-chain privacy.
+              The market is real and growing.
+            </P>
+            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+              Encrypted Fi expands this to the full ERC-20 ecosystem across EVM chains,
+              using the same <span style={{ fontFamily: mono, color: cream }}>0x</span> wallet address users already have.
+            </P>
           </>
         }
         right={
@@ -290,13 +284,11 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <div>
-              <Tag>TECHNOLOGY</Tag>
-              <H style={{ marginBottom: 20 }}>
-                Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
-              </H>
-            </div>
-            <P style={{ marginBottom: 20, fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            <Tag>TECHNOLOGY</Tag>
+            <H>
+              Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
+            </H>
+            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
               Every operation produces a ZK-SNARK proof verified by an on-chain
               Solidity verifier contract. No admin key. No pause function. No ability
               to de-anonymise any user. The math governs everything.
@@ -445,15 +437,13 @@ function SlideContent({ n }: { n: number }) {
       <Row
         left={
           <>
-            <div>
-              <Tag>COMPLIANCE</Tag>
-              <H style={{ marginBottom: 20 }}>
-                Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em>
-              </H>
-            </div>
+            <Tag>COMPLIANCE</Tag>
+            <H>
+              Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em>
+            </H>
             <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-              Encrypted Fi is not a mixer. Unlike Tornado Cash — which had no mechanism
-              for voluntary disclosure — Encrypted Fi was designed from day one so that
+              Encrypted Fi is not a mixer. Unlike Tornado Cash, which had no mechanism
+              for voluntary disclosure, Encrypted Fi was designed from day one so that
               users can always prove their activity to authorised parties without
               exposing anything to anyone else.
             </P>
