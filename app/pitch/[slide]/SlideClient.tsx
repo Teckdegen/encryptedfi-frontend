@@ -64,7 +64,7 @@ const H = ({ children, style = {} }: { children: React.ReactNode; style?: React.
 const P = ({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <p style={{
     fontFamily: sans, fontSize: "clamp(0.9rem, 1.2vw, 1.05rem)", lineHeight: 1.75,
-    color: cream, background: ink, margin: 0, padding: "14px 18px", ...style,
+    color: soft, margin: 0, ...style,
   }}>{children}</p>
 );
 
@@ -249,10 +249,10 @@ function SlideContent({ n }: { n: number }) {
     case 4: return (
       <Ctr>
         <Tag>SOLUTION</Tag>
-        <H style={{ marginBottom: 16, fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}>
+        <H style={{ marginBottom: 10, fontSize: "clamp(2.4rem, 4.8vw, 4.2rem)" }}>
           Privacy as a layer,<br /><em style={{ fontStyle: "italic" }}>not a chain.</em>
         </H>
-        <P style={{ maxWidth: 620, marginBottom: 44, fontSize: "clamp(0.95rem, 1.3vw, 1.1rem)" }}>
+        <P style={{ maxWidth: 600, marginBottom: 28, fontSize: "clamp(0.88rem, 1.1vw, 1rem)" }}>
           Encrypted Fi wraps any ERC-20 token into a confidential cToken. Every interaction
           is hidden inside a ZK proof. The original token is redeemable 1-to-1 at any time.
           No new chain. No new wallet. No protocol migration needed.
@@ -265,14 +265,14 @@ function SlideContent({ n }: { n: number }) {
             { step: "04", label: "UNWRAP",   desc: "Burn your note at any time. Receive the underlying ERC-20 plus earned yield back, exactly 1-to-1.", dark: false },
           ].map((s, i) => (
             <div key={s.step} style={{
-              padding: "32px 24px",
+              padding: "22px 20px",
               borderRight: i < 3 ? bdr : "none",
               background: s.dark ? ink : "transparent",
               color: s.dark ? white : ink,
             }}>
-              <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.18em", opacity: 0.4, marginBottom: 14 }}>{s.step}</div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.3rem", marginBottom: 14 }}>{s.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", lineHeight: 1.65, opacity: 0.82 }}>{s.desc}</div>
+              <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.18em", opacity: 0.4, marginBottom: 10 }}>{s.step}</div>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "1.15rem", marginBottom: 10 }}>{s.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,1vw,0.9rem)", lineHeight: 1.6, opacity: 0.82 }}>{s.desc}</div>
             </div>
           ))}
         </div>
@@ -354,31 +354,30 @@ function SlideContent({ n }: { n: number }) {
     case 6: return (
       <Ctr>
         <Tag>CAPABILITIES</Tag>
-        <H style={{ marginBottom: 12, fontSize: "clamp(2.4rem, 5vw, 4.4rem)" }}>
+        <H style={{ marginBottom: 8, fontSize: "clamp(2rem, 4vw, 3.6rem)" }}>
           Privacy for every DeFi primitive.
         </H>
-        <P style={{ maxWidth: 580, marginBottom: 32, fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)" }}>
-          Encrypted Fi covers the full DeFi stack out of the box.
-          Each capability is a separate, auditable contract.
+        <P style={{ maxWidth: 520, marginBottom: 20, fontSize: "clamp(0.85rem, 1.05vw, 0.96rem)" }}>
+          Encrypted Fi covers the full DeFi stack. Each capability is a separate, auditable contract.
         </P>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", border: bdr, maxWidth: 920, width: "100%" }}>
           {[
-            { I: IconLock,    label: "Private Transfers",   sub: "Sender, receiver, and amount are ZK-verified. On-chain proof of validity. Zero information leaked from the transaction." },
-            { I: IconArrows,  label: "Confidential Swaps",  sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet to the mempool or MEV bots." },
-            { I: IconTrend,   label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Balance, strategy, and compound interest all stay encrypted throughout." },
-            { I: IconCoin,    label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Collateral size is never linked to your wallet address." },
-            { I: IconDroplet, label: "Hidden LP Positions", sub: "Provide liquidity to Uniswap V2 compatible pools without advertising your capital deployment to competitors." },
-            { I: IconVote,    label: "ZK Governance Votes", sub: "Vote on proposals with cryptographic proof of token ownership. Vote weight is private. Nullifiers prevent double-voting." },
+            { I: IconLock,    label: "Private Transfers",   sub: "Sender, receiver, and amount ZK-verified. On-chain proof of validity. Zero information leaked." },
+            { I: IconArrows,  label: "Confidential Swaps",  sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet." },
+            { I: IconTrend,   label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Balance, strategy, and interest all stay encrypted." },
+            { I: IconCoin,    label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Collateral size never linked to your wallet." },
+            { I: IconDroplet, label: "Hidden LP Positions", sub: "Provide liquidity to Uniswap V2 pools without advertising your capital to competitors." },
+            { I: IconVote,    label: "ZK Governance Votes", sub: "Vote with cryptographic proof of ownership. Vote weight private. Nullifiers prevent double-voting." },
           ].map((c, i) => (
             <div key={i} style={{
-              padding: "28px 24px",
+              padding: "18px 18px",
               borderRight: i % 3 < 2 ? bdr : "none",
               borderBottom: i < 3 ? bdr : "none",
               background: i % 2 === 1 ? "rgba(10,10,10,0.03)" : "transparent",
             }}>
-              <span style={{ display: "block", marginBottom: 14, color: ink }}><c.I /></span>
-              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.95rem,1.3vw,1.1rem)", marginBottom: 10 }}>{c.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", color: soft, lineHeight: 1.65 }}>{c.sub}</div>
+              <span style={{ display: "block", marginBottom: 8, color: ink }}><c.I s={20} /></span>
+              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.88rem,1.1vw,1rem)", marginBottom: 6 }}>{c.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.76rem,0.95vw,0.86rem)", color: soft, lineHeight: 1.55 }}>{c.sub}</div>
             </div>
           ))}
         </div>
@@ -434,44 +433,55 @@ function SlideContent({ n }: { n: number }) {
 
     // ── 8: Compliance ────────────────────────────────────────────────────────
     case 8: return (
-      <Row
-        left={
-          <>
-            <Tag>COMPLIANCE</Tag>
-            <H>
+      <div style={{ height: `calc(100dvh - ${CHROME})`, display: "flex", flexDirection: "column", justifyContent: "center", gap: 24, overflow: "hidden", padding: "0 clamp(20px,5vw,72px)" }}>
+
+        {/* Top: headline left, intro right */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 0, border: bdr }}>
+          <div style={{ padding: "28px 28px", borderRight: bdr, background: ink, color: white }}>
+            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.2em", opacity: 0.5, marginBottom: 14 }}>COMPLIANCE</div>
+            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.8rem,3.2vw,2.8rem)", lineHeight: 0.95, letterSpacing: "-0.03em" }}>
               Privacy and<br />compliance<br /><em style={{ fontStyle: "italic" }}>are not opposites.</em>
-            </H>
-            <P style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+            </div>
+          </div>
+          <div style={{ padding: "28px 32px", display: "flex", alignItems: "center" }}>
+            <p style={{ fontFamily: sans, fontSize: "clamp(0.88rem,1.1vw,1rem)", lineHeight: 1.75, color: soft, margin: 0 }}>
               Encrypted Fi is not a mixer. Unlike Tornado Cash, which had no mechanism
-              for voluntary disclosure, Encrypted Fi was designed from day one so that
-              users can always prove their activity to authorised parties without
-              exposing anything to anyone else.
-            </P>
-          </>
-        }
-        right={
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
-            {[
-              { I: IconKey,       title: "View Keys",
-                b: "Every wallet generates a view key from the same private key used on EVM. Share it with an auditor, regulator, or tax authority to disclose your full history without exposing your spending key." },
-              { I: IconFileCheck, title: "Selective Disclosure",
-                b: "Generate a ZK proof that reveals one specific transaction to one specific party — proving a payment, amount, or counterparty — without revealing any other transaction." },
-              { I: IconShield,    title: "Auditable by Design",
-                b: "All transaction proofs are verifiable on-chain. Nullifier uniqueness prevents double-spend and fraud. This is auditable compliance infrastructure, not obfuscation." },
-              { I: IconBadge,     title: "Not Tornado Cash",
-                b: "Tornado Cash offered no view keys, no selective disclosure, and no compliance path. Encrypted Fi provides all three and was architected this way from the first line of code." },
-            ].map((p, i) => (
-              <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
+              for voluntary disclosure, Encrypted Fi was designed from day one so users
+              can always prove their activity to authorised parties without exposing
+              anything to anyone else.
+            </p>
+          </div>
+        </div>
+
+        {/* Bottom: 2×2 card grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, border: bdr }}>
+          {[
+            { I: IconKey,       title: "View Keys",
+              b: "Every wallet generates a view key derived from the same private key used on EVM. Share it with an auditor or regulator to disclose your full history — without exposing your spending key to anyone else." },
+            { I: IconFileCheck, title: "Selective Disclosure",
+              b: "Generate a ZK proof revealing one specific transaction to one specific party — proving a payment, amount, or counterparty — without revealing anything else in your history." },
+            { I: IconShield,    title: "Auditable by Design",
+              b: "All proofs are verifiable on-chain. Nullifier uniqueness prevents double-spend and fraud. This is auditable compliance infrastructure built in from the first line of code." },
+            { I: IconBadge,     title: "Not Tornado Cash",
+              b: "Tornado Cash offered no view keys, no selective disclosure, and no compliance path. Encrypted Fi provides all three. Compliance was never an afterthought here." },
+          ].map((p, i) => (
+            <div key={i} style={{
+              padding: "22px 24px",
+              borderRight: i % 2 === 0 ? bdr : "none",
+              borderTop: i >= 2 ? bdr : "none",
+              background: i === 1 ? "rgba(10,10,10,0.03)" : "transparent",
+            }}>
+              <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I s={20} /></span>
                 <div>
-                  <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.95rem,1.3vw,1.1rem)", marginBottom: 6 }}>{p.title}</div>
-                  <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.95rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
+                  <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.9rem,1.2vw,1.05rem)", marginBottom: 5 }}>{p.title}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,1vw,0.9rem)", color: soft, lineHeight: 1.6 }}>{p.b}</div>
                 </div>
               </div>
-            ))}
-          </div>
-        }
-      />
+            </div>
+          ))}
+        </div>
+      </div>
     );
 
     // ── 9: Vision ────────────────────────────────────────────────────────────
