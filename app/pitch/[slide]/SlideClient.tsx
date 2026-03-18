@@ -389,66 +389,77 @@ function SlideContent({ n }: { n: number }) {
     case 7: return (
       <div style={{
         height: `calc(100dvh - ${CHROME})`,
-        display: "flex", flexDirection: "column",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
         overflow: "hidden",
-        padding: "28px clamp(20px,5vw,72px) 0",
       }}>
-        <div style={{ textAlign: "center" as const, marginBottom: 24, flexShrink: 0 }}>
-          <Tag>TEAM</Tag>
-          <H style={{ fontSize: "clamp(2.2rem,4.2vw,3.8rem)", marginTop: -4 }}>The people building it.</H>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, border: bdr, overflow: "hidden", minHeight: 0 }}>
 
-          {/* ── Member 1: Collins ── */}
-          <div style={{ borderRight: bdr, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            {/* Photo — fixed height, full image visible */}
-            <div style={{ height: 220, flexShrink: 0, background: "rgba(10,10,10,0.04)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" as const }}>
-              <Image
-                src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
-                alt="Collins"
-                fill
-                style={{ objectFit: "contain", objectPosition: "center" }}
-              />
+        {/* ── Collins — left full column ── */}
+        <div style={{ display: "flex", flexDirection: "column", overflow: "hidden", borderRight: bdr }}>
+          {/* Full photo */}
+          <div style={{ flex: 1, minHeight: 0, position: "relative" as const, overflow: "hidden" }}>
+            <Image
+              src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
+              alt="Collins"
+              fill
+              style={{ objectFit: "cover", objectPosition: "center top" }}
+            />
+            {/* Core team badge overlaid top-left */}
+            <div style={{
+              position: "absolute" as const, top: 20, left: 20,
+              fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.18em", fontWeight: 700,
+              background: ink, color: white, padding: "5px 12px",
+            }}>
+              CORE TEAM
             </div>
-            {/* Info */}
-            <div style={{ flex: 1, borderTop: bdr, padding: "20px 28px", background: ink, color: white, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", fontWeight: 700, background: white, color: ink, display: "inline-block", padding: "3px 10px", marginBottom: 12 }}>
-                CORE TEAM
-              </div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.3rem,2vw,1.8rem)", marginBottom: 4 }}>Collins</div>
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", opacity: 0.5, marginBottom: 14 }}>CO-FOUNDER</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.88rem)", lineHeight: 1.7, opacity: 0.8 }}>
-                Dealflow broker and Web3 operator. Founder of GrayMan Dealflows — a dealflow and growth agency for crypto projects serious about scaling. Embedded with founders, VCs, launchpads, and liquidity providers as an operator, not a middleman. $300k+ raised through his network. Specialises in the zero-to-one stage — connecting early projects to the capital and partners they need, then staying in the trenches to make sure those deals actually land.
-              </div>
+          </div>
+          {/* Info strip */}
+          <div style={{ flexShrink: 0, background: ink, color: white, padding: "22px 28px", borderTop: bdr }}>
+            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.5rem,2.4vw,2.2rem)", marginBottom: 3 }}>Collins</div>
+            <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", opacity: 0.45, marginBottom: 12 }}>CO-FOUNDER</div>
+            <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.88rem)", lineHeight: 1.7, opacity: 0.78 }}>
+              Dealflow broker and Web3 operator. Founder of GrayMan Dealflows. Embedded with founders, VCs, launchpads, and liquidity providers as an operator — not a middleman. $300k+ raised through his network. Specialises in the zero-to-one stage, connecting early projects to the capital and partners they need, then staying in the trenches to make deals land.
+            </div>
+          </div>
+        </div>
+
+        {/* ── Right column: header top + placeholder bottom ── */}
+        <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+
+          {/* Section label — top strip */}
+          <div style={{ flexShrink: 0, padding: "24px 32px", borderBottom: bdr }}>
+            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.2em", color: soft, marginBottom: 10 }}>TEAM</div>
+            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.8rem,3.2vw,2.8rem)", lineHeight: 0.96, letterSpacing: "-0.03em", color: ink }}>
+              The people<br /><em style={{ fontStyle: "italic" }}>building it.</em>
             </div>
           </div>
 
-          {/* ── Member 2: placeholder ── */}
-          <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          {/* Advisor placeholder — fills rest */}
+          <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
             {/* Photo placeholder */}
             <div style={{
               flex: 1, minHeight: 0,
-              background: "rgba(10,10,10,0.04)",
+              background: "rgba(10,10,10,0.035)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              flexDirection: "column", gap: 10,
+              flexDirection: "column", gap: 12,
             }}>
-              <span style={{ color: "rgba(10,10,10,0.12)" }}><IconBuilding s={48} /></span>
-              <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.18)" }}>ADD PHOTO</div>
+              <span style={{ color: "rgba(10,10,10,0.1)" }}><IconBuilding s={44} /></span>
+              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.15)" }}>ADD PHOTO</div>
             </div>
             {/* Info strip */}
             <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px" }}>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", fontWeight: 700, border: bdr, display: "inline-block", padding: "3px 10px", marginBottom: 12, color: soft }}>
+              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", border: bdr, display: "inline-block", padding: "3px 10px", marginBottom: 12, color: soft }}>
                 ADVISOR
               </div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", color: ink, marginBottom: 4 }}>Name</div>
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 12 }}>ROLE</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, color: "rgba(10,10,10,0.3)", fontStyle: "italic" }}>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.3rem,2vw,1.8rem)", color: ink, marginBottom: 3 }}>Name</div>
+              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", color: soft, marginBottom: 10 }}>ROLE</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.86rem)", lineHeight: 1.65, color: "rgba(10,10,10,0.28)", fontStyle: "italic" }}>
                 Bio coming soon.
               </div>
             </div>
           </div>
-
         </div>
+
       </div>
     );
 
