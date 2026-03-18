@@ -398,36 +398,50 @@ function SlideContent({ n }: { n: number }) {
           <H style={{ fontSize: "clamp(2.2rem,4.2vw,3.8rem)", marginTop: -4 }}>The people building it.</H>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", flex: 1, border: bdr, overflow: "hidden", minHeight: 0 }}>
-          {[0, 1].map(i => (
-            <div key={i} style={{
-              padding: "32px 44px",
-              borderRight: i === 0 ? bdr : "none",
-              display: "flex", flexDirection: "column", overflow: "hidden",
-            }}>
-              {/* Large photo placeholder */}
-              <div style={{
-                flex: 1, minHeight: 0, border: bdr,
-                background: "rgba(10,10,10,0.03)",
-                marginBottom: 24,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                flexDirection: "column", gap: 12,
-              }}>
-                <span style={{ color: "rgba(10,10,10,0.13)" }}><IconBuilding s={48} /></span>
-                <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.18)" }}>
-                  ADD PHOTO
-                </div>
-              </div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.6rem,2.5vw,2.2rem)", color: ink, marginBottom: 5, flexShrink: 0 }}>
-                Name
-              </div>
-              <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.18em", color: soft, marginBottom: 14, flexShrink: 0 }}>
-                CO-FOUNDER
-              </div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.85rem,1.1vw,1rem)", lineHeight: 1.75, color: "rgba(10,10,10,0.28)", fontStyle: "italic", flexShrink: 0 }}>
-                Background and experience go here.
+
+          {/* ── Member 1: Collins ── */}
+          <div style={{ borderRight: bdr, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+            {/* Photo — top half */}
+            <div style={{ flex: 1, minHeight: 0, overflow: "hidden", position: "relative" as const }}>
+              <Image
+                src="https://pbs.twimg.com/profile_images/1929942490389389312/wtMZgWUZ_400x400.jpg"
+                alt="Collins"
+                fill
+                style={{ objectFit: "cover", objectPosition: "top" }}
+              />
+            </div>
+            {/* Info — bottom strip */}
+            <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px", background: ink, color: white }}>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", marginBottom: 4 }}>Collins</div>
+              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", opacity: 0.5, marginBottom: 12 }}>CO-FOUNDER</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, opacity: 0.75 }}>
+                Dealflow Broker &bull; $300k+ raised through network &bull; Helping founders go from 0 to 1 through strategic advisory
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* ── Member 2: placeholder ── */}
+          <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+            {/* Photo placeholder */}
+            <div style={{
+              flex: 1, minHeight: 0, border: "none",
+              background: "rgba(10,10,10,0.04)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexDirection: "column", gap: 10,
+            }}>
+              <span style={{ color: "rgba(10,10,10,0.12)" }}><IconBuilding s={48} /></span>
+              <div style={{ fontFamily: mono, fontSize: "0.55rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.18)" }}>ADD PHOTO</div>
+            </div>
+            {/* Info strip */}
+            <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px" }}>
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", color: ink, marginBottom: 4 }}>Name</div>
+              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 12 }}>CO-FOUNDER</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, color: "rgba(10,10,10,0.3)", fontStyle: "italic" }}>
+                Bio coming soon.
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     );
