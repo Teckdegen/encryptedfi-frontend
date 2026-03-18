@@ -390,72 +390,59 @@ function SlideContent({ n }: { n: number }) {
       <div style={{
         height: `calc(100dvh - ${CHROME})`,
         display: "grid",
-        gridTemplateColumns: "1fr 1fr",
+        gridTemplateColumns: "1fr 1.4fr",
         overflow: "hidden",
       }}>
 
-        {/* ── Collins — left full column ── */}
-        <div style={{ display: "flex", flexDirection: "column", overflow: "hidden", borderRight: bdr }}>
-          {/* Full photo */}
-          <div style={{ flex: 1, minHeight: 0, position: "relative" as const, overflow: "hidden" }}>
-            <Image
-              src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
-              alt="Collins"
-              fill
-              style={{ objectFit: "cover", objectPosition: "center top" }}
-            />
-            {/* Core team badge overlaid top-left */}
-            <div style={{
-              position: "absolute" as const, top: 20, left: 20,
-              fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.18em", fontWeight: 700,
-              background: ink, color: white, padding: "5px 12px",
-            }}>
-              CORE TEAM
-            </div>
-          </div>
-          {/* Info strip */}
-          <div style={{ flexShrink: 0, background: ink, color: white, padding: "22px 28px", borderTop: bdr }}>
-            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.5rem,2.4vw,2.2rem)", marginBottom: 3 }}>Collins</div>
-            <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", opacity: 0.45, marginBottom: 12 }}>CO-FOUNDER</div>
-            <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.88rem)", lineHeight: 1.7, opacity: 0.78 }}>
-              Dealflow broker and Web3 operator. Founder of GrayMan Dealflows. Embedded with founders, VCs, launchpads, and liquidity providers as an operator — not a middleman. $300k+ raised through his network. Specialises in the zero-to-one stage, connecting early projects to the capital and partners they need, then staying in the trenches to make deals land.
-            </div>
+        {/* Left — full photo */}
+        <div style={{ position: "relative" as const, overflow: "hidden", borderRight: bdr }}>
+          <Image
+            src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
+            alt="Collins"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center top" }}
+          />
+          {/* Core team badge */}
+          <div style={{
+            position: "absolute" as const, top: 20, left: 20,
+            fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.18em", fontWeight: 700,
+            background: ink, color: white, padding: "5px 14px",
+          }}>
+            CORE TEAM
           </div>
         </div>
 
-        {/* ── Right column: header top + placeholder bottom ── */}
-        <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
-
-          {/* Section label — top strip */}
-          <div style={{ flexShrink: 0, padding: "24px 32px", borderBottom: bdr }}>
-            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.2em", color: soft, marginBottom: 10 }}>TEAM</div>
-            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.8rem,3.2vw,2.8rem)", lineHeight: 0.96, letterSpacing: "-0.03em", color: ink }}>
-              The people<br /><em style={{ fontStyle: "italic" }}>building it.</em>
+        {/* Right — info */}
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "48px 52px", gap: 24, overflow: "hidden" }}>
+          <div>
+            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.2em", color: soft, marginBottom: 16 }}>FOUNDER</div>
+            <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(2.8rem,5.5vw,5rem)", lineHeight: 0.92, letterSpacing: "-0.03em", color: ink, marginBottom: 16 }}>
+              Collins
+            </div>
+            <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.18em", color: soft }}>
+              CO-FOUNDER · ENCRYPTED FI
             </div>
           </div>
 
-          {/* Advisor placeholder — fills rest */}
-          <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            {/* Photo placeholder */}
-            <div style={{
-              flex: 1, minHeight: 0,
-              background: "rgba(10,10,10,0.035)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              flexDirection: "column", gap: 12,
-            }}>
-              <span style={{ color: "rgba(10,10,10,0.1)" }}><IconBuilding s={44} /></span>
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", color: "rgba(10,10,10,0.15)" }}>ADD PHOTO</div>
-            </div>
-            {/* Info strip */}
-            <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px" }}>
-              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", border: bdr, display: "inline-block", padding: "3px 10px", marginBottom: 12, color: soft }}>
-                ADVISOR
+          <div style={{ width: 48, height: 3, background: ink }} />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {[
+              { label: "ROLE",      val: "Dealflow Broker · Web3 Operator"             },
+              { label: "TRACK",     val: "$300k+ raised through network"                },
+              { label: "FOCUS",     val: "Zero-to-one · 0 → 1 early-stage specialist"  },
+              { label: "AGENCY",    val: "Founder, GrayMan Dealflows"                  },
+            ].map(r => (
+              <div key={r.label} style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
+                <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, flexShrink: 0, width: 56 }}>{r.label}</div>
+                <div style={{ fontFamily: sans, fontSize: "clamp(0.88rem,1.1vw,1rem)", color: ink, fontWeight: 500 }}>{r.val}</div>
               </div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.3rem,2vw,1.8rem)", color: ink, marginBottom: 3 }}>Name</div>
-              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", color: soft, marginBottom: 10 }}>ROLE</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.86rem)", lineHeight: 1.65, color: "rgba(10,10,10,0.28)", fontStyle: "italic" }}>
-                Bio coming soon.
-              </div>
+            ))}
+          </div>
+
+          <div style={{ background: "rgba(10,10,10,0.04)", border: bdr, padding: "18px 22px" }}>
+            <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1vw,0.94rem)", lineHeight: 1.75, color: soft }}>
+              Embedded with founders, VCs, launchpads, and liquidity providers — not as a middleman, but as an operator. Connects early projects to the capital and partners they need, then stays in the trenches to make sure those deals actually land.
             </div>
           </div>
         </div>
