@@ -28,7 +28,7 @@ export default function Statement() {
           whiteSpace: "nowrap",
         }}>{"{?}"}</div>
 
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+        <div style={{ position: "relative" }}>
           <p style={{
             fontFamily: "var(--font-mono)",
             fontSize: "0.62rem",
