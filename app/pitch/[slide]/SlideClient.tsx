@@ -402,13 +402,13 @@ function SlideContent({ n }: { n: number }) {
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
           />
-          {/* Core team badge */}
+          {/* Founder badge */}
           <div style={{
             position: "absolute" as const, top: 20, left: 20,
             fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.18em", fontWeight: 700,
             background: ink, color: white, padding: "5px 14px",
           }}>
-            CORE TEAM
+            FOUNDER
           </div>
         </div>
 
@@ -420,7 +420,7 @@ function SlideContent({ n }: { n: number }) {
               Collins
             </div>
             <div style={{ fontFamily: mono, fontSize: "0.58rem", letterSpacing: "0.18em", color: soft }}>
-              CO-FOUNDER · ENCRYPTED FI
+              FOUNDER · ENCRYPTED FI
             </div>
           </div>
 
@@ -428,10 +428,10 @@ function SlideContent({ n }: { n: number }) {
 
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { label: "ROLE",      val: "Dealflow Broker · Web3 Operator"             },
-              { label: "TRACK",     val: "$300k+ raised through network"                },
-              { label: "FOCUS",     val: "Zero-to-one · 0 → 1 early-stage specialist"  },
-              { label: "AGENCY",    val: "Founder, GrayMan Dealflows"                  },
+              { label: "ROLE",      val: "Dealflow Broker · Web3 Operator"            },
+              { label: "TRACK",     val: "$300k+ raised through network"               },
+              { label: "FOCUS",     val: "Zero-to-one · 0 → 1 early-stage specialist" },
+              { label: "ALSO",      val: "Founder, GrayMan Dealflows"                  },
             ].map(r => (
               <div key={r.label} style={{ display: "flex", gap: 20, alignItems: "baseline" }}>
                 <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.14em", color: soft, flexShrink: 0, width: 56 }}>{r.label}</div>
