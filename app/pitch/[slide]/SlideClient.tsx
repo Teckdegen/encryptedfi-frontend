@@ -326,13 +326,13 @@ function SlideContent({ n }: { n: number }) {
             {[
               { I: IconLock,    title: "Commitment",      tech: "Poseidon(secret, amount, nonce)",
                 b: "When you wrap an ERC-20, the contract records a Poseidon hash on-chain. The preimage stays fully off-chain. Nobody can reverse it to learn your amount." },
-              { I: IconCircuit, title: "Merkle Tree",     tech: "Sparse Merkle — on-chain root",
+              { I: IconCircuit, title: "Merkle Tree",     tech: "Sparse Merkle, on-chain root",
                 b: "Each commitment is inserted into an on-chain Merkle tree. To spend a note you prove membership without revealing which leaf you own." },
               { I: IconLink,    title: "Nullifier",       tech: "Poseidon(secret, nonce)",
-                b: "Every note has a unique nullifier. When spent it is posted on-chain. The contract rejects duplicates — preventing double-spends without linking anything." },
+                b: "Every note has a unique nullifier. When spent it is posted on-chain. The contract rejects duplicates, preventing double-spends without linking anything back to the original note." },
               { I: IconKey,     title: "Note Encryption", tech: "ECIES / secp256k1",
                 b: "Ciphertexts are posted on-chain so you can recover notes on any device by scanning with your private key. No server or relayer needed." },
-              { I: IconCircuit, title: "ZK Circuits",     tech: "Circom 2 — mint, burn, transfer, swap, vote",
+              { I: IconCircuit, title: "ZK Circuits",     tech: "Circom 2: mint, burn, transfer, swap, vote",
                 b: "Separate circuits for each operation. Each proves note validity, amount arithmetic, Merkle path, and nullifier uniqueness in a single on-chain call." },
             ].map((p, i) => (
               <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
@@ -442,7 +442,7 @@ function SlideContent({ n }: { n: number }) {
 
           <div style={{ background: "rgba(10,10,10,0.04)", border: bdr, padding: "18px 22px" }}>
             <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1vw,0.94rem)", lineHeight: 1.75, color: soft }}>
-              Embedded with founders, VCs, launchpads, and liquidity providers — not as a middleman, but as an operator. Connects early projects to the capital and partners they need, then stays in the trenches to make sure those deals actually land.
+              Collins has spent years embedded inside the crypto ecosystem working directly with founders, VCs, launchpads, and liquidity providers as an operator. He brings the network and the know-how to connect early projects with the capital and partners they need, and sticks around to make sure those deals actually close and deliver.
             </div>
           </div>
         </div>
@@ -476,9 +476,9 @@ function SlideContent({ n }: { n: number }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, border: bdr }}>
           {[
             { I: IconKey,       title: "View Keys",
-              b: "Every wallet generates a view key derived from the same private key used on EVM. Share it with an auditor or regulator to disclose your full history — without exposing your spending key to anyone else." },
+              b: "Every wallet generates a view key derived from the same private key used on EVM. Share it with an auditor or regulator to disclose your full history, without exposing your spending key to anyone else." },
             { I: IconFileCheck, title: "Selective Disclosure",
-              b: "Generate a ZK proof revealing one specific transaction to one specific party — proving a payment, amount, or counterparty — without revealing anything else in your history." },
+              b: "Generate a ZK proof revealing one specific transaction to one specific party, proving a payment, amount, or counterparty, without revealing anything else in your history." },
             { I: IconShield,    title: "Auditable by Design",
               b: "All proofs are verifiable on-chain. Nullifier uniqueness prevents double-spend and fraud. This is auditable compliance infrastructure built in from the first line of code." },
             { I: IconBadge,     title: "Not Tornado Cash",
@@ -521,7 +521,7 @@ function SlideContent({ n }: { n: number }) {
           {/* Left — two paragraphs */}
           <div style={{ borderRight: bdr, padding: "32px clamp(20px,4vw,56px)", display: "flex", flexDirection: "column", justifyContent: "center", gap: 20, overflow: "hidden" }}>
             <p style={{ fontFamily: sans, fontSize: "clamp(0.9rem,1.2vw,1.06rem)", lineHeight: 1.8, color: soft, margin: 0 }}>
-              Blockchain is repeating the same mistake the early internet made — public by default
+              Blockchain is repeating the same mistake the early internet made. Public by default
               with no path to private. Encrypted Fi changes that. Users keep the exact same{" "}
               <span style={{ fontFamily: mono }}>0x</span> wallet they already use: MetaMask,
               Rabby, Ledger. No new wallet. No migration. No learning curve. Privacy just works.
