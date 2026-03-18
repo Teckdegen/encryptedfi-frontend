@@ -401,17 +401,21 @@ function SlideContent({ n }: { n: number }) {
 
           {/* ── Member 1: Collins ── */}
           <div style={{ borderRight: bdr, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            {/* Photo — top half */}
+            {/* Photo */}
             <div style={{ flex: 1, minHeight: 0, overflow: "hidden", position: "relative" as const }}>
               <Image
-                src="https://pbs.twimg.com/profile_images/1929942490389389312/wtMZgWUZ_400x400.jpg"
+                src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
                 alt="Collins"
                 fill
                 style={{ objectFit: "cover", objectPosition: "top" }}
               />
             </div>
-            {/* Info — bottom strip */}
+            {/* Info strip */}
             <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px", background: ink, color: white }}>
+              {/* Core team badge */}
+              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", fontWeight: 700, background: white, color: ink, display: "inline-block", padding: "3px 10px", marginBottom: 12 }}>
+                CORE TEAM
+              </div>
               <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", marginBottom: 4 }}>Collins</div>
               <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", opacity: 0.5, marginBottom: 12 }}>CO-FOUNDER</div>
               <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, opacity: 0.75 }}>
@@ -424,7 +428,7 @@ function SlideContent({ n }: { n: number }) {
           <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
             {/* Photo placeholder */}
             <div style={{
-              flex: 1, minHeight: 0, border: "none",
+              flex: 1, minHeight: 0,
               background: "rgba(10,10,10,0.04)",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexDirection: "column", gap: 10,
@@ -434,8 +438,11 @@ function SlideContent({ n }: { n: number }) {
             </div>
             {/* Info strip */}
             <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px" }}>
+              <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", fontWeight: 700, border: bdr, display: "inline-block", padding: "3px 10px", marginBottom: 12, color: soft }}>
+                ADVISOR
+              </div>
               <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", color: ink, marginBottom: 4 }}>Name</div>
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 12 }}>CO-FOUNDER</div>
+              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", color: soft, marginBottom: 12 }}>ROLE</div>
               <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, color: "rgba(10,10,10,0.3)", fontStyle: "italic" }}>
                 Bio coming soon.
               </div>
