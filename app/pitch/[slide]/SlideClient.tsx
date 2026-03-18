@@ -401,25 +401,24 @@ function SlideContent({ n }: { n: number }) {
 
           {/* ── Member 1: Collins ── */}
           <div style={{ borderRight: bdr, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-            {/* Photo */}
-            <div style={{ flex: 1, minHeight: 0, overflow: "hidden", position: "relative" as const }}>
+            {/* Photo — fixed height, full image visible */}
+            <div style={{ height: 220, flexShrink: 0, background: "rgba(10,10,10,0.04)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" as const }}>
               <Image
                 src="https://image2url.com/r2/default/images/1773816346658-17894493-6969-416a-ace2-9577f7f79f37.jpg"
                 alt="Collins"
                 fill
-                style={{ objectFit: "cover", objectPosition: "top" }}
+                style={{ objectFit: "contain", objectPosition: "center" }}
               />
             </div>
-            {/* Info strip */}
-            <div style={{ flexShrink: 0, borderTop: bdr, padding: "20px 28px", background: ink, color: white }}>
-              {/* Core team badge */}
+            {/* Info */}
+            <div style={{ flex: 1, borderTop: bdr, padding: "20px 28px", background: ink, color: white, display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.18em", fontWeight: 700, background: white, color: ink, display: "inline-block", padding: "3px 10px", marginBottom: 12 }}>
                 CORE TEAM
               </div>
-              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.4rem,2.2vw,2rem)", marginBottom: 4 }}>Collins</div>
-              <div style={{ fontFamily: mono, fontSize: "0.54rem", letterSpacing: "0.16em", opacity: 0.5, marginBottom: 12 }}>CO-FOUNDER</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1vw,0.9rem)", lineHeight: 1.65, opacity: 0.75 }}>
-                Dealflow Broker &bull; $300k+ raised through network &bull; Helping founders go from 0 to 1 through strategic advisory
+              <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.3rem,2vw,1.8rem)", marginBottom: 4 }}>Collins</div>
+              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.16em", opacity: 0.5, marginBottom: 14 }}>CO-FOUNDER</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.78rem,0.95vw,0.88rem)", lineHeight: 1.7, opacity: 0.8 }}>
+                Dealflow broker and Web3 operator. Founder of GrayMan Dealflows — a dealflow and growth agency for crypto projects serious about scaling. Embedded with founders, VCs, launchpads, and liquidity providers as an operator, not a middleman. $300k+ raised through his network. Specialises in the zero-to-one stage — connecting early projects to the capital and partners they need, then staying in the trenches to make sure those deals actually land.
               </div>
             </div>
           </div>
