@@ -361,10 +361,10 @@ function SlideContent({ n }: { n: number }) {
               Fast privacy.<br /><em style={{ fontStyle: "italic" }}>Finally.</em>
             </H>
             <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-              ZK proof verification is computationally heavy. On Ethereum or Arbitrum,
-              one private transaction can cost $10 to $40 in gas. On Somnia at 400,000 TPS
-              with sub-second finality, that same proof verifies for cents.
-              Private DeFi that anyone can actually afford.
+              Privacy on every other EVM chain is slow. ZK proof verification adds
+              seconds of latency and dollars in gas. Somnia's Reactivity system changes
+              that. Events are pushed instantly from the chain directly to your app.
+              Private transactions confirm as fast as any regular transfer.
             </P>
             <div style={{ border: bdr }}>
               <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
@@ -372,8 +372,8 @@ function SlideContent({ n }: { n: number }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
                 {[
-                  { label: "OTHER CHAINS", val: "$10 to $40", sub: "per ZK proof verify", dark: false },
-                  { label: "SOMNIA",       val: "Cents",      sub: "at 400K TPS",         dark: true  },
+                  { label: "OTHER CHAINS", val: "$5 to $8", sub: "per ZK proof verify", dark: false },
+                  { label: "SOMNIA",       val: "Cents",    sub: "at 400K TPS",         dark: true  },
                 ].map((s, i) => (
                   <div key={i} style={{
                     padding: "18px 20px",
@@ -399,34 +399,34 @@ function SlideContent({ n }: { n: number }) {
               {
                 I: IconZap,
                 title: "400,000 TPS. Sub-second finality.",
-                tech: "ZK verifier at chain speed",
+                tech: "ZK VERIFIER AT CHAIN SPEED",
                 b: "Groth16 proof verification is expensive. Somnia's throughput collapses the cost to cents. Private DeFi stops being a luxury for whales and becomes accessible to every user.",
               },
               {
                 I: IconCircuit,
                 title: "Reactivity: push, not poll.",
-                tech: "Event-driven relayer and frontend",
+                tech: "EVENT-DRIVEN RELAYER AND FRONTEND",
                 b: "Your relayer subscribes once to Vault events and gets pushed instantly when a new proof arrives. No polling loop, no missed transactions, no wasted RPC calls. The frontend knows the moment a private transfer confirms.",
               },
               {
                 I: IconLink,
                 title: "Data Streams: instant note discovery.",
-                tech: "Structured encrypted note publishing",
+                tech: "STRUCTURED ENCRYPTED NOTE PUBLISHING",
                 b: "Every encrypted note is published as a typed, queryable record on-chain. Users find notes sent to them by querying their own address, not scanning every event from block zero. Note sync drops from minutes to milliseconds.",
               },
             ].map((p, i) => (
               <div key={i} style={{
-                display: "flex", gap: 14, alignItems: "flex-start",
-                padding: "20px 0",
+                display: "flex", gap: 16, alignItems: "flex-start",
+                padding: "22px 0",
                 borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.08)" : "none",
               }}>
-                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
+                <span style={{ flexShrink: 0, marginTop: 3, color: ink }}><p.I s={22} /></span>
                 <div>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6, flexWrap: "wrap" as const }}>
-                    <span style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.92rem,1.2vw,1.05rem)" }}>{p.title}</span>
-                    <span style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.08em", color: soft }}>{p.tech}</span>
+                  <div style={{ marginBottom: 6 }}>
+                    <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.2rem,1.8vw,1.5rem)", lineHeight: 1.2, color: ink, marginBottom: 4 }}>{p.title}</div>
+                    <div style={{ fontFamily: mono, fontSize: "0.5rem", letterSpacing: "0.12em", color: soft }}>{p.tech}</div>
                   </div>
-                  <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1.05vw,0.92rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.82rem,1.05vw,0.94rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
                 </div>
               </div>
             ))}
