@@ -151,3 +151,12 @@ export function LayersIcon({ size = 20, color = "currentColor", strokeWidth = 2 
     </svg>
   );
 }
+
+export function CoinIcon({ size = 20, color = "currentColor", strokeWidth = 2 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={base(color, strokeWidth)}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v12M9 9.5h4a1.5 1.5 0 0 1 0 3h-2a1.5 1.5 0 0 0 0 3h4" />
+    </svg>
+  );
+}

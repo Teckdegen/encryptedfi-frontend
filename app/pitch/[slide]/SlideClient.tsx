@@ -442,27 +442,30 @@ function SlideContent({ n }: { n: number }) {
         <H style={{ marginBottom: 8, fontSize: "clamp(2rem, 4vw, 3.6rem)" }}>
           Privacy for every DeFi primitive.
         </H>
-        <P style={{ maxWidth: 520, marginBottom: 20, fontSize: "clamp(0.85rem, 1.05vw, 0.96rem)" }}>
+        <P style={{ maxWidth: 580, marginBottom: 16, fontSize: "clamp(0.82rem, 1vw, 0.93rem)" }}>
           Encrypted Fi covers the full DeFi stack. Each capability is a separate, auditable contract.
         </P>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", border: bdr, maxWidth: 920, width: "100%" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 1040, width: "100%" }}>
           {[
-            { I: IconLock,    label: "Private Transfers",   sub: "Sender, receiver, and amount ZK-verified. On-chain proof of validity. Zero information leaked." },
-            { I: IconArrows,  label: "Confidential Swaps",  sub: "Trade on any Uniswap V2 or V3 fork without revealing trade size, direction, or wallet." },
-            { I: IconTrend,   label: "Encrypted Yield",     sub: "Deposit into ERC-4626 yield vaults. Balance, strategy, and interest all stay encrypted." },
-            { I: IconCoin,    label: "Private Lending",     sub: "Borrow against cToken collateral at 75% LTV. Collateral size never linked to your wallet." },
-            { I: IconDroplet, label: "Hidden LP Positions", sub: "Provide liquidity to Uniswap V2 pools without advertising your capital to competitors." },
-            { I: IconVote,    label: "ZK Governance Votes", sub: "Vote with cryptographic proof of ownership. Vote weight private. Nullifiers prevent double-voting." },
+            { I: IconLock,    label: "Private Transfers",          sub: "Sender, receiver, and amount ZK-verified. Zero information leaked.",                                              dark: false },
+            { I: IconArrows,  label: "Confidential Swaps",         sub: "Trade on any Uniswap fork without revealing size, direction, or wallet.",                                        dark: true  },
+            { I: IconTrend,   label: "Encrypted Yield",            sub: "Deposit into ERC-4626 vaults. Balance, strategy, and interest all stay encrypted.",                              dark: false },
+            { I: IconCoin,    label: "Private Lending",            sub: "Borrow against cToken collateral. Position fully on-chain, never linked to your wallet.",                        dark: false },
+            { I: IconDroplet, label: "Hidden LP Positions",        sub: "Provide liquidity without advertising your capital to competitors.",                                              dark: false },
+            { I: IconVote,    label: "ZK Governance Votes",        sub: "Vote weight private. Only the tally is public. Nullifiers prevent double-voting.",                               dark: true  },
+            { I: IconZap,     label: "Stablecoin Payments",        sub: "Stablecoins are 30% of all on-chain volume. Send USDC or USDT privately, bringing real business on-chain.",     dark: false },
+            { I: IconShield,  label: "MEV Shield",                 sub: "Bots cannot read what they cannot see. Confidential transactions stop front-runners before they start.",         dark: false },
           ].map((c, i) => (
             <div key={i} style={{
-              padding: "18px 18px",
-              borderRight: i % 3 < 2 ? bdr : "none",
-              borderBottom: i < 3 ? bdr : "none",
-              background: i % 2 === 1 ? "rgba(10,10,10,0.03)" : "transparent",
+              padding: "16px 16px",
+              borderRight: i % 4 < 3 ? bdr : "none",
+              borderBottom: i < 4 ? bdr : "none",
+              background: c.dark ? ink : "transparent",
+              color: c.dark ? white : ink,
             }}>
-              <span style={{ display: "block", marginBottom: 8, color: ink }}><c.I s={20} /></span>
-              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.88rem,1.1vw,1rem)", marginBottom: 6 }}>{c.label}</div>
-              <div style={{ fontFamily: sans, fontSize: "clamp(0.76rem,0.95vw,0.86rem)", color: soft, lineHeight: 1.55 }}>{c.sub}</div>
+              <span style={{ display: "block", marginBottom: 8, color: c.dark ? cream : ink }}><c.I s={18} /></span>
+              <div style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.82rem,1vw,0.93rem)", marginBottom: 5 }}>{c.label}</div>
+              <div style={{ fontFamily: sans, fontSize: "clamp(0.72rem,0.88vw,0.82rem)", color: c.dark ? "rgba(231,226,217,0.55)" : soft, lineHeight: 1.5 }}>{c.sub}</div>
             </div>
           ))}
         </div>

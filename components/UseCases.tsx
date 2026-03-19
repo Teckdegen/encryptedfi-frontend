@@ -2,7 +2,7 @@ import {
   LockIcon, ChartIcon, BriefcaseIcon,
   BuildingIcon, GavelIcon, ShieldIcon,
   TrendingUpIcon, ArrowsIcon, LayersIcon,
-  KeyIcon, ZapIcon, GlobeIcon,
+  KeyIcon, ZapIcon, GlobeIcon, CoinIcon,
 } from "./Icons";
 
 const CASES = [
@@ -101,6 +101,14 @@ const CASES = [
     one: "Multichain. Universal.",
     body: "Deploy on any public EVM chain  Flare, Ethereum, Base, Arbitrum, Polygon, and beyond. Any ERC-20 becomes a confidential token with one factory call. No bridges needed.",
     dark: false,
+  },
+  {
+    n: "13",
+    Icon: CoinIcon,
+    title: "Private Stablecoin Payments",
+    one: "Pay with stables. Leave no trace.",
+    body: "Stablecoins account for over 30% of all on-chain transactions. Encrypted Fi lets businesses and individuals send USDC, USDT, and any stablecoin privately, opening the door for real commerce to move on-chain without exposing revenue, customers, or strategy to the public.",
+    dark: true,
   },
 ];
 
