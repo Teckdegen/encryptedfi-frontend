@@ -351,8 +351,92 @@ function SlideContent({ n }: { n: number }) {
       />
     );
 
-    // ── 6: Capabilities ──────────────────────────────────────────────────────
+    // ── 6: Why Somnia ────────────────────────────────────────────────────────
     case 6: return (
+      <Row
+        left={
+          <>
+            <Tag>WHY SOMNIA</Tag>
+            <H>
+              Fast privacy.<br /><em style={{ fontStyle: "italic" }}>Finally.</em>
+            </H>
+            <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
+              ZK proof verification is computationally heavy. On Ethereum or Arbitrum,
+              one private transaction can cost $10 to $40 in gas. On Somnia at 400,000 TPS
+              with sub-second finality, that same proof verifies for cents.
+              Private DeFi that anyone can actually afford.
+            </P>
+            <div style={{ border: bdr }}>
+              <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
+                COST PER PRIVATE TRANSACTION
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                {[
+                  { label: "OTHER CHAINS", val: "$10 to $40", sub: "per ZK proof verify", dark: false },
+                  { label: "SOMNIA",       val: "Cents",      sub: "at 400K TPS",         dark: true  },
+                ].map((s, i) => (
+                  <div key={i} style={{
+                    padding: "18px 20px",
+                    borderRight: i === 0 ? bdr : "none",
+                    background: s.dark ? ink : "transparent",
+                    color: s.dark ? white : ink,
+                  }}>
+                    <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.14em", opacity: 0.45, marginBottom: 10 }}>{s.label}</div>
+                    <div style={{ fontFamily: serif, fontWeight: 900, fontSize: "clamp(1.6rem,2.8vw,2.4rem)", lineHeight: 1, marginBottom: 6 }}>{s.val}</div>
+                    <div style={{ fontFamily: mono, fontSize: "0.48rem", letterSpacing: "0.1em", opacity: 0.5 }}>{s.sub.toUpperCase()}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        }
+        right={
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+            <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: soft }}>
+              THREE REASONS SOMNIA CHANGES THE GAME
+            </div>
+            {[
+              {
+                I: IconZap,
+                title: "400,000 TPS. Sub-second finality.",
+                tech: "ZK verifier at chain speed",
+                b: "Groth16 proof verification is expensive. Somnia's throughput collapses the cost to cents. Private DeFi stops being a luxury for whales and becomes accessible to every user.",
+              },
+              {
+                I: IconCircuit,
+                title: "Reactivity: push, not poll.",
+                tech: "Event-driven relayer and frontend",
+                b: "Your relayer subscribes once to Vault events and gets pushed instantly when a new proof arrives. No polling loop, no missed transactions, no wasted RPC calls. The frontend knows the moment a private transfer confirms.",
+              },
+              {
+                I: IconLink,
+                title: "Data Streams: instant note discovery.",
+                tech: "Structured encrypted note publishing",
+                b: "Every encrypted note is published as a typed, queryable record on-chain. Users find notes sent to them by querying their own address, not scanning every event from block zero. Note sync drops from minutes to milliseconds.",
+              },
+            ].map((p, i) => (
+              <div key={i} style={{
+                display: "flex", gap: 14, alignItems: "flex-start",
+                padding: "20px 0",
+                borderBottom: i < 2 ? "1px solid rgba(10,10,10,0.08)" : "none",
+              }}>
+                <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
+                <div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 6, flexWrap: "wrap" as const }}>
+                    <span style={{ fontFamily: serif, fontWeight: 800, fontSize: "clamp(0.92rem,1.2vw,1.05rem)" }}>{p.title}</span>
+                    <span style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.08em", color: soft }}>{p.tech}</span>
+                  </div>
+                  <div style={{ fontFamily: sans, fontSize: "clamp(0.8rem,1.05vw,0.92rem)", color: soft, lineHeight: 1.65 }}>{p.b}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        }
+      />
+    );
+
+    // ── 7: Capabilities ──────────────────────────────────────────────────────
+    case 7: return (
       <Ctr>
         <Tag>CAPABILITIES</Tag>
         <H style={{ marginBottom: 8, fontSize: "clamp(2rem, 4vw, 3.6rem)" }}>
@@ -385,8 +469,8 @@ function SlideContent({ n }: { n: number }) {
       </Ctr>
     );
 
-    // ── 7: Team ──────────────────────────────────────────────────────────────
-    case 7: return (
+    // ── 8: Team ──────────────────────────────────────────────────────────────
+    case 8: return (
       <div style={{
         height: `calc(100dvh - ${CHROME})`,
         display: "grid",
@@ -450,8 +534,8 @@ function SlideContent({ n }: { n: number }) {
       </div>
     );
 
-    // ── 8: Compliance ────────────────────────────────────────────────────────
-    case 8: return (
+    // ── 9: Compliance ────────────────────────────────────────────────────────
+    case 9: return (
       <div style={{ height: `calc(100dvh - ${CHROME})`, display: "flex", flexDirection: "column", justifyContent: "center", gap: 24, overflow: "hidden", padding: "0 clamp(20px,5vw,72px)" }}>
 
         {/* Top: headline left, intro right */}
@@ -503,8 +587,8 @@ function SlideContent({ n }: { n: number }) {
       </div>
     );
 
-    // ── 9: Vision ────────────────────────────────────────────────────────────
-    case 9: return (
+    // ── 10: Vision ───────────────────────────────────────────────────────────
+    case 10: return (
       <div style={{ height: `calc(100dvh - ${CHROME})`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
         {/* Full-width headline banner */}
@@ -565,7 +649,7 @@ function SlideContent({ n }: { n: number }) {
 }
 
 // ─── Strip labels ─────────────────────────────────────────────────────────────
-const STRIP_LABELS = ["COVER","PROBLEM","MARKET","SOLUTION","TECHNOLOGY","CAPABILITIES","TEAM","COMPLIANCE","VISION"];
+const STRIP_LABELS = ["COVER","PROBLEM","MARKET","SOLUTION","TECHNOLOGY","WHY SOMNIA","CAPABILITIES","TEAM","COMPLIANCE","VISION"];
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function SlideClient({ current, total, meta }: {
