@@ -27,14 +27,41 @@ export default function Footer() {
             color: "var(--white)",
             lineHeight: 1.25,
             marginBottom: 14,
-          }}>Live on the<br />chains we support.</div>
+          }}>Live on Flare,<br />Ethereum &amp; Base.</div>
+          <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+            {[
+              { abbr: "FLR",  bg: "#E22F2F", symbol: "✦" },
+              { abbr: "ETH",  bg: "#627EEA", symbol: "Ξ" },
+              { abbr: "BASE", bg: "#0052FF", symbol: "⬡" },
+            ].map((c) => (
+              <div key={c.abbr} style={{
+                display: "flex", alignItems: "center", gap: 5,
+                padding: "4px 10px",
+                border: "1px solid rgba(231,226,217,0.12)",
+                background: "rgba(231,226,217,0.04)",
+              }}>
+                <div style={{
+                  width: 18, height: 18, borderRadius: 3,
+                  background: c.bg,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontFamily: "var(--font-mono)", fontWeight: 700,
+                  fontSize: "0.55rem", color: "#fff",
+                }}>{c.symbol}</div>
+                <span style={{
+                  fontFamily: "var(--font-mono)", fontWeight: 700,
+                  fontSize: "0.55rem", letterSpacing: "0.08em",
+                  color: "rgba(231,226,217,0.5)",
+                }}>{c.abbr}</span>
+              </div>
+            ))}
+          </div>
           <p style={{
             fontFamily: "var(--font-sans)",
             fontSize: "0.8rem",
             lineHeight: 1.65,
             color: "rgba(231,226,217,0.35)",
           }}>
-            Encrypted Fi deploys on integrated chains only. As new chains go live, they become available instantly.
+            More EVM chains coming. Any ERC-20 becomes private with one factory call.
           </p>
         </div>
 

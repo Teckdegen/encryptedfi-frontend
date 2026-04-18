@@ -85,23 +85,41 @@ function ParticleCanvas() {
     const particles: Particle[] = [];
 
     const spawn = () => {
-      if (particles.length > 28) return;
-      const maxLife = 220 + Math.random() * 180;
+      if (particles.length > 72) return;
+      const maxLife = 260 + Math.random() * 220;
+      // spawn from bottom 60% of canvas so they drift up through the full hero
+      const startY = canvas.height * 0.6 + Math.random() * canvas.height * 0.5;
       particles.push({
         x:       Math.random() * canvas.width,
-        y:       canvas.height + 10,
-        speed:   0.35 + Math.random() * 0.55,
+        y:       startY,
+        speed:   0.28 + Math.random() * 0.52,
         opacity: 0,
-        size:    9 + Math.random() * 4,
+        size:    8 + Math.random() * 5,
         text:    hexFrag(),
         life:    0,
         maxLife,
       });
     };
 
+    // pre-seed so the canvas isn't empty on first paint
+    for (let i = 0; i < 48; i++) {
+      const maxLife = 260 + Math.random() * 220;
+      particles.push({
+        x:       Math.random() * (canvas.width  || 400),
+        y:       Math.random() * (canvas.height || 600),
+        speed:   0.28 + Math.random() * 0.52,
+        opacity: 0,
+        size:    8 + Math.random() * 5,
+        text:    hexFrag(),
+        life:    Math.floor(Math.random() * maxLife),
+        maxLife,
+      });
+    }
+
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (Math.random() < 0.06) spawn();
+      // spawn ~3× more often
+      if (Math.random() < 0.18) spawn();
 
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
@@ -248,7 +266,7 @@ export default function Hero() {
       <div className="hero-inner" style={{ position: "relative", zIndex: 1 }}>
 
         {/* Top row: eyebrow + vault cube */}
-        <div style={{
+        <div className="hero-top-row" style={{
           display:        "flex",
           alignItems:     "flex-start",
           justifyContent: "space-between",

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import {
   LockIcon, ChartIcon, BriefcaseIcon,
   BuildingIcon, GavelIcon, ShieldIcon,
@@ -6,111 +9,117 @@ import {
 } from "./Icons";
 
 const CASES = [
-  {
-    n: "01",
-    Icon: LockIcon,
-    title: "Private Transfers",
-    one: "Send tokens. Reveal nothing.",
-    body: "Sender, receiver, and amount are all hidden inside a ZK proof. The chain confirms it happened. Nothing else is visible.",
-    dark: false,
-  },
-  {
-    n: "02",
-    Icon: ChartIcon,
-    title: "Hidden Positions",
-    one: "Your portfolio. Your secret.",
-    body: "Stop broadcasting your holdings. Encrypted balances mean no one can surveil your strategy or front-run your next move.",
-    dark: true,
-  },
-  {
-    n: "03",
-    Icon: BriefcaseIcon,
-    title: "Private Payroll",
-    one: "Pay your team. Not publicly.",
-    body: "DAOs and companies can pay contributors in any token without making compensation a public record on chain.",
-    dark: false,
-  },
-  {
-    n: "04",
-    Icon: BuildingIcon,
-    title: "Institutional Privacy",
-    one: "Enterprise finance. Encrypted.",
-    body: "Treasury movements, OTC deals, large transfers, handled confidentially on public infrastructure. No off chain trust needed.",
-    dark: false,
-  },
-  {
-    n: "05",
-    Icon: GavelIcon,
-    title: "Sealed Bids",
-    one: "Commit. Reveal. Win.",
-    body: "On chain auctions where bids are encrypted until reveal. No front running. No last second manipulation. Fully trustless.",
-    dark: true,
-  },
-  {
-    n: "06",
-    Icon: ShieldIcon,
-    title: "MEV Shield",
-    one: "Your intent stays private.",
-    body: "Bots can't read what they can't see. Confidential transactions stop front-runners and sandwich attacks before they start.",
-    dark: false,
-  },
-  {
-    n: "07",
-    Icon: TrendingUpIcon,
-    title: "Confidential Yields",
-    one: "Earn DeFi yield. Stay private.",
-    body: "Deposit into any ERC-4626 yield vault  Yearn, Morpho, Spark, and beyond  while your balance stays encrypted. Yield accrues silently to your share value.",
-    dark: false,
-  },
-  {
-    n: "08",
-    Icon: ArrowsIcon,
-    title: "Private Swaps",
-    one: "Swap tokens. Your address, hidden.",
-    body: "Route between any two confidential token pairs through a public DEX. The swap settles on-chain but your wallet address and amounts never appear in plain text.",
-    dark: true,
-  },
-  {
-    n: "09",
-    Icon: LayersIcon,
-    title: "Hidden Liquidity",
-    one: "Provide LP. Leave no trace.",
-    body: "Add liquidity to any Uniswap V2-compatible pool atomically. Your tokenA, tokenB, and LP position all stay private. Remove later and receive private notes back.",
-    dark: false,
-  },
-  {
-    n: "10",
-    Icon: KeyIcon,
-    title: "Confidential Lending",
-    one: "Borrow. Your collateral, hidden.",
-    body: "Deposit cToken collateral and borrow against it privately. Your position is on-chain but never linked to your wallet. Liquidations are keeper-driven from public price feeds.",
-    dark: false,
-  },
-  {
-    n: "11",
-    Icon: ZapIcon,
-    title: "Private Governance",
-    one: "Vote. Nobody knows it was you.",
-    body: "Cast votes with ZK proofs of note ownership. Vote weight and voter identity stay hidden. Only the tally is public. Double-voting is impossible via on-chain nullifiers.",
-    dark: true,
-  },
-  {
-    n: "12",
-    Icon: GlobeIcon,
-    title: "Any EVM, Any Token",
-    one: "Multichain. Universal.",
-    body: "Deploy on any public EVM chain  Flare, Ethereum, Base, Arbitrum, Polygon, and beyond. Any ERC-20 becomes a confidential token with one factory call. No bridges needed.",
-    dark: false,
-  },
-  {
-    n: "13",
-    Icon: CoinIcon,
-    title: "Private Stablecoin Payments",
-    one: "Pay with stables. Leave no trace.",
-    body: "Stablecoins account for over 30% of all on-chain transactions. Encrypted Fi lets businesses and individuals send USDC, USDT, and any stablecoin privately, opening the door for real commerce to move on-chain without exposing revenue, customers, or strategy to the public.",
-    dark: true,
-  },
+  { n: "01", Icon: LockIcon,       title: "Private Transfers",          one: "Send tokens. Reveal nothing.",          dark: false },
+  { n: "02", Icon: ChartIcon,      title: "Hidden Positions",           one: "Your portfolio. Your secret.",          dark: true  },
+  { n: "03", Icon: BriefcaseIcon,  title: "Private Payroll",            one: "Pay your team. Not publicly.",          dark: false },
+  { n: "04", Icon: BuildingIcon,   title: "Institutional Privacy",      one: "Enterprise finance. Encrypted.",        dark: false },
+  { n: "05", Icon: GavelIcon,      title: "Sealed Bids",                one: "Commit. Reveal. Win.",                  dark: true  },
+  { n: "06", Icon: ShieldIcon,     title: "MEV Shield",                 one: "Your intent stays private.",            dark: false },
+  { n: "07", Icon: TrendingUpIcon, title: "Confidential Yields",        one: "Earn DeFi yield. Stay private.",        dark: false },
+  { n: "08", Icon: ArrowsIcon,     title: "Private Swaps",              one: "Swap tokens. Your address, hidden.",    dark: true  },
+  { n: "09", Icon: LayersIcon,     title: "Hidden Liquidity",           one: "Provide LP. Leave no trace.",           dark: false },
+  { n: "10", Icon: KeyIcon,        title: "Confidential Lending",       one: "Borrow. Your collateral, hidden.",      dark: false },
+  { n: "11", Icon: ZapIcon,        title: "Private Governance",         one: "Vote. Nobody knows it was you.",        dark: true  },
+  { n: "12", Icon: GlobeIcon,      title: "Any EVM, Any Token",         one: "Multichain. Universal.",                dark: false },
+  { n: "13", Icon: CoinIcon,       title: "Private Stablecoin Payments",one: "Pay with stables. Leave no trace.",     dark: true  },
 ];
+
+/* ── Single card with stagger reveal + 3D cursor tilt ── */
+function UCCard({
+  c, i, isLastRow, isLastCol,
+}: {
+  c: typeof CASES[0];
+  i: number;
+  isLastRow: boolean;
+  isLastCol: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!visible) return;
+    const el = e.currentTarget as HTMLElement;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    el.style.transition = "transform 0.07s ease";
+    el.style.transform  = `perspective(520px) rotateY(${x * 18}deg) rotateX(${-y * 18}deg) translateY(-6px) scale(1.02)`;
+  };
+
+  const onLeave = (e: MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget as HTMLElement;
+    el.style.transition = "transform 0.55s cubic-bezier(0.34,1.56,0.64,1)";
+    el.style.transform  = "";
+  };
+
+  const iconColor = c.dark ? "rgba(231,226,217,0.65)" : "var(--ink)";
+
+  return (
+    <div
+      ref={ref}
+      className="uc-card"
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{
+        background: c.dark
+          ? "var(--ink)"
+          : i % 2 === 0 ? "var(--white)" : "var(--cream)",
+        borderRight: isLastCol ? "none" : "var(--border)",
+        borderBottom: isLastRow ? "none" : "var(--border)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "" : "translateY(28px)",
+        transition: `opacity 0.55s ease ${i * 0.045}s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.045}s`,
+      }}
+    >
+      {/* Ghost number */}
+      <span style={{
+        position: "absolute", top: 12, right: 18,
+        fontFamily: "var(--font-serif)", fontWeight: 900,
+        fontSize: "5rem", lineHeight: 1,
+        color: c.dark ? "var(--cream)" : "var(--ink)",
+        opacity: 0.05, userSelect: "none",
+      }}>{i + 1}</span>
+
+      {/* Icon + index */}
+      <div style={{
+        display: "flex", alignItems: "center",
+        justifyContent: "space-between", marginBottom: 20,
+      }}>
+        <c.Icon size={22} color={iconColor} strokeWidth={2} />
+        <span style={{
+          fontFamily: "var(--font-mono)", fontSize: "0.56rem",
+          fontWeight: 700, letterSpacing: "0.14em",
+          color: c.dark ? "rgba(231,226,217,0.25)" : "rgba(10,10,10,0.25)",
+        }}>{c.n}</span>
+      </div>
+
+      {/* Title */}
+      <h3 style={{
+        fontFamily: "var(--font-serif)", fontWeight: 900,
+        fontSize: "clamp(1.1rem, 2vw, 1.3rem)", lineHeight: 1.15,
+        color: c.dark ? "var(--white)" : "var(--ink)", marginBottom: 10,
+      }}>{c.title}</h3>
+
+      {/* One-liner */}
+      <p style={{
+        fontFamily: "var(--font-mono)", fontSize: "0.62rem",
+        fontWeight: 700, letterSpacing: "0.08em",
+        color: c.dark ? "rgba(231,226,217,0.45)" : "rgba(10,10,10,0.45)",
+      }}>{c.one}</p>
+    </div>
+  );
+}
 
 export default function UseCases() {
   return (
@@ -157,7 +166,7 @@ export default function UseCases() {
             lineHeight: 1.65,
             color: "var(--ink-soft)",
           }}>
-            "The moment your assets wrap into Encrypted Fi, they move privately. Every transfer, swap, yield, borrow, LP position, and governance vote is backed by a ZK proof."
+            "The moment your assets wrap, they move privately."
           </p>
         </div>
       </div>
@@ -165,67 +174,16 @@ export default function UseCases() {
       {/* Cards */}
       <div className="grid-3" style={{ borderBottom: "var(--border)" }}>
         {CASES.map((c, i) => {
-          const isLastRow = i >= CASES.length - 3;
+          const isLastRow = i >= CASES.length - (CASES.length % 3 || 3);
           const isLastCol = (i + 1) % 3 === 0;
-          const iconColor = c.dark ? "rgba(231,226,217,0.65)" : "var(--ink)";
-
           return (
-            <div
+            <UCCard
               key={c.n}
-              className="uc-card"
-              style={{
-                background: c.dark
-                  ? "var(--ink)"
-                  : i % 2 === 0 ? "var(--white)" : "var(--cream)",
-                borderRight: isLastCol ? "none" : "var(--border)",
-                borderBottom: isLastRow ? "none" : "var(--border)",
-              }}
-            >
-              <span style={{
-                position: "absolute", top: 12, right: 18,
-                fontFamily: "var(--font-serif)", fontWeight: 900,
-                fontSize: "5rem", lineHeight: 1,
-                color: c.dark ? "var(--cream)" : "var(--ink)",
-                opacity: 0.05, userSelect: "none",
-              }}>{i + 1}</span>
-
-              <div style={{
-                display: "flex", alignItems: "center",
-                justifyContent: "space-between", marginBottom: 20,
-              }}>
-                <c.Icon size={22} color={iconColor} strokeWidth={2} />
-                <span style={{
-                  fontFamily: "var(--font-mono)", fontSize: "0.56rem",
-                  fontWeight: 700, letterSpacing: "0.14em",
-                  color: c.dark ? "rgba(231,226,217,0.25)" : "rgba(10,10,10,0.25)",
-                }}>{c.n}</span>
-              </div>
-
-              <h3 style={{
-                fontFamily: "var(--font-serif)", fontWeight: 900,
-                fontSize: "clamp(1.1rem, 2vw, 1.3rem)", lineHeight: 1.15,
-                color: c.dark ? "var(--white)" : "var(--ink)", marginBottom: 8,
-              }}>{c.title}</h3>
-
-              <p style={{
-                fontFamily: "var(--font-mono)", fontSize: "0.62rem",
-                fontWeight: 700, letterSpacing: "0.08em",
-                color: c.dark ? "rgba(231,226,217,0.4)" : "rgba(10,10,10,0.4)",
-                marginBottom: 14,
-              }}>{c.one}</p>
-
-              <div style={{
-                height: 1,
-                background: c.dark ? "rgba(231,226,217,0.08)" : "rgba(10,10,10,0.08)",
-                marginBottom: 14,
-              }} />
-
-              <p style={{
-                fontFamily: "var(--font-sans)", fontSize: "0.84rem",
-                lineHeight: 1.7,
-                color: c.dark ? "rgba(231,226,217,0.5)" : "var(--ink-soft)",
-              }}>{c.body}</p>
-            </div>
+              c={c}
+              i={i}
+              isLastRow={isLastRow}
+              isLastCol={isLastCol}
+            />
           );
         })}
       </div>
