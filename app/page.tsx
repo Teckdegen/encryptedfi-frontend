@@ -5,7 +5,6 @@ import Statement        from "@/components/Statement";
 import UseCases         from "@/components/UseCases";
 import Tech             from "@/components/Tech";
 import ExplorerPreview  from "@/components/ExplorerPreview";
-import Ecosystem        from "@/components/Ecosystem";
 import Updates          from "@/components/Updates";
 import FAQ              from "@/components/FAQ";
 import Footer           from "@/components/Footer";
@@ -38,11 +37,6 @@ export default function Home() {
         {/* Block explorer preview */}
         <ScrollReveal delay={60}>
           <ExplorerPreview />
-        </ScrollReveal>
-
-        {/* Ecosystem */}
-        <ScrollReveal delay={60}>
-          <Ecosystem />
         </ScrollReveal>
 
         {/* Updates / blog */}
