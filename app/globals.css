@@ -374,6 +374,21 @@ body > * { position: relative; z-index: 1; }
   align-items: center;
 }
 
+/* Explorer two-column layout */
+.explorer-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.explorer-left {
+  position: sticky;
+  top: 100px;
+}
+.explorer-right {
+  min-width: 0;
+}
+
 /* Footer bottom strip */
 .footer-strip {
   padding: 16px 40px;
@@ -472,6 +487,10 @@ body > * { position: relative; z-index: 1; }
 
   /* Ecosystem grid: 2 columns on tablet */
   .eco-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Explorer: stack on tablet */
+  .explorer-layout { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .explorer-left   { position: static !important; }
 
   /* Explorer TX area */
   .explorer-tx { padding: 16px 16px 0; }

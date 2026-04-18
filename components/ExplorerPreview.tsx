@@ -4,9 +4,8 @@ import React, { useState, useCallback } from "react";
 
 /* ────────────────────────────────────────────────────────
    ExplorerPreview.tsx
-   - 3D perspective-tilted monitor that flattens on hover
-   - Copy-to-clipboard on any hex value
-   - Tabbed explorer: Transaction · Event Logs · Privacy Proof
+   Two-column on desktop: headline left · monitor right
+   Tabbed explorer: Transaction · Event Logs · ZK Proof
 ──────────────────────────────────────────────────────── */
 
 const TX = {
@@ -47,15 +46,13 @@ const LOGS = [
 const PROOF = {
   protocol: "groth16",
   curve:    "bn128",
-  pi_a:     ["0x1f3a9c2e8b4d7f1a5e9c2b4d8f3a7e2c", "0x8b4d7f1a5e9c2b4d8f3a7e2c1f3a9c2e"],
-  pi_b:     [["0x4d8f3a7e2c1f3a9c2e8b4d7f1a5e9c2b", "0x9c2b4d8f3a7e2c1f3a9c2e8b4d7f1a5e"],
-             ["0x7e2c1f3a9c2e8b4d7f1a5e9c2b4d8f3a", "0x5e9c2b4d8f3a7e2c1f3a9c2e8b4d7f1a"]],
-  pi_c:     ["0x3a9c2e8b4d7f1a5e9c2b4d8f3a7e2c1f", "0x1a5e9c2b4d8f3a7e2c1f3a9c2e8b4d7f"],
+  pi_a:     ["0x1f3a9c2e8b4d7f1a5e9c2b4d8f3a7e2c"],
+  pi_b:     [["0x4d8f3a7e2c1f3a9c2e8b4d7f1a5e9c2b", "0x9c2b4d8f3a7e2c1f3a9c2e8b4d7f1a5e"]],
+  pi_c:     ["0x3a9c2e8b4d7f1a5e9c2b4d8f3a7e2c1f"],
   publicSignals: ["0x2c7e5f8a1d4b9e3c7f2a5d8b1e4c9f3a", "0x9d1f4a2e8c3b7d6f1a5e9c2b4d8f3a7e"],
-  verified: true,
 };
 
-/* ── Copy-able hex value ── */
+/* ── Helpers ── */
 function CopyHex({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = useCallback(() => {
@@ -64,7 +61,6 @@ function CopyHex({ value }: { value: string }) {
       setTimeout(() => setCopied(false), 1400);
     }).catch(() => {});
   }, [value]);
-
   return (
     <span
       className={`hex-copyable${copied ? " copied" : ""}`}
@@ -117,11 +113,10 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   );
 }
 
-/* ── Tab: Transaction ── */
+/* ── Tabs ── */
 function TabTransaction() {
   return (
     <div style={{ padding: "20px 24px 24px" }}>
-      {/* TX hash */}
       <div style={{
         display: "flex", alignItems: "flex-start", gap: 12,
         paddingBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.07)",
@@ -131,14 +126,13 @@ function TabTransaction() {
         <CopyHex value={TX.hash} />
         <Badge color="#4ead5b">{TX.status}</Badge>
       </div>
-
       {[
-        { label: "BLOCK",     value: TX.block,     special: null },
-        { label: "TIMESTAMP", value: TX.timestamp, special: null },
+        { label: "BLOCK",     value: TX.block,     special: null    },
+        { label: "TIMESTAMP", value: TX.timestamp, special: null    },
         { label: "FROM",      value: TX.from,      special: "relay" },
-        { label: "TO",        value: TX.to,        special: null },
-        { label: "METHOD",    value: TX.method,    special: "method" },
-        { label: "GAS USED",  value: TX.gasUsed,   special: null },
+        { label: "TO",        value: TX.to,        special: null    },
+        { label: "METHOD",    value: TX.method,    special: "method"},
+        { label: "GAS USED",  value: TX.gasUsed,   special: null    },
       ].map(({ label, value, special }) => (
         <Row key={label} label={label}>
           <span style={{
@@ -153,8 +147,7 @@ function TabTransaction() {
           {special === "relay" && (
             <span style={{
               fontFamily: "var(--font-mono)", fontSize: "0.48rem",
-              fontWeight: 700, letterSpacing: "0.1em",
-              padding: "2px 6px",
+              fontWeight: 700, letterSpacing: "0.1em", padding: "2px 6px",
               border: "1px solid rgba(160,220,120,0.2)",
               color: "rgba(160,220,120,0.5)",
               background: "rgba(160,220,120,0.06)",
@@ -163,11 +156,8 @@ function TabTransaction() {
           )}
         </Row>
       ))}
-
-      {/* Privacy callout */}
       <div style={{
-        marginTop: 16,
-        padding: "14px 16px",
+        marginTop: 16, padding: "14px 16px",
         border: "1px solid rgba(78,168,224,0.2)",
         background: "rgba(78,168,224,0.05)",
         display: "flex", alignItems: "flex-start", gap: 12,
@@ -175,8 +165,7 @@ function TabTransaction() {
         <span style={{ fontSize: "0.75rem", flexShrink: 0, marginTop: 1 }}>🔒</span>
         <p style={{
           fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-          lineHeight: 1.7, color: "rgba(78,168,224,0.7)",
-          letterSpacing: "0.04em",
+          lineHeight: 1.7, color: "rgba(78,168,224,0.7)", letterSpacing: "0.04em",
         }}>
           SENDER ADDRESS HIDDEN · RECEIVER ADDRESS HIDDEN · AMOUNT HIDDEN · ZK PROOF VERIFIED ON-CHAIN
         </p>
@@ -185,7 +174,6 @@ function TabTransaction() {
   );
 }
 
-/* ── Tab: Event Logs ── */
 function TabLogs() {
   return (
     <div style={{ padding: "20px 24px 24px" }}>
@@ -194,7 +182,6 @@ function TabLogs() {
         fontWeight: 700, letterSpacing: "0.14em",
         color: "rgba(255,255,255,0.22)", marginBottom: 16,
       }}>EVENT LOGS ({LOGS.length})</div>
-
       <div style={{ display: "flex", flexDirection: "column" as const, gap: 12 }}>
         {LOGS.map(log => (
           <div key={log.index} style={{
@@ -203,16 +190,9 @@ function TabLogs() {
             padding: "13px 16px", borderRadius: 2,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>
-                [{log.index}]
-              </span>
-              <span style={{
-                fontFamily: "var(--font-mono)", fontSize: "0.68rem",
-                fontWeight: 700, color: log.color, letterSpacing: "0.06em",
-              }}>{log.event}</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", color: "rgba(255,255,255,0.18)" }}>
-                eUSDT
-              </span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "rgba(255,255,255,0.22)" }}>[{log.index}]</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", fontWeight: 700, color: log.color, letterSpacing: "0.06em" }}>{log.event}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.52rem", color: "rgba(255,255,255,0.18)" }}>eUSDT</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 7 }}>
               {log.fields.map(f => (
@@ -233,42 +213,30 @@ function TabLogs() {
   );
 }
 
-/* ── Tab: Privacy Proof ── */
 function TabProof() {
   return (
     <div style={{ padding: "20px 24px 24px" }}>
-      {/* Verified banner */}
       <div style={{
         display: "flex", alignItems: "center", gap: 12,
         padding: "12px 16px", marginBottom: 20,
         background: "rgba(78,173,91,0.08)",
         border: "1px solid rgba(78,173,91,0.25)",
       }}>
-        <div style={{
-          width: 8, height: 8, borderRadius: "50%",
-          background: "#4ead5b", boxShadow: "0 0 8px #4ead5b",
-        }} />
+        <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ead5b", boxShadow: "0 0 8px #4ead5b" }} />
         <span style={{
           fontFamily: "var(--font-mono)", fontSize: "0.62rem",
-          fontWeight: 700, letterSpacing: "0.1em",
-          color: "rgba(78,173,91,0.9)",
+          fontWeight: 700, letterSpacing: "0.1em", color: "rgba(78,173,91,0.9)",
         }}>ZK PROOF VERIFIED ON-CHAIN · GROTH16 · BN128</span>
       </div>
-
-      {/* Proof fields */}
       {[
-        { label: "PROTOCOL", value: PROOF.protocol.toUpperCase() },
-        { label: "CURVE",    value: PROOF.curve.toUpperCase() },
+        { label: "PROTOCOL", value: "GROTH16" },
+        { label: "CURVE",    value: "BN128"   },
         { label: "π_A",      value: PROOF.pi_a[0] },
         { label: "π_B[0]",   value: PROOF.pi_b[0][0] },
         { label: "π_C",      value: PROOF.pi_c[0] },
       ].map(({ label, value }) => (
-        <Row key={label} label={label}>
-          <CopyHex value={value} />
-        </Row>
+        <Row key={label} label={label}><CopyHex value={value} /></Row>
       ))}
-
-      {/* Public signals */}
       <div style={{ marginTop: 16 }}>
         <div style={{
           fontFamily: "var(--font-mono)", fontSize: "0.58rem",
@@ -278,55 +246,39 @@ function TabProof() {
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 6 }}>
           {PROOF.publicSignals.map((sig, i) => (
             <div key={i} style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <span style={{
-                fontFamily: "var(--font-mono)", fontSize: "0.55rem",
-                color: "rgba(255,255,255,0.2)", minWidth: 24,
-              }}>[{i}]</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "rgba(255,255,255,0.2)", minWidth: 24 }}>[{i}]</span>
               <CopyHex value={sig} />
             </div>
           ))}
         </div>
       </div>
-
-      {/* What this means */}
-      <div style={{
-        marginTop: 20, padding: "14px 16px",
-        border: "1px solid rgba(228,222,212,0.1)",
-        background: "rgba(228,222,212,0.03)",
-      }}>
+      <div style={{ marginTop: 20, padding: "14px 16px", border: "1px solid rgba(228,222,212,0.1)", background: "rgba(228,222,212,0.03)" }}>
         <p style={{
           fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-          lineHeight: 1.75, color: "rgba(228,222,212,0.4)",
-          letterSpacing: "0.04em",
+          lineHeight: 1.75, color: "rgba(228,222,212,0.4)", letterSpacing: "0.04em",
         }}>
           THIS PROOF CONFIRMS A VALID SPEND WITHOUT REVEALING THE SENDER, RECEIVER, OR AMOUNT.
           THE NULLIFIER PREVENTS DOUBLE-SPENDING. THE COMMITMENT PROVES NOTE OWNERSHIP.
-          NOTHING ELSE IS DISCLOSED.
         </p>
       </div>
     </div>
   );
 }
 
-/* ── Explorer card with tabs ── */
+/* ── Tabbed explorer card ── */
 function ExplorerCard() {
   const [tab, setTab] = useState<"tx" | "logs" | "proof">("tx");
-
   const TABS: { id: "tx" | "logs" | "proof"; label: string }[] = [
     { id: "tx",    label: "Transaction" },
-    { id: "logs",  label: "Event Logs" },
-    { id: "proof", label: "ZK Proof" },
+    { id: "logs",  label: "Event Logs"  },
+    { id: "proof", label: "ZK Proof"    },
   ];
-
   return (
     <div style={{ background: "#0d0d0d", overflow: "hidden", borderRadius: 2 }}>
-
       {/* Browser chrome */}
       <div style={{
-        background: "#1a1a1a",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
-        padding: "10px 16px",
-        display: "flex", alignItems: "center", gap: 10,
+        background: "#1a1a1a", borderBottom: "1px solid rgba(255,255,255,0.07)",
+        padding: "10px 16px", display: "flex", alignItems: "center", gap: 10,
       }}>
         {["#e05a4e","#e0b84e","#4ead5b"].map(c => (
           <div key={c} style={{ width: 9, height: 9, borderRadius: "50%", background: c, opacity: 0.75 }} />
@@ -342,54 +294,29 @@ function ExplorerCard() {
             <rect x="2" y="5" width="8" height="6" rx="1" stroke="rgba(100,220,100,0.6)" strokeWidth="1.2"/>
             <path d="M4 5V3.5a2 2 0 014 0V5" stroke="rgba(100,220,100,0.6)" strokeWidth="1.2"/>
           </svg>
-          <span style={{
-            fontFamily: "var(--font-mono)", fontSize: "0.55rem",
-            color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em",
-          }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em" }}>
             explorer.network / tx / 0x8f3a…b5
           </span>
-          <span style={{
-            marginLeft: "auto",
-            fontFamily: "var(--font-mono)", fontSize: "0.48rem",
-            fontWeight: 700, letterSpacing: "0.1em",
-            padding: "1px 6px",
-            border: "1px solid rgba(255,255,255,0.1)",
-            color: "rgba(255,255,255,0.25)",
-          }}>Flare · ETH · Base</span>
         </div>
       </div>
-
       {/* Tab bar */}
-      <div style={{
-        display: "flex",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
-        background: "#111",
-      }}>
+      <div style={{ display: "flex", borderBottom: "1px solid rgba(255,255,255,0.07)", background: "#111" }}>
         {TABS.map((t) => {
           const active = tab === t.id;
           return (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              style={{
-                fontFamily: "var(--font-mono)", fontSize: "0.6rem",
-                fontWeight: 700, letterSpacing: "0.1em",
-                padding: "10px 20px",
-                background: active ? "#0d0d0d" : "transparent",
-                border: "none",
-                borderBottom: active ? "2px solid rgba(78,168,224,0.7)" : "2px solid transparent",
-                color: active ? "rgba(78,168,224,0.9)" : "rgba(255,255,255,0.3)",
-                cursor: "pointer",
-                transition: "color 0.15s, background 0.15s",
-              }}
-            >
-              {t.label}
-            </button>
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              fontFamily: "var(--font-mono)", fontSize: "0.6rem",
+              fontWeight: 700, letterSpacing: "0.1em",
+              padding: "10px 20px",
+              background: active ? "#0d0d0d" : "transparent",
+              border: "none",
+              borderBottom: active ? "2px solid rgba(78,168,224,0.7)" : "2px solid transparent",
+              color: active ? "rgba(78,168,224,0.9)" : "rgba(255,255,255,0.3)",
+              cursor: "pointer", transition: "color 0.15s, background 0.15s",
+            }}>{t.label}</button>
           );
         })}
       </div>
-
-      {/* Tab content */}
       {tab === "tx"    && <TabTransaction />}
       {tab === "logs"  && <TabLogs />}
       {tab === "proof" && <TabProof />}
@@ -397,44 +324,27 @@ function ExplorerCard() {
   );
 }
 
-/* ── Desktop monitor shell (3D tilted) ── */
+/* ── Monitor shell ── */
 function Monitor({ children }: { children: React.ReactNode }) {
   return (
     <div className="monitor-3d-wrap" style={{ width: "100%" }}>
       <div className="monitor-3d" style={{ display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
         <div style={{
-          width: "100%", maxWidth: 800,
-          background: "#1c1c1e",
-          border: "2px solid #2a2a2c",
+          width: "100%",
+          background: "#1c1c1e", border: "2px solid #2a2a2c",
           borderRadius: 12, padding: 10,
           boxShadow: "0 48px 96px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04)",
         }}>
-          <div style={{
-            display: "flex", justifyContent: "center", alignItems: "center",
-            height: 20, marginBottom: 8, gap: 8,
-          }}>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 20, marginBottom: 8, gap: 8 }}>
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#2e2e30", border: "1px solid #3a3a3c" }} />
             <div style={{ width: 3, height: 3, borderRadius: "50%", background: "#4ead5b", boxShadow: "0 0 5px #4ead5b", opacity: 0.8 }} />
           </div>
-          <div style={{
-            borderRadius: 6, overflow: "hidden",
-            border: "1px solid rgba(255,255,255,0.06)",
-            boxShadow: "inset 0 0 40px rgba(0,0,0,0.5)",
-          }}>
+          <div style={{ borderRadius: 6, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)", boxShadow: "inset 0 0 40px rgba(0,0,0,0.5)" }}>
             {children}
           </div>
         </div>
-        <div style={{
-          width: 64, height: 30,
-          background: "linear-gradient(to bottom, #1c1c1e, #252528)",
-          borderLeft: "1px solid #2a2a2c", borderRight: "1px solid #2a2a2c",
-        }} />
-        <div style={{
-          width: 200, height: 14,
-          background: "#1c1c1e", border: "1px solid #2a2a2c",
-          borderRadius: "0 0 10px 10px",
-          boxShadow: "0 6px 20px rgba(0,0,0,0.6)",
-        }} />
+        <div style={{ width: 64, height: 28, background: "linear-gradient(to bottom, #1c1c1e, #252528)", borderLeft: "1px solid #2a2a2c", borderRight: "1px solid #2a2a2c" }} />
+        <div style={{ width: 180, height: 12, background: "#1c1c1e", border: "1px solid #2a2a2c", borderRadius: "0 0 8px 8px", boxShadow: "0 6px 20px rgba(0,0,0,0.6)" }} />
       </div>
     </div>
   );
@@ -445,15 +355,14 @@ export default function ExplorerPreview() {
   return (
     <section
       id="explorer"
-      style={{ background: "var(--ink)", padding: "80px 0", overflow: "hidden" }}
+      style={{ background: "var(--ink)", padding: "100px 0", overflow: "hidden" }}
     >
       {/* Section label */}
       <div style={{
-        display: "flex", alignItems: "center",
-        padding: "10px 32px",
+        display: "flex", alignItems: "center", padding: "10px 32px",
         borderTop: "1px solid rgba(228,222,212,0.12)",
         borderBottom: "1px solid rgba(228,222,212,0.12)",
-        marginBottom: 64,
+        marginBottom: 80,
       }}>
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.08)" }} />
         <span style={{
@@ -464,53 +373,88 @@ export default function ExplorerPreview() {
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.08)" }} />
       </div>
 
-      <div className="section-inner">
+      {/* Two-column layout on desktop */}
+      <div className="explorer-layout section-inner">
 
-        {/* Headline */}
-        <div style={{ marginBottom: 56, maxWidth: 560 }}>
+        {/* Left: headline + context */}
+        <div className="explorer-left">
           <h2 style={{
             fontFamily: "var(--font-serif)",
-            fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
-            fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em",
+            fontSize: "clamp(2rem, 3.5vw, 3.2rem)",
+            fontWeight: 900, lineHeight: 1.0, letterSpacing: "-0.025em",
             color: "var(--white)",
+            marginBottom: 24,
           }}>
-            No sender.
-            <br />
-            <em style={{ fontStyle: "italic", fontWeight: 700, color: "rgba(228,222,212,0.5)" }}>
-              No receiver. Just proof.
+            No sender.<br />
+            No receiver.<br />
+            <em style={{ fontStyle: "italic", fontWeight: 700, color: "rgba(228,222,212,0.45)" }}>
+              Just proof.
             </em>
           </h2>
-          <div style={{ display: "flex", gap: 12, alignItems: "center", marginTop: 20, flexWrap: "wrap" as const }}>
-            {["Flare", "Ethereum", "Base"].map(chain => (
-              <span key={chain} style={{
-                fontFamily: "var(--font-mono)", fontSize: "0.58rem",
-                fontWeight: 700, letterSpacing: "0.1em",
-                padding: "4px 12px",
-                border: "1px solid rgba(78,173,91,0.3)",
-                color: "rgba(78,173,91,0.8)",
-                background: "rgba(78,173,91,0.06)",
-                display: "inline-flex", alignItems: "center", gap: 6,
+
+          <div style={{ width: 40, height: 3, background: "rgba(228,222,212,0.2)", marginBottom: 28 }} />
+
+          <p style={{
+            fontFamily: "var(--font-sans)", fontSize: "0.9rem",
+            lineHeight: 1.8, color: "rgba(228,222,212,0.45)",
+            marginBottom: 40, maxWidth: 340,
+          }}>
+            Every transaction on EncryptedFi looks exactly like this. Hashes, ciphertext, and ZK proofs. Nothing else.
+          </p>
+
+          {/* Stat pills */}
+          <div style={{ display: "flex", flexDirection: "column" as const, gap: 12 }}>
+            {[
+              { label: "SENDER",   value: "HIDDEN" },
+              { label: "RECEIVER", value: "HIDDEN" },
+              { label: "AMOUNT",   value: "HIDDEN" },
+              { label: "PROOF",    value: "VERIFIED ON-CHAIN" },
+            ].map(({ label, value }) => (
+              <div key={label} style={{
+                display: "flex", alignItems: "center",
+                justifyContent: "space-between",
+                padding: "10px 16px",
+                border: "1px solid rgba(228,222,212,0.08)",
+                background: "rgba(228,222,212,0.03)",
               }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#4ead5b", display: "inline-block", boxShadow: "0 0 5px #4ead5b" }} />
-                {chain}
-              </span>
+                <span style={{
+                  fontFamily: "var(--font-mono)", fontSize: "0.58rem",
+                  fontWeight: 700, letterSpacing: "0.14em",
+                  color: "rgba(228,222,212,0.3)",
+                }}>{label}</span>
+                <span style={{
+                  fontFamily: "var(--font-mono)", fontSize: "0.58rem",
+                  fontWeight: 700, letterSpacing: "0.1em",
+                  color: value === "VERIFIED ON-CHAIN"
+                    ? "rgba(78,173,91,0.8)"
+                    : "rgba(228,80,78,0.7)",
+                }}>{value}</span>
+              </div>
             ))}
           </div>
+
+          <p style={{
+            fontFamily: "var(--font-mono)", fontSize: "0.52rem",
+            color: "rgba(228,222,212,0.15)", letterSpacing: "0.08em",
+            marginTop: 32, lineHeight: 1.6,
+          }}>
+            CLICK THE TABS TO EXPLORE<br />WHAT A REAL TX LOOKS LIKE.
+          </p>
         </div>
 
-        {/* 3D tilted monitor */}
-        <Monitor>
-          <ExplorerCard />
-        </Monitor>
-
-        {/* Caption */}
-        <p style={{
-          fontFamily: "var(--font-mono)", fontSize: "0.55rem",
-          color: "rgba(228,222,212,0.15)", letterSpacing: "0.08em",
-          marginTop: 28, textAlign: "center" as const,
-        }}>
-          ILLUSTRATIVE EXAMPLE · REAL TRANSACTIONS LOOK EXACTLY LIKE THIS · NO SENDER · NO RECEIVER · NEVER
-        </p>
+        {/* Right: monitor */}
+        <div className="explorer-right">
+          <Monitor>
+            <ExplorerCard />
+          </Monitor>
+          <p style={{
+            fontFamily: "var(--font-mono)", fontSize: "0.5rem",
+            color: "rgba(228,222,212,0.12)", letterSpacing: "0.08em",
+            marginTop: 20, textAlign: "center" as const,
+          }}>
+            ILLUSTRATIVE EXAMPLE · REAL TRANSACTIONS LOOK EXACTLY LIKE THIS
+          </p>
+        </div>
 
       </div>
     </section>

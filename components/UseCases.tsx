@@ -162,11 +162,13 @@ export default function UseCases() {
           <p style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
-            fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
-            lineHeight: 1.65,
+            fontSize: "clamp(1.4rem, 3vw, 2.6rem)",
+            fontWeight: 700,
+            lineHeight: 1.2,
+            letterSpacing: "-0.015em",
             color: "var(--ink-soft)",
           }}>
-            "The moment your assets wrap, they move privately."
+            "The moment your assets wrap,<br />they move privately."
           </p>
         </div>
       </div>

@@ -317,26 +317,25 @@ export default function Hero() {
           marginBottom:  40,
           animation:     "fadeUp 0.55s ease both",
         }}>
-          We bring<br />
+          We bring{" "}
           <em
             style={{
-              fontStyle:     "italic",
-              fontWeight:    700,
-              position:      "relative" as const,
-              display:       "inline-block",
+              fontStyle:  "italic",
+              fontWeight: 700,
+              display:    "inline",
             }}
           >
             {typed}
             <span
               style={{
-                display:          "inline-block",
-                width:            "3px",
-                height:           "0.85em",
-                background:       "var(--ink)",
-                marginLeft:       "3px",
-                verticalAlign:    "middle",
-                animation:        "blink 0.9s step-end infinite",
-                transform:        "translateY(-4px)",
+                display:       "inline-block",
+                width:         "3px",
+                height:        "0.85em",
+                background:    "var(--ink)",
+                marginLeft:    "3px",
+                verticalAlign: "middle",
+                animation:     "blink 0.9s step-end infinite",
+                transform:     "translateY(-4px)",
               }}
             />
           </em>
