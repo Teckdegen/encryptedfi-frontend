@@ -139,7 +139,11 @@ export default function Statement() {
               color: s.dark ? "rgba(231,226,217,0.6)" : "var(--ink)",
             }}>
               <span>{s.pill.from}</span>
-              <span style={{ opacity: 0.35 }}>→</span>
+              {/* Animated arrow */}
+              <span style={{
+                display:   "inline-block",
+                animation: "pulseArrow 1.4s ease-in-out infinite",
+              }}>→</span>
               <span>{s.pill.to}</span>
             </div>
           </div>
