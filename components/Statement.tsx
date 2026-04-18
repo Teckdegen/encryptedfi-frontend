@@ -76,7 +76,6 @@ export default function Statement() {
             step: "01",
             verb: "WRAP",
             headline: "Any token enters the private system.",
-            sub: "Deposit any ERC20. Your tokens are locked in the vault and you receive a private note, a ZK commitment only you can spend. Supported on any public EVM chain.",
             pill: { from: "100 TOKEN", to: "PRIVATE NOTE" },
             dark: false,
           },
@@ -84,7 +83,6 @@ export default function Statement() {
             step: "02",
             verb: "TRANSACT",
             headline: "Send, swap, or earn. Nothing leaks.",
-            sub: "Transfer to anyone, swap between confidential token pairs, or deploy into DeFi yield vaults  all through a ZK proof. Amounts, sender, and receiver stay hidden from the chain.",
             pill: { from: "▓▓▓ PRIVATE", to: "▓▓▓ PRIVATE" },
             dark: true,
           },
@@ -92,7 +90,6 @@ export default function Statement() {
             step: "03",
             verb: "UNWRAP",
             headline: "Back to your token. With yield.",
-            sub: "Prove you own a private note. The vault releases the underlying tokens  plus any accrued DeFi yield  directly to your address. Your exit is as private as your entry.",
             pill: { from: "PRIVATE NOTE", to: "105 TOKEN" },
             dark: false,
           },
@@ -129,15 +126,8 @@ export default function Statement() {
             <h3 style={{
               fontFamily: "var(--font-serif)", fontWeight: 900,
               fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.25,
-              color: s.dark ? "var(--white)" : "var(--ink)", marginBottom: 12,
+              color: s.dark ? "var(--white)" : "var(--ink)", marginBottom: 28,
             }}>{s.headline}</h3>
-
-            <p style={{
-              fontFamily: "var(--font-sans)", fontSize: "0.85rem",
-              lineHeight: 1.7,
-              color: s.dark ? "rgba(231,226,217,0.5)" : "var(--ink-soft)",
-              marginBottom: 28,
-            }}>{s.sub}</p>
 
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 10,

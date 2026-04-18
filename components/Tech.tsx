@@ -48,8 +48,8 @@ export default function Tech() {
 
       <div className="section-inner">
 
-        {/* Header */}
-        <div style={{ marginBottom: 56, maxWidth: 640 }}>
+        {/* Header — headline only */}
+        <div style={{ marginBottom: 56 }}>
           <h2
             style={{
               fontFamily: "var(--font-serif)",
@@ -57,7 +57,6 @@ export default function Tech() {
               fontWeight: 900,
               lineHeight: 1.0,
               letterSpacing: "-0.02em",
-              marginBottom: 16,
             }}
           >
             Your token.
@@ -66,24 +65,9 @@ export default function Tech() {
               Made private.
             </em>
           </h2>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: "1rem",
-              lineHeight: 1.75,
-              color: "var(--ink-soft)",
-              maxWidth: 480,
-            }}
-          >
-            Built for public chains. EVM, Stacks, and beyond. Wallets hold encrypted
-            notes, not balances. Every transfer is an ECIES encrypted note. Only the
-            receiver can open it, using their ETH public key recovered automatically
-            from any signed transaction. Verified by a ZK proof. No registration. No
-            trust. Any chain.
-          </p>
         </div>
 
-        {/* Stack grid, 8 cells, 4 col */}
+        {/* Stack grid */}
         <div
           className="tech-grid"
           style={{
@@ -106,7 +90,6 @@ export default function Tech() {
                   borderBottom: isLastRow ? "none" : "var(--border)",
                 }}
               >
-                {/* Top: ID */}
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
@@ -121,7 +104,6 @@ export default function Tech() {
                   {s.id}
                 </span>
 
-                {/* Bottom: name + tag */}
                 <div>
                   <div
                     style={{
