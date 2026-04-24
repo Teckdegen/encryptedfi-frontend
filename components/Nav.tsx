@@ -41,12 +41,10 @@ export default function Nav() {
             textDecoration: "none",
             color: "var(--ink)",
           }}>
-            <Image
-              src="https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png"
-              alt="Encrypted Fi"
-              width={34}
-              height={34}
-              style={{ objectFit: "contain", display: "block" }}
+            <img
+              src="https://pbs.twimg.com/profile_images/2047252841190883328/hLjV_tJa_400x400.jpg"
+              alt="Logo"
+              className="h-10"
             />
             <span style={{
               fontFamily: "var(--font-serif)",
