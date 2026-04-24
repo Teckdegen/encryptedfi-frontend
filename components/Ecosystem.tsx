@@ -67,20 +67,6 @@ export default function Ecosystem() {
           position: "relative" as const,
           overflow: "hidden",
         }}>
-          {/* Ghost watermark */}
-          <div style={{
-            position: "absolute" as const,
-            fontFamily: "var(--font-serif)", fontWeight: 900,
-            fontSize: "clamp(6rem, 22vw, 18rem)",
-            lineHeight: 1,
-            color: "var(--cream)",
-            opacity: 0.022,
-            letterSpacing: "-0.04em",
-            userSelect: "none" as const,
-            pointerEvents: "none" as const,
-            whiteSpace: "nowrap" as const,
-          }}>SOON</div>
-
           {/* Blinking dot */}
           <div style={{
             width: 8, height: 8, borderRadius: "50%",

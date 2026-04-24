@@ -10,23 +10,6 @@ export default function Statement() {
           borderBottom: "var(--border)",
         }}
       >
-        {/* Ghost mark */}
-        <div style={{
-          position: "absolute",
-          right: -20,
-          top: "50%",
-          transform: "translateY(-50%)",
-          fontFamily: "var(--font-mono)",
-          fontWeight: 700,
-          fontSize: "clamp(6rem, 20vw, 16rem)",
-          lineHeight: 1,
-          color: "var(--cream)",
-          opacity: 0.025,
-          letterSpacing: "-0.04em",
-          userSelect: "none",
-          pointerEvents: "none",
-          whiteSpace: "nowrap",
-        }}>{"{?}"}</div>
 
         <div style={{ position: "relative" }}>
           <p style={{

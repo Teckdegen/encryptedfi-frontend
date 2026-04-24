@@ -260,8 +260,6 @@ export default function Hero() {
         overflow:      "hidden",
       }}
     >
-      {/* Floating crypto particle field */}
-      <ParticleCanvas />
 
       <div className="hero-inner" style={{ position: "relative", zIndex: 1 }}>
 

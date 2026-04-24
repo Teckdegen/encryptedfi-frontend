@@ -82,14 +82,6 @@ function UCCard({
         transition: `opacity 0.55s ease ${i * 0.045}s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.045}s`,
       }}
     >
-      {/* Ghost number */}
-      <span style={{
-        position: "absolute", top: 12, right: 18,
-        fontFamily: "var(--font-serif)", fontWeight: 900,
-        fontSize: "5rem", lineHeight: 1,
-        color: c.dark ? "var(--cream)" : "var(--ink)",
-        opacity: 0.05, userSelect: "none",
-      }}>{i + 1}</span>
 
       {/* Icon + index */}
       <div style={{

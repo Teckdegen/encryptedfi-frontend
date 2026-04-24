@@ -44,7 +44,7 @@ export default function Nav() {
             <img
               src="https://pbs.twimg.com/profile_images/2047252841190883328/hLjV_tJa_400x400.jpg"
               alt="Logo"
-              className="h-10"
+              style={{ height: 24, width: 24, borderRadius: 4 }}
             />
             <span style={{
               fontFamily: "var(--font-serif)",
