@@ -24,7 +24,7 @@ const ROWS: { feature: string; cells: Cell[] }[] = [
   { feature: "No admin / backdoors",     cells: [true,   true,   true,   "—"]   },
   { feature: "Relayer anonymity",        cells: [true,   true,   "Partial", false] },
   { feature: "Multichain (any EVM)",     cells: [true,   false,  false,  true]  },
-  { feature: "ZK proof every operation", cells: [true,   true,   true,   false] },
+  { feature: "TEE every operation",      cells: [true,   true,   true,   false] },
   { feature: "Open source",             cells: [true,   true,   true,   "—"]   },
 ];
 

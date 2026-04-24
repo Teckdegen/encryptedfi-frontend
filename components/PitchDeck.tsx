@@ -17,13 +17,13 @@ const SLIDES = [
           <em style={{ fontStyle: "italic", fontWeight: 700 }}>Fi</em>
         </h2>
         <p style={styles.sub}>
-          The privacy layer for public blockchains.<br />
-          Any token. Any chain. Zero knowledge.
+          Privacy on Flare with TEE.<br />
+          Any token. Any chain. Hardware secured.
         </p>
         <div style={{ marginTop: 48, display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap" as const }}>
           {[
             { n: "100%", l: "Private balances" },
-            { n: "ZK",   l: "Proof every op"   },
+            { n: "TEE",  l: "Enclave secured"  },
             { n: "0",    l: "Trust required"   },
           ].map(s => (
             <div key={s.l} style={styles.stat}>
@@ -81,14 +81,14 @@ const SLIDES = [
           <em style={{ fontStyle: "italic" }}>not a chain.</em>
         </h2>
         <p style={{ ...styles.sub, maxWidth: 620, marginBottom: 56 }}>
-          Encrypted Fi wraps any existing ERC-20 or SIP-010 token into a confidential version.
-          Balances, transfers, and DeFi interactions are hidden inside ZK proofs.
+          Encrypted Fi wraps any existing ERC-20 into a confidential version on Flare.
+          Balances, transfers, and DeFi interactions are secured inside a TEE enclave.
           The original token is redeemable 1-to-1 at any time.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, border: "var(--border)", maxWidth: 760, margin: "0 auto" }}>
           {[
             { step: "01", label: "WRAP",    desc: "Deposit any token. Receive an encrypted cToken note." },
-            { step: "02", label: "TRANSACT", desc: "Send, swap, lend, LP — all privately via ZK proofs."  },
+            { step: "02", label: "TRANSACT", desc: "Send, swap, lend — all privately via TEE enclave."  },
             { step: "03", label: "UNWRAP",  desc: "Burn your note. Receive the underlying token back."  },
           ].map((s, i) => (
             <div key={s.step} style={{
@@ -116,20 +116,20 @@ const SLIDES = [
         <div style={styles.leftCol}>
           <div style={styles.eyebrow}>HOW IT WORKS</div>
           <h2 style={styles.bigH}>
-            ZK proofs on<br />
+            TEE enclave<br />
             <em style={{ fontStyle: "italic" }}>every operation.</em>
           </h2>
           <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.88rem", lineHeight: 1.75, color: "var(--ink-soft)", marginTop: 20 }}>
-            Every action — wrap, transfer, swap, borrow, vote — is verified by a
-            zero-knowledge SNARK proof on-chain. No trusted setup required after deployment.
+            Every action — wrap, transfer, swap, borrow, vote — is verified inside the
+            Flare FCC TEE enclave. Hardware attestation proves correct code runs unmodified.
             No admin keys. No pause buttons.
           </p>
         </div>
         <div style={styles.rightCol}>
           {[
-            { n: "1", title: "Commitment scheme", body: "Token amounts are stored as Poseidon-hashed commitments in a Merkle tree. Only the note holder knows the preimage." },
-            { n: "2", title: "Nullifier system", body: "Each note has a unique nullifier. When spent, the nullifier is posted on-chain to prevent double-spending — without revealing the note." },
-            { n: "3", title: "ZK-SNARK proofs", body: "Groth16 / PLONK circuits verify ownership and amounts off-chain. The on-chain verifier confirms the proof in ~30k gas." },
+            { n: "1", title: "TEE Enclave", body: "All verification happens inside a Flare FCC hardware enclave. Spending keys never leave the secure environment." },
+            { n: "2", title: "Note system", body: "Each deposit creates a private note ID. When spent, the note is marked on-chain to prevent double-spending — sender stays hidden." },
+            { n: "3", title: "Hardware attestation", body: "Flare FCC proves the TEE code is running unmodified inside genuine hardware. No trust in operators needed." },
             { n: "4", title: "ECIES encryption", body: "Encrypted note ciphertexts are posted on-chain so recipients can scan and decrypt their incoming notes without a server." },
           ].map(p => (
             <div key={p.n} style={styles.problemRow}>
@@ -159,11 +159,11 @@ const SLIDES = [
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 0, border: "var(--border)", maxWidth: 820, margin: "0 auto" }}>
           {[
             { icon: "🔒", label: "Private Transfers",   desc: "Sender, receiver, amount — all hidden" },
-            { icon: "🔄", label: "Confidential Swaps",  desc: "DEX trades with zero-knowledge proofs" },
+            { icon: "🔄", label: "Confidential Swaps",  desc: "DEX trades inside TEE enclave" },
             { icon: "📈", label: "Private Yield",        desc: "ERC-4626 vaults with encrypted deposits" },
             { icon: "💰", label: "Anonymous Lending",    desc: "Borrow & collateral positions private" },
             { icon: "💧", label: "Hidden LP Positions",  desc: "Provide liquidity without broadcasting" },
-            { icon: "🗳", label: "ZK Governance",        desc: "Vote without revealing your balance" },
+            { icon: "�", label: "TEE Governance",       desc: "Vote without revealing your balance" },
           ].map((c, i) => (
             <div key={c.label} style={{
               padding: "28px 22px",
@@ -196,12 +196,11 @@ const SLIDES = [
         </div>
         <div style={styles.rightCol}>
           {[
-            { label: "ZK Circuits",        tech: "Circom + SnarkJS",  desc: "Mint, burn, transfer, swap, vote circuits. Auditable, open source." },
-            { label: "Proof System",        tech: "Groth16 / PLONK",  desc: "Sub-second proving on any device. ~30k gas verification on-chain." },
-            { label: "Hash Function",       tech: "Poseidon",          desc: "ZK-friendly hash for commitments and nullifiers. Battle-tested." },
+            { label: "TEE Platform",        tech: "Flare FCC",         desc: "Hardware enclave verification. No circuits needed." },
+            { label: "Attestation",         tech: "Remote attestation", desc: "Cryptographic proof TEE runs unmodified code." },
             { label: "Encryption",          tech: "ECIES / secp256k1", desc: "Encrypted notes posted on-chain. Recipients self-scan and decrypt." },
             { label: "EVM Contracts",       tech: "Solidity 0.8.20",   desc: "OpenZeppelin base, Uniswap V2 compatible, fully immutable." },
-            { label: "Stacks Contracts",    tech: "Clarity",           desc: "SIP-010 native. Same ZK model. Native Bitcoin settlement." },
+            { label: "Flare Integration",   tech: "FCC / Sign Extension", desc: "Built with Flare Confidential Compute and Sign Extension." },
           ].map(t => (
             <div key={t.label} style={{ display: "flex", gap: 16, marginBottom: 18, paddingBottom: 18, borderBottom: "1px solid rgba(10,10,10,0.08)" }}>
               <div style={{ flex: "0 0 130px" }}>
@@ -271,13 +270,13 @@ const SLIDES = [
           <div style={{ marginBottom: 32 }}>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", letterSpacing: "0.14em", marginBottom: 16, color: "var(--ink-soft)" }}>COMPLETED</div>
             {[
-              "Core ZK circuits (mint, burn, transfer)",
+              "Core TEE enclave (mint, burn, transfer)",
               "EVM Vault + ConfidentialToken contracts",
               "Stacks / Clarity parallel implementation",
               "Confidential Swap Router",
               "Confidential Lending Vault",
               "Confidential LP Vault (Uniswap V2+)",
-              "ZK Governance voting system",
+              "TEE Governance voting system",
               "ERC-4626 Yield Vault",
               "JavaScript SDK (wrap, transfer, swap, borrow, LP, vote)",
             ].map(item => (
@@ -290,8 +289,8 @@ const SLIDES = [
           <div>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", letterSpacing: "0.14em", marginBottom: 16, color: "var(--ink-soft)" }}>UPCOMING</div>
             {[
-              "Audit by top ZK security firm",
-              "Testnet launch with SDK + explorer",
+              "Audit by top security firm",
+              "Testnet launch with SDK + TEE integration",
               "Mainnet deployment (EVM + Stacks)",
               "Partner integrations (DEXs, lending protocols)",
             ].map(item => (

@@ -12,7 +12,7 @@ export const SLIDE_META: Slide[] = [
   { id: 3,  title: "Market Opportunity",   category: "MARKET"       },
   { id: 4,  title: "Our Solution",         category: "SOLUTION"     },
   { id: 5,  title: "Technology",           category: "TECHNOLOGY"   },
-  { id: 6,  title: "Why Somnia",           category: "WHY SOMNIA"   },
+  { id: 6,  title: "Why Flare",            category: "WHY FLARE"    },
   { id: 7,  title: "DeFi Capabilities",    category: "CAPABILITIES" },
   { id: 8,  title: "Team",                 category: "TEAM"         },
   { id: 9,  title: "Compliance",           category: "COMPLIANCE"   },

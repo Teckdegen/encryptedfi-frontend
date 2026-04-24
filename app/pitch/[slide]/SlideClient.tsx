@@ -108,7 +108,7 @@ function SlideContent({ n }: { n: number }) {
     case 1: return (
       <Ctr>
         <div style={{ fontFamily: mono, fontSize: "0.7rem", letterSpacing: "0.22em", color: soft, marginBottom: 28 }}>
-          ENCRYPTED FI · 2026 · EVM PRIVACY INFRASTRUCTURE
+          ENCRYPTED FI · 2026 · TEE PRIVACY ON FLARE
         </div>
         <div style={{
           fontFamily: serif, fontWeight: 900,
@@ -121,12 +121,12 @@ function SlideContent({ n }: { n: number }) {
           <span style={{ background: ink, color: white, padding: "0.04em 0.2em 0.06em", display: "inline-block" }}>Fi</span>
         </div>
         <P style={{ maxWidth: 560, marginBottom: 36, fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
-          The privacy layer for ERC-20 tokens on EVM chains.
-          Any token. Any wallet. Zero knowledge. No new chain required.
+          Privacy on Flare with TEE.
+          Any token. Any wallet. Hardware secured. No new chain required.
         </P>
         <div style={{ display: "flex", border: bdr }}>
           {[
-            { n: "ZK",  l: "Every operation"   },
+            { n: "TEE", l: "Enclave secured"   },
             { n: "1:1", l: "Token redemption"  },
             { n: <span style={{ fontFamily: mono }}>0x</span>, l: "Same wallet address" },
           ].map((s, i) => (
@@ -254,14 +254,14 @@ function SlideContent({ n }: { n: number }) {
           Privacy as a layer,<br /><em style={{ fontStyle: "italic" }}>not a chain.</em>
         </H>
         <P style={{ maxWidth: 600, marginBottom: 28, fontSize: "clamp(0.88rem, 1.1vw, 1rem)" }}>
-          Encrypted Fi wraps any ERC-20 token into a confidential cToken. Every interaction
-          is hidden inside a ZK proof. The original token is redeemable 1-to-1 at any time.
+          Encrypted Fi wraps any ERC-20 token into a confidential cToken on Flare. Every interaction
+          is secured inside a TEE enclave. The original token is redeemable 1-to-1 at any time.
           No new chain. No new wallet. No protocol migration needed.
         </P>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 960, width: "100%" }}>
           {[
             { step: "01", label: "WRAP",     desc: "Deposit any ERC-20 token. Receive an encrypted cToken commitment. Your balance is now hidden.", dark: false },
-            { step: "02", label: "TRANSACT", desc: "Send, swap, borrow, or earn yield. Every action is verified by a ZK proof. Nothing is visible.", dark: true  },
+            { step: "02", label: "TRANSACT", desc: "Send, swap, borrow, or earn yield. Every action is verified inside the TEE. Nothing is visible.", dark: true  },
             { step: "03", label: "EARN",     desc: "cTokens auto-compound inside private yield vaults. Your balance and strategy stay fully encrypted.", dark: false },
             { step: "04", label: "UNWRAP",   desc: "Burn your note at any time. Receive the underlying ERC-20 plus earned yield back, exactly 1-to-1.", dark: false },
           ].map((s, i) => (
@@ -287,12 +287,12 @@ function SlideContent({ n }: { n: number }) {
           <>
             <Tag>TECHNOLOGY</Tag>
             <H>
-              Math is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
+              TEE is the<br />only<br /><em style={{ fontStyle: "italic" }}>authority.</em>
             </H>
             <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-              Every operation produces a ZK-SNARK proof verified by an on-chain
-              Solidity verifier contract. No admin key. No pause function. No ability
-              to de-anonymise any user. The math governs everything.
+              Every operation is verified inside the Flare FCC TEE enclave.
+              Hardware attestation proves correct code runs unmodified. No admin key.
+              No pause function. No ability to de-anonymise any user. The hardware governs everything.
             </P>
             <div style={{ border: bdr }}>
               <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
@@ -300,10 +300,10 @@ function SlideContent({ n }: { n: number }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
                 {[
-                  { l: "Proof generation", v: "Under 1 second" },
+                  { l: "TEE latency",      v: "Under 1 second" },
                   { l: "On-chain verify",  v: "~30k gas"        },
-                  { l: "Circuit size",     v: "~200k constraints" },
-                  { l: "Proof system",     v: "Groth16 / Circom"  },
+                  { l: "Enclave security", v: "Hardware isolated" },
+                  { l: "Platform",         v: "Flare FCC"       },
                 ].map((m, i) => (
                   <div key={i} style={{
                     padding: "14px 16px",
@@ -332,8 +332,8 @@ function SlideContent({ n }: { n: number }) {
                 b: "Every note has a unique nullifier. When spent it is posted on-chain. The contract rejects duplicates, preventing double-spends without linking anything back to the original note." },
               { I: IconKey,     title: "Note Encryption", tech: "ECIES / secp256k1",
                 b: "Ciphertexts are posted on-chain so you can recover notes on any device by scanning with your private key. No server or relayer needed." },
-              { I: IconCircuit, title: "ZK Circuits",     tech: "Circom 2: mint, burn, transfer, swap, vote",
-                b: "Separate circuits for each operation. Each proves note validity, amount arithmetic, Merkle path, and nullifier uniqueness in a single on-chain call." },
+              { I: IconCircuit, title: "TEE Enclave",     tech: "Flare FCC: mint, burn, transfer, swap, vote",
+                b: "All operations run inside the Flare FCC hardware enclave. Spending keys never leave the secure environment. Hardware attestation proves unmodified code execution." },
             ].map((p, i) => (
               <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                 <span style={{ flexShrink: 0, marginTop: 2, color: ink }}><p.I /></span>
@@ -351,20 +351,20 @@ function SlideContent({ n }: { n: number }) {
       />
     );
 
-    // ── 6: Why Somnia ────────────────────────────────────────────────────────
+    // ── 6: Why Flare ─────────────────────────────────────────────────────────
     case 6: return (
       <Row
         left={
           <>
-            <Tag>WHY SOMNIA</Tag>
+            <Tag>WHY FLARE</Tag>
             <H>
               Fast privacy.<br /><em style={{ fontStyle: "italic" }}>Finally.</em>
             </H>
             <P dark style={{ fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)" }}>
-              Privacy on every other EVM chain is slow. ZK proof verification adds
-              seconds of latency and dollars in gas. Somnia's Reactivity system changes
-              that. Events are pushed instantly from the chain directly to your app.
-              Private transactions confirm as fast as any regular transfer.
+              Privacy on every other EVM chain is slow. TEE-based verification is fast
+              and cheap on Flare. The Reactivity system pushes events instantly from the
+              chain directly to your app. Private transactions confirm as fast as any
+              regular transfer.
             </P>
             <div style={{ border: bdr }}>
               <div style={{ fontFamily: mono, fontSize: "0.52rem", letterSpacing: "0.14em", color: soft, padding: "10px 16px", borderBottom: bdr }}>
@@ -372,8 +372,8 @@ function SlideContent({ n }: { n: number }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
                 {[
-                  { label: "OTHER CHAINS", val: "$5 to $8", sub: "per ZK proof verify", dark: false },
-                  { label: "SOMNIA",       val: "Cents",    sub: "at 400K TPS",         dark: true  },
+                  { label: "OTHER CHAINS", val: "$5 to $8", sub: "per private tx", dark: false },
+                  { label: "FLARE",        val: "Cents",    sub: "at 400K TPS",         dark: true  },
                 ].map((s, i) => (
                   <div key={i} style={{
                     padding: "18px 20px",
@@ -393,20 +393,20 @@ function SlideContent({ n }: { n: number }) {
         right={
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             <div style={{ fontFamily: mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: soft }}>
-              THREE REASONS SOMNIA CHANGES THE GAME
+              THREE REASONS FLARE CHANGES THE GAME
             </div>
             {[
               {
                 I: IconZap,
                 title: "400,000 TPS. Sub-second finality.",
-                tech: "ZK VERIFIER AT CHAIN SPEED",
-                b: "Groth16 proof verification is expensive. Somnia's throughput collapses the cost to cents. Private DeFi stops being a luxury for whales and becomes accessible to every user.",
+                tech: "TEE AT CHAIN SPEED",
+                b: "TEE verification is fast and cheap. Flare's throughput makes private DeFi accessible to every user, not just whales.",
               },
               {
                 I: IconCircuit,
                 title: "Reactivity: push, not poll.",
                 tech: "EVENT-DRIVEN RELAYER AND FRONTEND",
-                b: "Your relayer subscribes once to Vault events and gets pushed instantly when a new proof arrives. No polling loop, no missed transactions, no wasted RPC calls. The frontend knows the moment a private transfer confirms.",
+                b: "Your relayer subscribes once to Vault events and gets pushed instantly when a new TEE transfer arrives. No polling loop, no missed transactions, no wasted RPC calls. The frontend knows the moment a private transfer confirms.",
               },
               {
                 I: IconLink,
@@ -447,12 +447,12 @@ function SlideContent({ n }: { n: number }) {
         </P>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", border: bdr, maxWidth: 1040, width: "100%" }}>
           {[
-            { I: IconLock,    label: "Private Transfers",          sub: "Sender, receiver, and amount ZK-verified. Zero information leaked.",                                              dark: false },
-            { I: IconArrows,  label: "Confidential Swaps",         sub: "Trade on any Uniswap fork without revealing size, direction, or wallet.",                                        dark: true  },
+            { I: IconLock,    label: "Private Transfers",          sub: "Sender, receiver, and amount TEE-secured. Zero information leaked.",                                              dark: false },
+            { I: IconArrows,  label: "Confidential Swaps",         sub: "Trade on any DEX without revealing size, direction, or wallet.",                                                  dark: true  },
             { I: IconTrend,   label: "Encrypted Yield",            sub: "Deposit into ERC-4626 vaults. Balance, strategy, and interest all stay encrypted.",                              dark: false },
             { I: IconCoin,    label: "Private Lending",            sub: "Borrow against cToken collateral. Position fully on-chain, never linked to your wallet.",                        dark: false },
             { I: IconDroplet, label: "Hidden LP Positions",        sub: "Provide liquidity without advertising your capital to competitors.",                                              dark: false },
-            { I: IconVote,    label: "ZK Governance Votes",        sub: "Vote weight private. Only the tally is public. Nullifiers prevent double-voting.",                               dark: true  },
+            { I: IconVote,    label: "TEE Governance Votes",       sub: "Vote weight private. Only the tally is public. Nullifiers prevent double-voting.",                               dark: true  },
             { I: IconZap,     label: "Stablecoin Payments",        sub: "Stablecoins are 30% of all on-chain volume. Send USDC or USDT privately, bringing real business on-chain.",     dark: false },
             { I: IconShield,  label: "MEV Shield",                 sub: "Bots cannot read what they cannot see. Confidential transactions stop front-runners before they start.",         dark: false },
           ].map((c, i) => (
@@ -565,7 +565,7 @@ function SlideContent({ n }: { n: number }) {
             { I: IconKey,       title: "View Keys",
               b: "Every wallet generates a view key derived from the same private key used on EVM. Share it with an auditor or regulator to disclose your full history, without exposing your spending key to anyone else." },
             { I: IconFileCheck, title: "Selective Disclosure",
-              b: "Generate a ZK proof revealing one specific transaction to one specific party, proving a payment, amount, or counterparty, without revealing anything else in your history." },
+              b: "Generate a TEE attestation revealing one specific transaction to one specific party, proving a payment, amount, or counterparty, without revealing anything else in your history." },
             { I: IconShield,    title: "Auditable by Design",
               b: "All proofs are verifiable on-chain. Nullifier uniqueness prevents double-spend and fraud. This is auditable compliance infrastructure built in from the first line of code." },
             { I: IconBadge,     title: "Not Tornado Cash",
@@ -652,7 +652,7 @@ function SlideContent({ n }: { n: number }) {
 }
 
 // ─── Strip labels ─────────────────────────────────────────────────────────────
-const STRIP_LABELS = ["COVER","PROBLEM","MARKET","SOLUTION","TECHNOLOGY","WHY SOMNIA","CAPABILITIES","TEAM","COMPLIANCE","VISION"];
+const STRIP_LABELS = ["COVER","PROBLEM","MARKET","SOLUTION","TECHNOLOGY","WHY FLARE","CAPABILITIES","TEAM","COMPLIANCE","VISION"];
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function SlideClient({ current, total, meta }: {
