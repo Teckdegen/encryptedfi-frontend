@@ -25,19 +25,19 @@ const mono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Encrypted Fi: Privacy for Your Tokens",
+  title: "EncryptedFi — Privacy on Flare",
   description:
-    "We bring privacy to the tokens you already use. Confidential transfers, private balances, and encrypted allowances. Powered by ZK SNARKs. No trust required.",
+    "Private transfers, private swaps, private DeFi. EncryptedFi brings full financial privacy to Flare using TEE (Trusted Execution Environment). No trust required.",
   icons: {
-    icon: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
-    shortcut: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
-    apple: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
   },
   openGraph: {
-    title: "Encrypted Fi",
-    description: "Privacy for the tokens you already use.",
+    title: "EncryptedFi — Privacy on Flare",
+    description: "Private transfers, private swaps, private DeFi on Flare.",
     type: "website",
-    images: [{ url: "https://image2url.com/r2/default/images/1771982865555-91a426af-ecd8-4ca9-8e6b-11372ff845bf.png" }],
+    images: [{ url: "/favicon.svg" }],
   },
 };
 

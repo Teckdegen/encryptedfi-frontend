@@ -245,10 +245,10 @@ export default function Hero() {
   }, []);
 
   const STATS = [
-    { num: "100%", label: "Private Balances", dark: false },
-    { num: "ZK",   label: "Proof Every Op",   dark: true  },
-    { num: "0",    label: "Trust Required",   dark: false },
-    { num: "∞",    label: "Composable",       dark: false },
+    { num: "100%", label: "Private Balances",  dark: false },
+    { num: "TEE",  label: "Enclave Secured",   dark: true  },
+    { num: "0",    label: "Trust Required",    dark: false },
+    { num: "∞",    label: "Composable",        dark: false },
   ];
 
   return (
@@ -294,7 +294,7 @@ export default function Hero() {
               animation:   "blink 1.8s ease-in-out infinite",
               flexShrink:  0,
             }} />
-            ENCRYPTED LAYER FOR PUBLIC CHAINS
+            PRIVACY ON FLARE WITH TEE
           </div>
 
           {/* 3D rotating vault — hidden on small screens */}
@@ -419,7 +419,7 @@ export default function Hero() {
             (e.currentTarget as HTMLElement).style.transform  = "";
             (e.currentTarget as HTMLElement).style.boxShadow  = "var(--shadow-sm)";
           }}>
-            THE CRYPTOGRAPHY
+            HOW IT WORKS
           </a>
         </div>
 

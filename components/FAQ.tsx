@@ -4,88 +4,78 @@ import { useState, useRef, useEffect } from "react";
 
 const QUESTIONS = [
   {
-    q: "What if someone scans the entire blockchain looking for my transfers?",
-    a: "They get nothing useful. Every note on chain is a Poseidon hash — a 32-byte value that looks completely random without the private inputs that created it. The Poseidon hash is a one-way function. You cannot reverse it to find the amount, the blinding factor, or the receiver. The encrypted note attached to each event is ECIES ciphertext. Decrypting it requires the receiver's private key. Brute forcing secp256k1 private keys is computationally impossible with all computers on Earth running for billions of years. Even a full blockchain scan with unlimited resources gives an attacker only random-looking hashes and unreadable ciphertext.",
+    q: "Does EncryptedFi support private transfers?",
+    a: "Yes. Private transfers are the core feature. You send tokens to anyone without your wallet address appearing on chain. The on-chain record shows only random-looking commitment hashes and nullifiers — nothing links sender to receiver. The TEE relayer submits the transaction so your wallet never touches the chain.",
+    tag: "FEATURES",
+  },
+  {
+    q: "Can I swap tokens privately?",
+    a: "Yes. Private swaps are built in. You burn a private note, the TEE routes the tokens through SparkDEX, and re-deposits the output as a new private note. No one sees the swap happened, the amounts, or that you were involved. Your wallet address never appears.",
+    tag: "FEATURES",
+  },
+  {
+    q: "What private DeFi can I do?",
+    a: "Private transfers, private swaps (SparkDEX), private lending (Kinetic Finance), private staking (sFLR), private LP positions, and private yield. Every action goes through the TEE — your wallet never appears on chain after the initial deposit.",
+    tag: "FEATURES",
+  },
+  {
+    q: "What if someone scans the entire blockchain looking for my activity?",
+    a: "They get nothing useful. Every note on chain is a random-looking 32-byte hash with no address attached. The TEE relayer submits all transactions — your wallet never appears as sender. Encrypted note blobs are unreadable without your private key. A full blockchain scan returns only random hashes and unreadable ciphertext.",
     tag: "SECURITY",
   },
   {
-    q: "Do I receive a new token when I wrap?",
-    a: "No. You do not receive any new token or tradeable asset. What you get is a private note — a commitment hash that only you can prove ownership of using your private key. It lives in a global set on chain with no address attached to it. Nothing is minted to your wallet.",
-    tag: "BASICS",
-  },
-  {
-    q: "How does my wallet know I received funds?",
-    a: "Your wallet scans every NoteCreated event on chain and tries to decrypt each encrypted note using your private key. If decryption succeeds and the commitment hash matches, that note belongs to you. You are never notified directly. Your wallet finds your notes automatically by trying your key on every new event.",
-    tag: "BASICS",
-  },
-  {
-    q: "What exactly is the encrypted note?",
-    a: "When someone sends to you, they encrypt a small blob containing the transfer amount and a blinding factor using your Ethereum public key. This ciphertext is stored on chain attached to your commitment hash. Only you, with your private key, can decrypt it and learn what you received. Without it you cannot reconstruct your commitment and cannot spend the note.",
-    tag: "CRYPTOGRAPHY",
-  },
-  {
-    q: "Why can't someone with my public key read my notes?",
-    a: "Public keys encrypt. Private keys decrypt. Never the other way. Your public key is a point on the secp256k1 elliptic curve derived from your private key using a one-way function — impossible to reverse. Anyone can lock a note to you using your public key. Only the holder of your private key can unlock it. The sender cannot read the note after sending it.",
-    tag: "CRYPTOGRAPHY",
-  },
-  {
     q: "Is my wallet address ever visible on chain?",
-    a: "No. When you transfer through EncryptedFi the on chain sender shows as the protocol relay contract, not your wallet. Receiver addresses never appear in transactions, storage, or events. Only commitment hashes and encrypted blobs are written on chain. Your address is not referenced anywhere.",
+    a: "No. After your initial deposit, the TEE's hot wallet submits every transaction on your behalf. Receiver addresses never appear in transactions, storage, or events. Only commitment hashes and encrypted blobs are written on chain. Your address is not referenced anywhere.",
     tag: "PRIVACY",
   },
   {
-    q: "What happens to my tokens when I wrap?",
-    a: "Your tokens are locked in the Vault contract. A ZK proof is generated proving you deposited a valid amount and a commitment hash is written to the contract's global note set. No address is stored — not in the mapping, not in events. The vault holds the underlying tokens and they are redeemable only by whoever can prove note ownership with a valid ZK proof.",
-    tag: "BASICS",
+    q: "What is a TEE and why does it matter?",
+    a: "A TEE (Trusted Execution Environment) is a secure hardware enclave — a region of the processor where code runs in complete isolation. Not even the machine operator can read what happens inside. EncryptedFi uses Flare FCC (Flare Confidential Compute) to run the TEE. Your spending key is encrypted and stored inside the enclave. It never leaves in plaintext. The TEE generates proofs, executes DeFi actions, and submits transactions — all privately, all inside hardware.",
+    tag: "TEE",
+  },
+  {
+    q: "What does the TEE actually do?",
+    a: "The TEE handles four things: it stores your spending key (encrypted, inside hardware), it scans chain events to find your notes, it generates the cryptographic proofs needed to spend notes, and it submits transactions to the vault using its own hot wallet. Your wallet signs nothing after deposit.",
+    tag: "TEE",
   },
   {
     q: "Can EncryptedFi see my balance?",
-    a: "No. Your balance exists only as a set of encrypted notes on chain. The EncryptedFi team cannot read them. Nobody can without your private key. Only the holder of your private key can decrypt the notes and sum the amounts. Not the relayer. Not the deployer. Nobody.",
+    a: "No. Your balance exists only as encrypted notes on chain. The EncryptedFi team cannot read them. The TEE operator cannot read them. Nobody can without your private key. Not the relayer. Not the deployer. Nobody.",
     tag: "PRIVACY",
   },
   {
-    q: "Are transfers gasless?",
-    a: "Yes. The relay server submits transactions on chain on your behalf. You pay a small protocol fee deducted from your transfer amount. You never need to hold native chain tokens to transact privately inside the system.",
+    q: "Are transactions gasless?",
+    a: "Yes. The TEE submits all transactions on your behalf using its own funded hot wallet. You pay a small protocol fee deducted from your transfer amount. You never need to hold native FLR tokens to transact privately inside the system.",
+    tag: "BASICS",
+  },
+  {
+    q: "Do I get a new token when I deposit?",
+    a: "No. You receive a private note — a commitment hash that only you can prove ownership of using your private key. Nothing is minted to your wallet. The note lives in a global set on chain with no address attached to it.",
     tag: "BASICS",
   },
   {
     q: "What if I lose access to my wallet?",
-    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self custodied wallet. EncryptedFi cannot recover them for you. There is no admin key, no recovery mechanism. Back up your seed phrase.",
+    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self-custodied wallet. EncryptedFi cannot recover them. There is no admin key, no recovery mechanism. Back up your seed phrase.",
     tag: "SECURITY",
   },
   {
-    q: "Can I prove my transaction history to an auditor without sharing my wallet?",
-    a: "Yes. EncryptedFi has a built in compliance system. Your wallet derives a viewing key — a separate cryptographic key that can only decrypt your notes for reading, not spend them. The derivation is one way: your spending key produces the viewing key, but the viewing key cannot produce the spending key. You give the auditor just the viewing key. They run a scan tool against the live chain, decrypt every note that belongs to you, verify each commitment hash on chain, and produce a verified report of your full history including amounts, timestamps, and transaction hashes. They cannot move a single token.",
+    q: "Can I prove my history to an auditor without revealing everything?",
+    a: "Yes. EncryptedFi has a built-in compliance system. You register a view key — a read-only key that decrypts your notes but cannot spend them. You give the auditor just the view key. They scan the chain, decrypt your notes, verify the hashes, and produce a verified report. They cannot move a single token.",
     tag: "COMPLIANCE",
   },
   {
     q: "What chains does EncryptedFi support?",
-    a: "EncryptedFi is currently live on Flare, Ethereum, and Base. The vault factory is a single deploy — any EVM-compatible chain can run the full stack with one transaction. More chains are added on demand.",
-    tag: "BASICS",
-  },
-  {
-    q: "What is a nullifier and why does it matter?",
-    a: "When you spend a note, a one-way hash derived from the note's secret is written on chain. This is the nullifier. It proves the note has been consumed without revealing which note it was. Anyone can verify the nullifier has not appeared before. Nobody can trace it back to the original note, the sender, or the receiver. It makes double spending impossible while preserving complete privacy.",
-    tag: "CRYPTOGRAPHY",
-  },
-  {
-    q: "How does the relayer know what to relay without reading my transaction?",
-    a: "The relayer receives a ZK proof and a set of public inputs. It verifies the proof is valid using only those public values. Your private inputs — amount, blinding factor, secret key — never leave your device. The relayer submits a transaction it cannot read. It is a blind courier that gets paid a protocol fee for submitting.",
-    tag: "PRIVACY",
-  },
-  {
-    q: "Can I earn yield while staying private?",
-    a: "Yes. EncryptedFi vaults are ERC-4626 compatible. Your note tracks a proportional share of the underlying yield vault. Yield accrues silently to your share price over time. You never appear in any deposit or withdrawal record on the yield protocol itself. Unwrapping redeems your shares and returns tokens plus accumulated yield.",
+    a: "EncryptedFi is built on Flare, using Flare FCC for the TEE infrastructure. Flare is the only chain with native TEE compute at the protocol level, making it the ideal home for private DeFi.",
     tag: "BASICS",
   },
   {
     q: "How is this different from Tornado Cash?",
-    a: "Tornado Cash supported only fixed denominations of a single asset per pool, had no yield, no composability, and no private swaps. EncryptedFi wraps any ERC-20 in any amount, supports yield while private, private swaps, private LP positions, private lending, and private governance — all backed by ZK proofs on every operation. It is a full private DeFi layer, not a simple mixer.",
+    a: "Tornado Cash was a fixed-denomination mixer with no DeFi, no yield, and no private swaps. EncryptedFi is a full private DeFi layer — any token, any amount, private swaps, private lending, private staking, and compliance tools built in. It runs on Flare with hardware-level privacy via TEE, not just cryptographic obfuscation.",
     tag: "BASICS",
   },
 ];
 
-const TAGS = ["ALL", "BASICS", "PRIVACY", "CRYPTOGRAPHY", "SECURITY", "COMPLIANCE"];
+const TAGS = ["ALL", "FEATURES", "BASICS", "PRIVACY", "TEE", "SECURITY", "COMPLIANCE"];
 
 /* ── Animated answer panel ── */
 function Answer({ text, open }: { text: string; open: boolean }) {

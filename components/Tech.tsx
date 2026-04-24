@@ -2,14 +2,14 @@ import React from "react";
 import { LockIcon } from "./Icons";
 
 const STACK = [
-  { id: "01", name: "UTXO Notes",    tag: "Private Note Pool",      dark: true  },
-  { id: "02", name: "ZK SNARKs",     tag: "Trustless Proofs",       dark: false },
-  { id: "03", name: "ECIES Encrypt", tag: "Note Encrypted To You",  dark: true  },
-  { id: "04", name: "Nullifiers",    tag: "No Double Spends",       dark: false },
-  { id: "05", name: "AES 256 GCM",   tag: "Military Encryption",    dark: true  },
-  { id: "06", name: "Commitments",   tag: "Balances Stay Hidden",   dark: false },
-  { id: "07", name: "Relayer",       tag: "Sender Anonymous",       dark: true  },
-  { id: "08", name: "Permissionless", tag: "Zero Admin. No Gating.", dark: false },
+  { id: "01", name: "TEE Enclave",    tag: "Keys Never Leave Hardware", dark: true  },
+  { id: "02", name: "Private Notes",  tag: "Your Balance, Hidden",      dark: false },
+  { id: "03", name: "ECIES Encrypt",  tag: "Note Encrypted To You",     dark: true  },
+  { id: "04", name: "Nullifiers",     tag: "No Double Spends",          dark: false },
+  { id: "05", name: "Flare FCC",      tag: "Confidential Compute",      dark: true  },
+  { id: "06", name: "Commitments",    tag: "Balances Stay Hidden",      dark: false },
+  { id: "07", name: "TEE Relayer",    tag: "Sender Anonymous",          dark: true  },
+  { id: "08", name: "Permissionless", tag: "Zero Admin. No Gating.",    dark: false },
 ];
 
 export default function Tech() {
@@ -41,7 +41,7 @@ export default function Tech() {
             color: "var(--cream)",
           }}
         >
-          THE CRYPTOGRAPHY
+          THE TECHNOLOGY
         </span>
         <div style={{ flex: 1, height: 1, background: "rgba(228,222,212,0.2)" }} />
       </div>
@@ -160,7 +160,7 @@ export default function Tech() {
               lineHeight: 1.6,
             }}
           >
-            SENDER ANONYMOUS · RECEIVER ANONYMOUS · ZK SNARK PROOFS · ECIES ENCRYPTION · AES 256 GCM · NULLIFIERS ON CHAIN · PERMISSIONLESS · ZERO ADMIN · NO BACKDOORS.
+            SENDER ANONYMOUS · RECEIVER ANONYMOUS · TEE ENCLAVE · ECIES ENCRYPTION · FLARE FCC · NULLIFIERS ON CHAIN · PERMISSIONLESS · ZERO ADMIN · NO BACKDOORS.
           </p>
         </div>
 
