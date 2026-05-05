@@ -208,19 +208,7 @@ export default function Hero() {
           Finance
         </h2>
 
-        {/* Tagline */}
-        <p style={{
-          fontFamily:    "var(--font-sans)",
-          fontSize:      "clamp(1.1rem, 2.5vw, 1.4rem)",
-          lineHeight:    1.6,
-          color:         "var(--ink-soft)",
-          maxWidth:      680,
-          margin:        "0 auto 64px",
-          animation:     "fadeUp 0.55s 0.25s ease both",
-        }}>
-          Any token. Any chain.{" "}
-          <strong style={{ color: "var(--ink)" }}>No trust. No tradeoffs.</strong>
-        </p>
+        {/* Tagline - removed per user request */}
 
         {/* CTAs */}
         <div style={{
