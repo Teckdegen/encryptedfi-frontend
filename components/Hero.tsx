@@ -2,60 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* ─── Typewriter hook ─────────────────────────────────── */
-function useTypewriter(words: string[], speed = 90, pause = 1800) {
-  const [displayed, setDisplayed] = useState("");
-  const [wordIdx, setWordIdx]     = useState(0);
-  const [charIdx, setCharIdx]     = useState(0);
-  const [deleting, setDeleting]   = useState(false);
-
-  useEffect(() => {
-    const current = words[wordIdx];
-    const delay   = deleting ? speed / 2 : speed;
-
-    const timer = setTimeout(() => {
-      if (!deleting) {
-        setDisplayed(current.slice(0, charIdx + 1));
-        if (charIdx + 1 === current.length) {
-          setTimeout(() => setDeleting(true), pause);
-        } else {
-          setCharIdx(c => c + 1);
-        }
-      } else {
-        setDisplayed(current.slice(0, charIdx - 1));
-        if (charIdx - 1 === 0) {
-          setDeleting(false);
-          setWordIdx(w => (w + 1) % words.length);
-          setCharIdx(0);
-        } else {
-          setCharIdx(c => c - 1);
-        }
-      }
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [charIdx, deleting, wordIdx, words, speed, pause]);
-
-  return displayed;
-}
-
-/* ─── Counter hook ────────────────────────────────────── */
-function useCounter(target: number | null, duration = 1400) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (target === null) return;
-    const start     = performance.now();
-    const frame = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased    = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(frame);
-    };
-    requestAnimationFrame(frame);
-  }, [target, duration]);
-  return count;
-}
-
 /* ─── Particle canvas ─────────────────────────────────── */
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -87,7 +33,6 @@ function ParticleCanvas() {
     const spawn = () => {
       if (particles.length > 72) return;
       const maxLife = 260 + Math.random() * 220;
-      // spawn from bottom 60% of canvas so they drift up through the full hero
       const startY = canvas.height * 0.6 + Math.random() * canvas.height * 0.5;
       particles.push({
         x:       Math.random() * canvas.width,
@@ -101,7 +46,6 @@ function ParticleCanvas() {
       });
     };
 
-    // pre-seed so the canvas isn't empty on first paint
     for (let i = 0; i < 48; i++) {
       const maxLife = 260 + Math.random() * 220;
       particles.push({
@@ -118,7 +62,6 @@ function ParticleCanvas() {
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // spawn ~3× more often
       if (Math.random() < 0.18) spawn();
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -167,89 +110,15 @@ function ParticleCanvas() {
   );
 }
 
-/* ─── 3D Vault cube ───────────────────────────────────── */
-function VaultCube() {
-  return (
-    <div
-      className="vault-scene"
-      style={{ opacity: 0.65, flexShrink: 0 }}
-    >
-      <div className="vault-cube">
-        <div className="vault-face front"  />
-        <div className="vault-face back"   />
-        <div className="vault-face left"   />
-        <div className="vault-face right"  />
-        <div className="vault-face top"    />
-        <div className="vault-face bottom" />
-      </div>
-    </div>
-  );
-}
-
-/* ─── Animated stat ───────────────────────────────────── */
-function AnimatedStat({
-  num, label, dark, trigger,
-}: {
-  num: string; label: string; dark: boolean; trigger: boolean;
-}) {
-  const numericMatch = num.match(/^(\d+)/);
-  const numeric      = numericMatch ? parseInt(numericMatch[1]) : null;
-  const suffix       = numericMatch ? num.slice(numericMatch[1].length) : num;
-  const counted      = useCounter(trigger ? numeric : null);
-  const display      = numeric !== null ? `${counted}${suffix}` : num;
-
-  return (
-    <div style={{
-      padding:     "18px 28px",
-      background:  dark ? "var(--ink)" : "var(--white)",
-      borderRight: "var(--border)",
-      textAlign:   "center" as const,
-      flex:        "1 1 auto",
-    }}>
-      <div style={{
-        fontFamily:  "var(--font-serif)",
-        fontWeight:  900,
-        fontSize:    "clamp(1.4rem, 3vw, 2rem)",
-        lineHeight:  1,
-        marginBottom:4,
-        color:       dark ? "var(--white)" : "var(--ink)",
-        transition:  "color 0.2s",
-      }}>{display}</div>
-      <div style={{
-        fontFamily:    "var(--font-mono)",
-        fontSize:      "0.55rem",
-        letterSpacing: "0.14em",
-        fontWeight:    700,
-        color:         dark ? "rgba(231,226,217,0.5)" : "rgba(10,10,10,0.4)",
-      }}>{label}</div>
-    </div>
-  );
-}
-
 /* ─── Main Hero ───────────────────────────────────────── */
 export default function Hero() {
-  const words    = ["privacy", "freedom", "security", "invisibility"];
-  const typed    = useTypewriter(words, 85, 2000);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [statsVisible, setStatsVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStatsVisible(true); },
-      { threshold: 0.4 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const STATS = [
-    { num: "100%", label: "Private Balances",  dark: false },
-    { num: "TEE",  label: "Enclave Secured",   dark: true  },
-    { num: "0",    label: "Trust Required",    dark: false },
-    { num: "∞",    label: "Composable",        dark: false },
-  ];
 
   return (
     <section
@@ -258,106 +127,96 @@ export default function Hero() {
         borderBottom:  "var(--border)",
         position:      "relative",
         overflow:      "hidden",
+        minHeight:     "100vh",
+        display:       "flex",
+        alignItems:    "center",
+        justifyContent:"center",
       }}
     >
+      <ParticleCanvas />
 
-      <div className="hero-inner" style={{ position: "relative", zIndex: 1 }}>
+      <div style={{
+        position:      "relative",
+        zIndex:        1,
+        textAlign:     "center",
+        padding:       "40px 32px",
+        maxWidth:      "1200px",
+        width:         "100%",
+      }}>
 
-        {/* Top row: eyebrow + vault cube */}
-        <div className="hero-top-row" style={{
-          display:        "flex",
-          alignItems:     "flex-start",
-          justifyContent: "space-between",
-          marginBottom:   36,
-        }}>
-          {/* Eyebrow label */}
-          <div style={{
-            display:       "inline-flex",
-            alignItems:    "center",
-            gap:           8,
-            fontFamily:    "var(--font-mono)",
-            fontSize:      "0.62rem",
-            letterSpacing: "0.18em",
-            fontWeight:    700,
-            background:    "var(--ink)",
-            color:         "var(--cream)",
-            padding:       "5px 14px",
-          }}>
-            <span style={{
-              width:       7,
-              height:      7,
-              borderRadius:"50%",
-              background:  "var(--cream)",
-              display:     "inline-block",
-              animation:   "blink 1.8s ease-in-out infinite",
-              flexShrink:  0,
-            }} />
-            PRIVACY ON FLARE WITH TEE
-          </div>
-
-          {/* 3D rotating vault — hidden on small screens */}
-          <div style={{
-            display:    "flex",
-            alignItems: "center",
-            gap:        10,
-          }} className="hide-mobile">
-            <VaultCube />
-          </div>
-        </div>
-
-        {/* Headline with typewriter */}
-        <h1 style={{
-          fontFamily:    "var(--font-serif)",
-          fontSize:      "clamp(3rem, 8vw, 7.5rem)",
-          fontWeight:    900,
-          lineHeight:    0.93,
-          letterSpacing: "-0.03em",
-          marginBottom:  40,
+        {/* Eyebrow label */}
+        <div style={{
+          display:       "inline-flex",
+          alignItems:    "center",
+          gap:           8,
+          fontFamily:    "var(--font-mono)",
+          fontSize:      "0.62rem",
+          letterSpacing: "0.18em",
+          fontWeight:    700,
+          background:    "var(--ink)",
+          color:         "var(--cream)",
+          padding:       "5px 14px",
+          marginBottom:  48,
           animation:     "fadeUp 0.55s ease both",
         }}>
-          We bring{" "}
-          <em
-            style={{
-              fontStyle:  "italic",
-              fontWeight: 700,
-              display:    "inline",
-            }}
-          >
-            {typed}
-            <span
-              style={{
-                display:       "inline-block",
-                width:         "3px",
-                height:        "0.85em",
-                background:    "var(--ink)",
-                marginLeft:    "3px",
-                verticalAlign: "middle",
-                animation:     "blink 0.9s step-end infinite",
-                transform:     "translateY(-4px)",
-              }}
-            />
-          </em>
-          <br />
-          to public chains.
+          <span style={{
+            width:       7,
+            height:      7,
+            borderRadius:"50%",
+            background:  "var(--cream)",
+            display:     "inline-block",
+            animation:   "blink 1.8s ease-in-out infinite",
+            flexShrink:  0,
+          }} />
+          PRIVACY ON FLARE WITH TEE
+        </div>
+
+        {/* Main headline - ENCRYPTED centered */}
+        <h1 style={{
+          fontFamily:    "var(--font-serif)",
+          fontSize:      "clamp(4rem, 12vw, 10rem)",
+          fontWeight:    900,
+          lineHeight:    0.9,
+          letterSpacing: "-0.04em",
+          marginBottom:  24,
+          animation:     "fadeUp 0.55s 0.1s ease both",
+          textTransform: "uppercase",
+        }}>
+          ENCRYPTED
         </h1>
 
-        {/* Rule */}
+        {/* Underline */}
         <div style={{
-          height:       3,
+          height:       4,
           background:   "var(--ink)",
-          width:        56,
-          marginBottom: 32,
+          width:        "clamp(200px, 40%, 400px)",
+          margin:       "0 auto 32px",
+          animation:    "fadeUp 0.55s 0.15s ease both",
         }} />
 
-        {/* Sub copy — trimmed */}
+        {/* Finance subtitle */}
+        <h2 style={{
+          fontFamily:    "var(--font-serif)",
+          fontSize:      "clamp(2rem, 6vw, 5rem)",
+          fontWeight:    700,
+          fontStyle:     "italic",
+          lineHeight:    1.1,
+          letterSpacing: "-0.02em",
+          marginBottom:  56,
+          animation:     "fadeUp 0.55s 0.2s ease both",
+        }}>
+          Finance
+        </h2>
+
+        {/* Tagline */}
         <p style={{
           fontFamily:    "var(--font-sans)",
-          fontSize:      "clamp(1rem, 2.2vw, 1.2rem)",
-          lineHeight:    1.75,
+          fontSize:      "clamp(1.1rem, 2.5vw, 1.4rem)",
+          lineHeight:    1.6,
           color:         "var(--ink-soft)",
-          maxWidth:      580,
-          marginBottom:  48,
-          animation:     "fadeUp 0.55s 0.08s ease both",
+          maxWidth:      680,
+          margin:        "0 auto 64px",
+          animation:     "fadeUp 0.55s 0.25s ease both",
         }}>
           Any token. Any chain.{" "}
           <strong style={{ color: "var(--ink)" }}>No trust. No tradeoffs.</strong>
@@ -366,20 +225,20 @@ export default function Hero() {
         {/* CTAs */}
         <div style={{
           display:      "flex",
-          gap:          12,
+          gap:          16,
           flexWrap:     "wrap",
-          marginBottom: 64,
-          animation:    "fadeUp 0.55s 0.14s ease both",
+          justifyContent:"center",
+          animation:    "fadeUp 0.55s 0.3s ease both",
         }}>
           <a href="#usecases" style={{
             fontFamily:    "var(--font-mono)",
             fontWeight:    700,
-            fontSize:      "0.72rem",
-            letterSpacing: "0.1em",
+            fontSize:      "0.75rem",
+            letterSpacing: "0.12em",
             textDecoration:"none",
             color:         "var(--white)",
             background:    "var(--ink)",
-            padding:       "14px 30px",
+            padding:       "16px 36px",
             border:        "var(--border)",
             boxShadow:     "var(--shadow)",
             display:       "inline-block",
@@ -393,17 +252,17 @@ export default function Hero() {
             (e.currentTarget as HTMLElement).style.transform  = "";
             (e.currentTarget as HTMLElement).style.boxShadow  = "var(--shadow)";
           }}>
-            SEE USE CASES
+            GET STARTED
           </a>
           <a href="#technology" style={{
             fontFamily:    "var(--font-mono)",
             fontWeight:    700,
-            fontSize:      "0.72rem",
-            letterSpacing: "0.1em",
+            fontSize:      "0.75rem",
+            letterSpacing: "0.12em",
             textDecoration:"none",
             color:         "var(--ink)",
             background:    "transparent",
-            padding:       "14px 30px",
+            padding:       "16px 36px",
             border:        "var(--border)",
             boxShadow:     "var(--shadow-sm)",
             display:       "inline-block",
@@ -417,28 +276,58 @@ export default function Hero() {
             (e.currentTarget as HTMLElement).style.transform  = "";
             (e.currentTarget as HTMLElement).style.boxShadow  = "var(--shadow-sm)";
           }}>
-            HOW IT WORKS
+            PRIVACY •
           </a>
         </div>
 
-        {/* Animated stat row */}
-        <div
-          ref={statsRef}
-          className="stats-row"
-          style={{ animation: "fadeUp 0.55s 0.2s ease both" }}
-        >
-          {STATS.map((s, i) => (
-            <AnimatedStat
-              key={i}
-              num={s.num}
-              label={s.label}
-              dark={i === 1}
-              trigger={statsVisible}
-            />
-          ))}
+        {/* Scroll indicator */}
+        <div style={{
+          position:      "absolute",
+          bottom:        40,
+          left:          "50%",
+          transform:     `translateX(-50%) translateY(${Math.min(scrollY * 0.5, 30)}px)`,
+          opacity:       Math.max(1 - scrollY / 300, 0),
+          transition:    "opacity 0.3s",
+          animation:     "fadeUp 0.55s 0.4s ease both",
+        }}>
+          <div style={{
+            fontFamily:    "var(--font-mono)",
+            fontSize:      "0.55rem",
+            letterSpacing: "0.2em",
+            fontWeight:    700,
+            color:         "rgba(10,10,10,0.3)",
+            marginBottom:  12,
+          }}>
+            SCROLL
+          </div>
+          <div style={{
+            width:      2,
+            height:     40,
+            background: "rgba(10,10,10,0.2)",
+            margin:     "0 auto",
+            position:   "relative",
+            overflow:   "hidden",
+          }}>
+            <div style={{
+              position:   "absolute",
+              top:        0,
+              left:       0,
+              width:      "100%",
+              height:     "30%",
+              background: "var(--ink)",
+              animation:  "scrollDown 2s ease-in-out infinite",
+            }} />
+          </div>
         </div>
 
       </div>
+
+      <style jsx>{`
+        @keyframes scrollDown {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(400%); }
+        }
+      `}</style>
     </section>
   );
 }
