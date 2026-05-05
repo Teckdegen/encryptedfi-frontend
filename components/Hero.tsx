@@ -144,32 +144,7 @@ export default function Hero() {
         width:         "100%",
       }}>
 
-        {/* Eyebrow label */}
-        <div style={{
-          display:       "inline-flex",
-          alignItems:    "center",
-          gap:           8,
-          fontFamily:    "var(--font-mono)",
-          fontSize:      "0.62rem",
-          letterSpacing: "0.18em",
-          fontWeight:    700,
-          background:    "var(--ink)",
-          color:         "var(--cream)",
-          padding:       "5px 14px",
-          marginBottom:  48,
-          animation:     "fadeUp 0.55s ease both",
-        }}>
-          <span style={{
-            width:       7,
-            height:      7,
-            borderRadius:"50%",
-            background:  "var(--cream)",
-            display:     "inline-block",
-            animation:   "blink 1.8s ease-in-out infinite",
-            flexShrink:  0,
-          }} />
-          PRIVACY ON FLARE WITH TEE
-        </div>
+
 
         {/* Main headline - ENCRYPTED centered */}
         <h1 style={{

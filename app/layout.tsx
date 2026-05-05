@@ -25,7 +25,7 @@ const mono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EncryptedFi — Privacy on Flare with TEE",
+  title: "Encrypted Finance",
   description:
     "Privacy on Flare with TEE. Private transfers, private swaps, private DeFi. Hardware-secured by Flare FCC.",
   icons: {
