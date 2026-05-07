@@ -1,7 +1,7 @@
 export default function Statement() {
   return (
     <>
-      {/* ── Dark band ── */}
+      {/* Dark band */}
       <div
         className="section-dark-band"
         style={{
@@ -52,7 +52,7 @@ export default function Statement() {
         </div>
       </div>
 
-      {/* ── WRAP / TRANSACT / UNWRAP ── */}
+      {/* WRAP / TRANSACT / UNWRAP */}
       <div className="how-grid" style={{ borderBottom: "var(--border)", background: "var(--white)" }}>
         {[
           {

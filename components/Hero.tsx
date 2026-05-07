@@ -1,70 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-/* ─── Scattered wallet addresses ─────────────────────────────────── */
-const WALLET_ADDRESSES = [
-  "0x3a67", "0xd4b1", "0x8e03", "0x5c9a", "0xf2d7",
-  "0xa1b8", "0x7e5f", "0xc3d2", "0x9f4a", "0x6b2e",
-  "0x4d8c", "0xe1a9", "0x2f7b", "0xb5c4", "0x8a3d",
-  "0x1e6f", "0xd9a2", "0x7c5b", "0xa8e1", "0x3f9d",
-  "0x5b7a", "0xc2e8", "0x9d4f", "0x6a1c", "0xf8b3",
-  "0x4e2a", "0xb9d7", "0x7f3c", "0xe5a1", "0x2d8b",
-];
-
-function ScatteredAddresses() {
-  const [addresses, setAddresses] = useState<Array<{
-    id: number;
-    text: string;
-    x: number;
-    y: number;
-    opacity: number;
-    size: number;
-  }>>([]);
-
-  useEffect(() => {
-    const initial = WALLET_ADDRESSES.map((text, i) => ({
-      id: i,
-      text,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      opacity: 0.15 + Math.random() * 0.25,
-      size: 10 + Math.random() * 4,
-    }));
-    setAddresses(initial);
-  }, []);
-
-  return (
-    <div style={{
-      position: "absolute",
-      inset: 0,
-      overflow: "hidden",
-      pointerEvents: "none",
-      zIndex: 0,
-    }}>
-      {addresses.map((addr) => (
-        <div
-          key={addr.id}
-          style={{
-            position: "absolute",
-            left: `${addr.x}%`,
-            top: `${addr.y}%`,
-            fontFamily: "var(--font-mono)",
-            fontSize: `${addr.size}px`,
-            fontWeight: 600,
-            color: `rgba(10,10,10,${addr.opacity})`,
-            whiteSpace: "nowrap",
-            userSelect: "none",
-          }}
-        >
-          {addr.text}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ─── Ticker Strip ───────────────────────────────────────── */
+// Ticker Strip
 const TICKER_ITEMS = [
   "HIDDEN LP POSITIONS",
   "TEE GOVERNANCE VOTES",
@@ -118,7 +56,7 @@ function TickerStrip() {
   );
 }
 
-/* ─── Main Hero ───────────────────────────────────────── */
+// Main Hero
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
 
@@ -143,9 +81,6 @@ export default function Hero() {
     >
       {/* Ticker at top */}
       <TickerStrip />
-
-      {/* Scattered wallet addresses background */}
-      <ScatteredAddresses />
 
       <div style={{
         position:      "relative",
@@ -254,7 +189,7 @@ export default function Hero() {
             (e.currentTarget as HTMLElement).style.transform  = "";
             (e.currentTarget as HTMLElement).style.boxShadow  = "var(--shadow-sm)";
           }}>
-            PRIVACY •
+            LEARN MORE
           </a>
         </div>
 

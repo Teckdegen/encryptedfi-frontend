@@ -1,6 +1,6 @@
 "use client";
 
-/* ─── Data ──────────────────────────────────────────────── */
+// Data
 const COLS = [
   { label: "EncryptedFi",   accent: true  },
   { label: "Tornado Cash",  accent: false },
@@ -28,7 +28,7 @@ const ROWS: { feature: string; cells: Cell[] }[] = [
   { feature: "Open source",             cells: [true,   true,   true,   "—"]   },
 ];
 
-/* ─── Cell renderer ─────────────────────────────────────── */
+// Cell renderer
 function CellValue({ val, accent }: { val: Cell; accent: boolean }) {
   if (val === true) {
     return (
@@ -74,7 +74,7 @@ function CellValue({ val, accent }: { val: Cell; accent: boolean }) {
   );
 }
 
-/* ─── Component ─────────────────────────────────────────── */
+// Component
 export default function CompareTable() {
   return (
     <section

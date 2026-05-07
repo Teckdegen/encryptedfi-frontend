@@ -1,13 +1,12 @@
-/* ─────────────────────────────────────────────────────────────────────────
-   /blog/[slug], individual blog post page
-───────────────────────────────────────────────────────────────────────── */
+// /blog/[slug], individual blog post page
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { blogs, getBlogBySlug } from "../../../data/blogs";
 import type { ContentBlock } from "../../../data/blogs";
 import type { Metadata } from "next";
 
-/* Pre-render all slugs at build time */
+// Pre-render all slugs at build time
 export function generateStaticParams() {
   return blogs.map((b) => ({ slug: b.slug }));
 }

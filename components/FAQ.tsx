@@ -77,7 +77,7 @@ const QUESTIONS = [
 
 const TAGS = ["ALL", "FEATURES", "BASICS", "PRIVACY", "TEE", "SECURITY", "COMPLIANCE"];
 
-/* ── Animated answer panel ── */
+// Animated answer panel
 function Answer({ text, open }: { text: string; open: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);

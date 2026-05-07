@@ -1,8 +1,6 @@
 "use client";
 
-/* ────────────────────────────────────────────────────────
-   Ecosystem.tsx  —  Projects building on EncryptedFi
-──────────────────────────────────────────────────────── */
+// Ecosystem.tsx - Projects building on EncryptedFi
 
 export default function Ecosystem() {
   return (

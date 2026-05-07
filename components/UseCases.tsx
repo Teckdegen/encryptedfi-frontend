@@ -17,7 +17,7 @@ const CASES = [
   { n: "12", title: "Private Stablecoin Payments", one: "Pay with stables. Leave no trace.",     dark: true  },
 ];
 
-/* ── Single card with stagger reveal + 3D cursor tilt ── */
+// Single card with stagger reveal + 3D cursor tilt
 function UCCard({
   c, i, isLastRow, isLastCol,
 }: {

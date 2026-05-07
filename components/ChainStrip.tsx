@@ -1,6 +1,6 @@
 "use client";
 
-/* ─── Supported chain list ──────────────────────────────── */
+// Supported chain list
 const CHAINS = [
   { name: "Ethereum",  abbr: "ETH",  bg: "#627EEA", text: "#FFF",    symbol: "Ξ"  },
   { name: "Arbitrum",  abbr: "ARB",  bg: "#213147", text: "#12AAFF", symbol: "△"  },

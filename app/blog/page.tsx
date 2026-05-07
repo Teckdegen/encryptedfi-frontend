@@ -1,6 +1,5 @@
-/* ─────────────────────────────────────────────────────────────────────────
-   /blog, all posts listing page
-───────────────────────────────────────────────────────────────────────── */
+// /blog, all posts listing page
+
 import Link from "next/link";
 import { blogs } from "../../data/blogs";
 import type { Metadata } from "next";

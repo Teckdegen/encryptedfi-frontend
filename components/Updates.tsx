@@ -1,8 +1,7 @@
-/* ─────────────────────────────────────────────────────────
-   Updates.tsx
-   Shows the 3 newest blog posts + link to /blog.
-   Add new posts in data/blogs.ts, they appear here automatically.
-───────────────────────────────────────────────────────── */
+// Updates.tsx
+// Shows the 3 newest blog posts + link to /blog.
+// Add new posts in data/blogs.ts, they appear here automatically.
+
 import Link from "next/link";
 import { blogs } from "../data/blogs";
 
