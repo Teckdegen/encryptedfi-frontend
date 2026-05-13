@@ -4,73 +4,73 @@ import { useState, useRef, useEffect } from "react";
 
 const QUESTIONS = [
   {
-    q: "Does EncryptedFi support private transfers?",
-    a: "Yes. Private transfers are the core feature. You send tokens to anyone without your wallet address appearing on chain. The on-chain record shows only random-looking commitment hashes and nullifiers — nothing links sender to receiver. The TEE relayer submits the transaction so your wallet never touches the chain.",
+    q: "What can I do privately on EncryptedFi?",
+    a: "Private swaps via SparkDEX, private lending and borrowing via Kinetic Finance, private staking via sFLR, private LP positions, private FAsset execution (FXRP live), private governance voting, private oracle queries, private wallet-to-wallet messaging, private attestations, and private liquidation protection. Every action goes through the TEE — your wallet never appears on chain after the initial deposit.",
     tag: "FEATURES",
   },
   {
-    q: "Can I swap tokens privately?",
-    a: "Yes. Private swaps are built in. You burn a private note, the TEE routes the tokens through SparkDEX, and re-deposits the output as a new private note. No one sees the swap happened, the amounts, or that you were involved. Your wallet address never appears.",
+    q: "Do I need to register before receiving tokens?",
+    a: "No. Any fresh wallet can receive private tokens without ever having done anything on-chain. The sender just types your address. When you open the app, your tokens are there. Zero friction, zero registration.",
+    tag: "BASICS",
+  },
+  {
+    q: "How do private swaps work?",
+    a: "You sign a swap instruction off-chain. The TEE decrypts it inside a hardware enclave, queries SparkDEX for a quote, adds a random timing delay, then executes the swap from its own wallet. SparkDEX sees the protocol contract swapping, not you. Your address never appears.",
     tag: "FEATURES",
   },
   {
-    q: "What private DeFi can I do?",
-    a: "Private transfers, private swaps (SparkDEX), private lending (Kinetic Finance), private staking (sFLR), private LP positions, and private yield. Every action goes through the TEE — your wallet never appears on chain after the initial deposit.",
-    tag: "FEATURES",
+    q: "What is Flare Confidential Compute?",
+    a: "Flare FCC is hardware-attested TEE infrastructure built into the Flare network. The private key that decrypts your instructions is sealed inside hardware by Flare's attestation service. Nobody can extract it — not us, not Flare, not anyone. Multiple TEE machines must agree before anything executes. This is only available on Flare.",
+    tag: "TEE",
   },
   {
-    q: "What if someone scans the entire blockchain looking for my activity?",
-    a: "They get nothing useful. Every note on chain is a random-looking 32-byte hash with no address attached. The TEE relayer submits all transactions — your wallet never appears as sender. Encrypted note blobs are unreadable without your private key. A full blockchain scan returns only random hashes and unreadable ciphertext.",
-    tag: "SECURITY",
+    q: "Why does this only work on Flare?",
+    a: "Flare has native TEE infrastructure (Confidential Compute) built into the network with on-chain verification. Other chains would need off-chain trusted servers or ZK circuits that take minutes to prove. On Flare the TEE is part of the infrastructure, sealed by hardware attestation, with multi-machine consensus built in.",
+    tag: "TEE",
   },
   {
     q: "Is my wallet address ever visible on chain?",
-    a: "No. After your initial deposit, the TEE's hot wallet submits every transaction on your behalf. Receiver addresses never appear in transactions, storage, or events. Only commitment hashes and encrypted blobs are written on chain. Your address is not referenced anywhere.",
+    a: "Only once — your initial deposit. After that, the TEE hot wallet submits every transaction on your behalf. Your address never appears in any event, any storage slot, or any transaction. Observers see random bytes and encrypted blobs.",
     tag: "PRIVACY",
-  },
-  {
-    q: "What is a TEE and why does it matter?",
-    a: "A TEE (Trusted Execution Environment) is a secure hardware enclave — a region of the processor where code runs in complete isolation. Not even the machine operator can read what happens inside. EncryptedFi uses Flare FCC (Flare Confidential Compute) to run the TEE. Your spending key is encrypted and stored inside the enclave. It never leaves in plaintext. The TEE generates proofs, executes DeFi actions, and submits transactions — all privately, all inside hardware.",
-    tag: "TEE",
-  },
-  {
-    q: "What does the TEE actually do?",
-    a: "The TEE handles four things: it stores your spending key (encrypted, inside hardware), it scans chain events to find your notes, it generates the cryptographic proofs needed to spend notes, and it submits transactions to the vault using its own hot wallet. Your wallet signs nothing after deposit.",
-    tag: "TEE",
   },
   {
     q: "Can EncryptedFi see my balance?",
-    a: "No. Your balance exists only as encrypted notes on chain. The EncryptedFi team cannot read them. The TEE operator cannot read them. Nobody can without your private key. Not the relayer. Not the deployer. Nobody.",
+    a: "No. Your notes are encrypted with your own key, not ours. The TEE operator cannot read them. Nobody can without your private key. If our system goes down, you can still decrypt all your notes and recover your tokens from the blockchain directly.",
     tag: "PRIVACY",
   },
   {
+    q: "How does private governance work?",
+    a: "You cast your vote encrypted to the TEE. The TEE tallies all votes inside the hardware enclave and only posts the final aggregate result on-chain. Nobody can see which wallet voted or how. Prevents vote buying, pressure, and governance manipulation.",
+    tag: "FEATURES",
+  },
+  {
+    q: "What are private attestations?",
+    a: "You can prove things about your portfolio without revealing it. Statements like 'I hold more than 10k USDC' or 'I have never interacted with sanctioned addresses' — the TEE verifies the claim inside the enclave and signs a proof. Verifiable without exposing your actual state.",
+    tag: "FEATURES",
+  },
+  {
+    q: "How does liquidation protection work?",
+    a: "You set private stop-losses and collateral top-ups inside the TEE. The TEE monitors your position privately. Liquidation hunters cannot see your health factor or target you. If your position hits the threshold, the TEE automatically protects it before liquidators can act.",
+    tag: "FEATURES",
+  },
+  {
+    q: "Can AI agents use this?",
+    a: "Yes. Any software that holds a private key can use EncryptedFi as a privacy rail. AI agents register a spending key and execute DeFi strategies through the same encrypted channel as human users. Their logic, positions, and triggers are completely invisible on-chain.",
+    tag: "FEATURES",
+  },
+  {
     q: "Are transactions gasless?",
-    a: "Yes. The TEE submits all transactions on your behalf using its own funded hot wallet. You pay a small protocol fee deducted from your transfer amount. You never need to hold native FLR tokens to transact privately inside the system.",
+    a: "Yes. The TEE submits all transactions using its own funded hot wallet. You pay a small relay fee deducted from your transfer amount. You never need to hold FLR to transact privately.",
     tag: "BASICS",
   },
   {
-    q: "Do I get a new token when I deposit?",
-    a: "No. You receive a private note — a commitment hash that only you can prove ownership of using your private key. Nothing is minted to your wallet. The note lives in a global set on chain with no address attached to it.",
-    tag: "BASICS",
-  },
-  {
-    q: "What if I lose access to my wallet?",
-    a: "Your private notes are only recoverable with your private key. If you lose it, your notes are permanently inaccessible — the same as any self-custodied wallet. EncryptedFi cannot recover them. There is no admin key, no recovery mechanism. Back up your seed phrase.",
-    tag: "SECURITY",
-  },
-  {
-    q: "Can I prove my history to an auditor without revealing everything?",
-    a: "Yes. EncryptedFi has a built-in compliance system. You register a view key — a read-only key that decrypts your notes but cannot spend them. You give the auditor just the view key. They scan the chain, decrypt your notes, verify the hashes, and produce a verified report. They cannot move a single token.",
+    q: "Can I prove my history to an auditor?",
+    a: "Yes. Register a view key — a read-only key that decrypts your notes but cannot spend them. Give the auditor the view key. They verify your history without being able to move any tokens.",
     tag: "COMPLIANCE",
   },
   {
-    q: "What chains does EncryptedFi support?",
-    a: "EncryptedFi is built on Flare, using Flare FCC for the TEE infrastructure. Flare is the only chain with native TEE compute at the protocol level, making it the ideal home for private DeFi.",
-    tag: "BASICS",
-  },
-  {
-    q: "How is this different from Tornado Cash?",
-    a: "Tornado Cash was a fixed-denomination mixer with no DeFi, no yield, and no private swaps. EncryptedFi is a full private DeFi layer — any token, any amount, private swaps, private lending, private staking, and compliance tools built in. It runs on Flare with hardware-level privacy via TEE, not just cryptographic obfuscation.",
+    q: "Can other protocols integrate?",
+    a: "Yes. Any protocol on Flare that accepts ERC-20 tokens can be wrapped with privacy. The protocol doesn't need to change anything. We handle the privacy layer on our side. New integrations can be added after deployment without touching core contracts.",
     tag: "BASICS",
   },
 ];

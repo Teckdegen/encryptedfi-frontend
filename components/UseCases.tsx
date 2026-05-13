@@ -3,18 +3,21 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 const CASES = [
-  { n: "01", title: "Private Transfers",           one: "Send tokens. Reveal nothing.",          dark: false },
-  { n: "02", title: "Hidden Positions",            one: "Your portfolio. Your secret.",          dark: true  },
-  { n: "03", title: "Private Payroll",             one: "Pay your team. Not publicly.",          dark: false },
-  { n: "04", title: "Institutional Privacy",       one: "Enterprise finance. Encrypted.",        dark: false },
-  { n: "05", title: "Sealed Bids",                 one: "Commit. Reveal. Win.",                  dark: true  },
-  { n: "06", title: "MEV Shield",                  one: "Your intent stays private.",            dark: false },
-  { n: "07", title: "Confidential Yields",         one: "Earn DeFi yield. Stay private.",        dark: false },
-  { n: "08", title: "Private Swaps",               one: "Swap tokens. Your address, hidden.",    dark: true  },
-  { n: "09", title: "Hidden Liquidity",            one: "Provide LP. Leave no trace.",           dark: false },
-  { n: "10", title: "Confidential Lending",        one: "Borrow. Your collateral, hidden.",      dark: false },
-  { n: "11", title: "Private Governance",          one: "Vote. Nobody knows it was you.",        dark: true  },
-  { n: "12", title: "Private Stablecoin Payments", one: "Pay with stables. Leave no trace.",     dark: true  },
+  { n: "01", title: "Private Swaps",               one: "Swap via SparkDEX. Nobody sees you.",   dark: false },
+  { n: "02", title: "Private Lending",             one: "Lend on Kinetic. Hidden positions.",    dark: true  },
+  { n: "03", title: "Private Staking",             one: "Stake sFLR. Your yield, your secret.",  dark: false },
+  { n: "04", title: "Private LP Positions",        one: "Provide liquidity. Leave no trace.",    dark: false },
+  { n: "05", title: "Private Borrowing",           one: "Leverage hidden. Liquidators blind.",   dark: true  },
+  { n: "06", title: "Private FAssets",             one: "Hold FXRP, FBTC. Nobody knows.",       dark: false },
+  { n: "07", title: "Private Transfers",           one: "Send to any wallet. Fresh or old.",     dark: false },
+  { n: "08", title: "Private Governance",          one: "Vote. Nobody knows it was you.",        dark: true  },
+  { n: "09", title: "Private Oracle Queries",      one: "Check prices. No front-running.",       dark: false },
+  { n: "10", title: "Private Messaging",           one: "Wallet to wallet. Zero trace.",         dark: false },
+  { n: "11", title: "Private AI Agents",           one: "Bots run strategies. Invisible.",       dark: true  },
+  { n: "12", title: "Private Attestations",        one: "Prove claims. Reveal nothing.",         dark: false },
+  { n: "13", title: "Liquidation Protection",      one: "Hidden health factor. Safe.",           dark: true  },
+  { n: "14", title: "Private Stablecoin Payments", one: "Payroll. B2B. No public ledger.",       dark: false },
+  { n: "15", title: "Private DAO Treasury",        one: "Grants. Payroll. Diversification.",     dark: true  },
 ];
 
 // Single card with stagger reveal + 3D cursor tilt
