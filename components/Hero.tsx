@@ -2,60 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// Ticker Strip
-const TICKER_ITEMS = [
-  "HIDDEN LP POSITIONS",
-  "TEE GOVERNANCE VOTES",
-  "FULL DEFI PRIVACY LAYER",
-  "WRAP ANY TOKEN",
-  "PRIVATE BALANCES ONCHAIN",
-  "HARDWARE ATTESTED",
-  "EARN YIELD ANONYMOUSLY",
-  "PRIVATE DEFI",
-];
-
-function TickerStrip() {
-  const text = TICKER_ITEMS.join("   •   ") + "   •   ";
-  
-  return (
-    <div style={{
-      position: "absolute",
-      top: 0,
-      left: 0,
-      right: 0,
-      background: "var(--ink)",
-      borderBottom: "var(--border)",
-      overflow: "hidden",
-      height: 36,
-      display: "flex",
-      alignItems: "center",
-      zIndex: 10,
-    }}>
-      <div style={{
-        display: "inline-flex",
-        whiteSpace: "nowrap",
-        animation: "ticker 40s linear infinite",
-      }}>
-        {[0, 1, 2].map((n) => (
-          <span
-            key={n}
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.6rem",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              color: "rgba(228,222,212,0.45)",
-              paddingRight: 0,
-            }}
-          >
-            {text}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // Main Hero
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -79,9 +25,7 @@ export default function Hero() {
         justifyContent:"center",
       }}
     >
-      {/* Ticker at top */}
-      <TickerStrip />
-
+      {/* Main content */}
       <div style={{
         position:      "relative",
         zIndex:        1,
@@ -196,11 +140,6 @@ export default function Hero() {
       </div>
 
       <style jsx>{`
-        @keyframes ticker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
-        }
-        
         @media (min-width: 768px) {
           .hero-ctas {
             flex-direction: row !important;
