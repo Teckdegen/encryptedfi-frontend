@@ -66,11 +66,29 @@ export default function Hero() {
           fontStyle:     "italic",
           lineHeight:    1.1,
           letterSpacing: "-0.02em",
-          marginBottom:  "clamp(48px, 8vh, 80px)",
+          marginBottom:  "clamp(20px, 3vh, 32px)",
           animation:     "fadeUp 0.55s 0.2s ease both",
         }}>
           Finance
         </h2>
+
+        {/* Tagline */}
+        <p style={{
+          fontFamily:    "var(--font-mono)",
+          fontSize:      "clamp(0.65rem, 1.2vw, 0.8rem)",
+          fontWeight:    700,
+          letterSpacing: "0.1em",
+          color:         "rgba(10,10,10,0.5)",
+          marginBottom:  "clamp(40px, 6vh, 64px)",
+          animation:     "fadeUp 0.55s 0.25s ease both",
+          maxWidth:      "500px",
+          margin:        "0 auto",
+          marginBottom:  "clamp(40px, 6vh, 64px)",
+          lineHeight:    1.8,
+        }}>
+          FULL STACK PRIVACY FOR DEFI ON FLARE.<br />
+          POWERED BY CONFIDENTIAL COMPUTE.
+        </p>
 
         {/* CTAs */}
         <div style={{
