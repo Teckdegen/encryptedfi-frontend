@@ -7,10 +7,10 @@ export default function Tech() {
       <p
         style={{
           fontFamily: "var(--font-mono)",
-          fontSize: "0.7rem",
+          fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
           fontWeight: 700,
-          letterSpacing: "0.18em",
-          color: "rgba(10,10,10,0.35)",
+          letterSpacing: "0.14em",
+          color: "var(--ink)",
         }}
       >
         POWERED BY FLARE CONFIDENTIAL COMPUTE
