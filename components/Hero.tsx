@@ -79,12 +79,9 @@ export default function Hero() {
           fontWeight:    700,
           letterSpacing: "0.1em",
           color:         "rgba(10,10,10,0.5)",
-          marginBottom:  "clamp(40px, 6vh, 64px)",
           animation:     "fadeUp 0.55s 0.25s ease both",
-          maxWidth:      "500px",
-          margin:        "0 auto",
-          marginBottom:  "clamp(40px, 6vh, 64px)",
           lineHeight:    1.8,
+          marginBottom:  "clamp(40px, 6vh, 64px)",
         }}>
           ENCRYPTED LAYER FOR PUBLIC CHAINS.
         </p>
