@@ -4,78 +4,33 @@ import { useState, useRef, useEffect } from "react";
 
 const QUESTIONS = [
   {
-    q: "What can I do privately on EncryptedFi?",
-    a: "Private swaps via SparkDEX, private lending and borrowing via Kinetic Finance, private staking via sFLR, private LP positions, private FAsset execution (FXRP live), private governance voting, private oracle queries, private wallet-to-wallet messaging, private attestations, and private liquidation protection. Every action goes through the TEE — your wallet never appears on chain after the initial deposit.",
-    tag: "FEATURES",
-  },
-  {
-    q: "Do I need to register before receiving tokens?",
-    a: "No. Any fresh wallet can receive private tokens without ever having done anything on-chain. The sender just types your address. When you open the app, your tokens are there. Zero friction, zero registration.",
+    q: "How does it work?",
+    a: "You deposit tokens once. After that, you sign instructions off-chain. A hardware-sealed enclave on Flare decrypts and executes them from its own wallet. Your address never appears on-chain again.",
     tag: "BASICS",
   },
   {
-    q: "How do private swaps work?",
-    a: "You sign a swap instruction off-chain. The TEE decrypts it inside a hardware enclave, queries SparkDEX for a quote, adds a random timing delay, then executes the swap from its own wallet. SparkDEX sees the protocol contract swapping, not you. Your address never appears.",
-    tag: "FEATURES",
-  },
-  {
-    q: "What is Flare Confidential Compute?",
-    a: "Flare FCC is hardware-attested TEE infrastructure built into the Flare network. The private key that decrypts your instructions is sealed inside hardware by Flare's attestation service. Nobody can extract it — not us, not Flare, not anyone. Multiple TEE machines must agree before anything executes. This is only available on Flare.",
-    tag: "TEE",
-  },
-  {
-    q: "Why does this only work on Flare?",
-    a: "Flare has native TEE infrastructure (Confidential Compute) built into the network with on-chain verification. Other chains would need off-chain trusted servers or ZK circuits that take minutes to prove. On Flare the TEE is part of the infrastructure, sealed by hardware attestation, with multi-machine consensus built in.",
-    tag: "TEE",
-  },
-  {
-    q: "Is my wallet address ever visible on chain?",
-    a: "Only once — your initial deposit. After that, the TEE hot wallet submits every transaction on your behalf. Your address never appears in any event, any storage slot, or any transaction. Observers see random bytes and encrypted blobs.",
+    q: "Is my wallet address visible?",
+    a: "Only on your initial deposit. After that, never. The TEE relayer submits everything. Observers see random encrypted data, not your address.",
     tag: "PRIVACY",
   },
   {
-    q: "Can EncryptedFi see my balance?",
-    a: "No. Your notes are encrypted with your own key, not ours. The TEE operator cannot read them. Nobody can without your private key. If our system goes down, you can still decrypt all your notes and recover your tokens from the blockchain directly.",
+    q: "Can I send to a fresh wallet?",
+    a: "Yes. Any wallet can receive private tokens without registration or prior activity. They claim when they open the app.",
+    tag: "BASICS",
+  },
+  {
+    q: "What if your system goes down?",
+    a: "Your funds are encrypted with your own key, not ours. You can always recover from on-chain data alone. Zero trust required.",
     tag: "PRIVACY",
   },
   {
-    q: "How does private governance work?",
-    a: "You cast your vote encrypted to the TEE. The TEE tallies all votes inside the hardware enclave and only posts the final aggregate result on-chain. Nobody can see which wallet voted or how. Prevents vote buying, pressure, and governance manipulation.",
-    tag: "FEATURES",
-  },
-  {
-    q: "What are private attestations?",
-    a: "You can prove things about your portfolio without revealing it. Statements like 'I hold more than 10k USDC' or 'I have never interacted with sanctioned addresses' — the TEE verifies the claim inside the enclave and signs a proof. Verifiable without exposing your actual state.",
-    tag: "FEATURES",
-  },
-  {
-    q: "How does liquidation protection work?",
-    a: "You set private stop-losses and collateral top-ups inside the TEE. The TEE monitors your position privately. Liquidation hunters cannot see your health factor or target you. If your position hits the threshold, the TEE automatically protects it before liquidators can act.",
-    tag: "FEATURES",
-  },
-  {
-    q: "Can AI agents use this?",
-    a: "Yes. Any software that holds a private key can use EncryptedFi as a privacy rail. AI agents register a spending key and execute DeFi strategies through the same encrypted channel as human users. Their logic, positions, and triggers are completely invisible on-chain.",
-    tag: "FEATURES",
-  },
-  {
-    q: "Are transactions gasless?",
-    a: "Yes. The TEE submits all transactions using its own funded hot wallet. You pay a small relay fee deducted from your transfer amount. You never need to hold FLR to transact privately.",
-    tag: "BASICS",
-  },
-  {
-    q: "Can I prove my history to an auditor?",
-    a: "Yes. Register a view key — a read-only key that decrypts your notes but cannot spend them. Give the auditor the view key. They verify your history without being able to move any tokens.",
-    tag: "COMPLIANCE",
-  },
-  {
-    q: "Can other protocols integrate?",
-    a: "Yes. Any protocol on Flare that accepts ERC-20 tokens can be wrapped with privacy. The protocol doesn't need to change anything. We handle the privacy layer on our side. New integrations can be added after deployment without touching core contracts.",
-    tag: "BASICS",
+    q: "Why only Flare?",
+    a: "Flare has native TEE infrastructure called Confidential Compute. The private key is sealed in hardware. Nobody can extract it. No other chain has this built in.",
+    tag: "TEE",
   },
 ];
 
-const TAGS = ["ALL", "FEATURES", "BASICS", "PRIVACY", "TEE", "SECURITY", "COMPLIANCE"];
+const TAGS = ["ALL"];
 
 // Animated answer panel
 function Answer({ text, open }: { text: string; open: boolean }) {

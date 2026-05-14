@@ -1,7 +1,6 @@
 import Nav          from "@/components/Nav";
 import Hero          from "@/components/Hero";
 import Statement     from "@/components/Statement";
-import UseCases      from "@/components/UseCases";
 import Tech          from "@/components/Tech";
 import FAQ           from "@/components/FAQ";
 import Footer        from "@/components/Footer";
@@ -16,10 +15,6 @@ export default function Home() {
 
         <ScrollReveal>
           <Statement />
-        </ScrollReveal>
-
-        <ScrollReveal delay={60}>
-          <UseCases />
         </ScrollReveal>
 
         <ScrollReveal delay={60}>

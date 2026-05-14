@@ -2,14 +2,10 @@ import React from "react";
 import { LockIcon } from "./Icons";
 
 const STACK = [
-  { id: "01", name: "Flare FCC",        tag: "Hardware Confidential Compute",  dark: true  },
-  { id: "02", name: "TEE Enclave",      tag: "Keys Sealed In Hardware",        dark: false },
+  { id: "01", name: "Flare FCC",        tag: "Confidential Compute",           dark: true  },
+  { id: "02", name: "Private Notes",    tag: "Your Balance, Hidden",           dark: false },
   { id: "03", name: "ECIES Encrypt",    tag: "Notes Encrypted To You",         dark: true  },
-  { id: "04", name: "TEE Relayer",      tag: "Your Address Never Shows",       dark: false },
-  { id: "05", name: "Multi-TEE",        tag: "2-of-3 Consensus Required",      dark: true  },
-  { id: "06", name: "Timing Privacy",   tag: "Random Execution Delays",        dark: false },
-  { id: "07", name: "Batch Mixing",     tag: "Withdrawals Mixed Together",     dark: true  },
-  { id: "08", name: "Self-Sovereign",   tag: "Your Keys. Always Yours.",       dark: false },
+  { id: "04", name: "Self-Sovereign",   tag: "Your Keys. Always Yours.",       dark: false },
 ];
 
 export default function Tech() {
@@ -77,8 +73,8 @@ export default function Tech() {
           } as React.CSSProperties}
         >
           {STACK.map((s, i) => {
-            const isLastRow = i >= 4;
-            const isLastCol = (i + 1) % 4 === 0;
+            const isLastRow = i >= 2;
+            const isLastCol = (i + 1) % 2 === 0;
 
             return (
               <div
@@ -160,7 +156,7 @@ export default function Tech() {
               lineHeight: 1.6,
             }}
           >
-            SENDER ANONYMOUS · RECEIVER ANONYMOUS · TEE ENCLAVE · ECIES ENCRYPTION · FLARE FCC · MULTI-TEE CONSENSUS · NO REGISTRATION NEEDED · SELF-SOVEREIGN KEYS · TIMING RANDOMIZATION · BATCH MIXING.
+            POWERED BY FLARE CONFIDENTIAL COMPUTE.
           </p>
         </div>
 
