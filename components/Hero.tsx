@@ -86,8 +86,7 @@ export default function Hero() {
           marginBottom:  "clamp(40px, 6vh, 64px)",
           lineHeight:    1.8,
         }}>
-          FULL STACK PRIVACY FOR DEFI ON FLARE.<br />
-          POWERED BY CONFIDENTIAL COMPUTE.
+          ENCRYPTED LAYER FOR PUBLIC CHAINS.
         </p>
 
         {/* CTAs */}
